@@ -32,6 +32,7 @@
   <url><loc>https://dbworld.co.kr/ko/projects/oryu-mixeduse/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/projects/incheon-hakik/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/</loc></url>
+  <url><loc>https://dbworld.co.kr/ko/news/page/2/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/category/notice/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/category/news/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/category/disclosure/</loc></url>
@@ -45,6 +46,9 @@
   <url><loc>https://dbworld.co.kr/ko/news/2025-10-01-enc-merger-complete/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2025-09-10-dream-challenge/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2025-08-28-creditor-notice/</loc></url>
+  <url><loc>https://dbworld.co.kr/ko/news/2025-07-01-metal-merger/</loc></url>
+  <url><loc>https://dbworld.co.kr/ko/news/2025-05-08-egm-results/</loc></url>
+  <url><loc>https://dbworld.co.kr/ko/news/2025-04-17-egm-notice/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2025-03-15-caddie-system/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/contact/</loc></url>
   <url><loc>https://dbworld.co.kr/en/</loc></url>
@@ -79,6 +83,7 @@
   <url><loc>https://dbworld.co.kr/en/projects/oryu-mixeduse/</loc></url>
   <url><loc>https://dbworld.co.kr/en/projects/incheon-hakik/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/</loc></url>
+  <url><loc>https://dbworld.co.kr/en/news/page/2/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/category/notice/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/category/news/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/category/disclosure/</loc></url>
@@ -92,6 +97,9 @@
   <url><loc>https://dbworld.co.kr/en/news/2025-10-01-enc-merger-complete/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2025-09-10-dream-challenge/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2025-08-28-creditor-notice/</loc></url>
+  <url><loc>https://dbworld.co.kr/en/news/2025-07-01-metal-merger/</loc></url>
+  <url><loc>https://dbworld.co.kr/en/news/2025-05-08-egm-results/</loc></url>
+  <url><loc>https://dbworld.co.kr/en/news/2025-04-17-egm-notice/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2025-03-15-caddie-system/</loc></url>
   <url><loc>https://dbworld.co.kr/en/contact/</loc></url>
 </urlset>
