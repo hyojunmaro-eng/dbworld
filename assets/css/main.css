@@ -402,6 +402,38 @@ body.menu-open { overflow: hidden; }
 .affcard p { color: var(--ink-soft); font-size: .92rem; flex: 1; }
 .affcard span { color: var(--db-green); }
 
+/* DB그룹 소개 */
+.grp-banner { border-radius: 24px; overflow: hidden; margin-bottom: clamp(44px, 6vw, 80px); }
+.grp-banner img { width: 100%; display: block; }
+.grp-sec { display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: clamp(32px, 5vw, 56px) 0; border-top: 1px solid var(--line); }
+.grp-sec:first-of-type { border-top: 0; padding-top: 0; }
+.grp-label strong { display: block; font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 800; line-height: 1.2; }
+.grp-label span { display: block; font-size: clamp(1.3rem, 2vw, 1.7rem); font-weight: 800; line-height: 1.3; }
+.grp-body p { color: var(--ink-soft); margin-bottom: 18px; }
+.grp-body p:last-child { margin-bottom: 0; }
+.grp-closing { color: var(--db-green) !important; font-weight: 700; }
+.grp-vm { text-align: center; padding: clamp(48px, 7vw, 90px) 0 0; }
+.grp-vm h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; margin-bottom: 10px; }
+.grp-vm-sub { color: var(--ink-soft); letter-spacing: .04em; }
+.grp-vm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(24px, 4vw, 60px); max-width: 900px; margin: clamp(30px, 4vw, 50px) auto 0; }
+.grp-vm-card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 20px; margin-bottom: 20px; }
+.grp-vm-card strong { display: block; font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+.grp-vm-card p { color: var(--ink-soft); font-size: .95rem; }
+.grp-biz { padding-top: clamp(56px, 8vw, 100px); text-align: center; }
+.grp-biz > h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; margin-bottom: clamp(28px, 4vw, 48px); }
+.grp-biz-row { display: grid; grid-template-columns: 300px 1fr; gap: clamp(24px, 3.5vw, 48px); align-items: start; text-align: left; padding: 26px 0; border-top: 1px solid var(--line); }
+.grp-biz-row figure { border-radius: var(--r); overflow: hidden; }
+.grp-biz-row img { width: 100%; aspect-ratio: 3 / 1.9; object-fit: cover; display: block; }
+.grp-biz-row h3 { margin: 0 0 10px; font-size: 1.25rem; }
+.grp-biz-row p { color: var(--ink-soft); font-size: .96rem; }
+.grp-biz-row strong { color: var(--ink); font-weight: 700; }
+@media (max-width: 900px) {
+  .grp-sec { grid-template-columns: 1fr; gap: 12px; }
+  .grp-vm-grid { grid-template-columns: 1fr; }
+  .grp-biz-row { grid-template-columns: 1fr; }
+  .grp-biz-row figure { max-width: 420px; }
+}
+
 /* 오시는 길 */
 .loc-tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
 .loc-tabs button { padding: 12px 26px; border: 1.5px solid var(--line); border-radius: 99px; font-weight: 600; color: var(--ink-soft); transition: .3s; }
