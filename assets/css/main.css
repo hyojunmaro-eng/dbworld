@@ -558,9 +558,10 @@ body.menu-open { overflow: hidden; }
 .pin-dot { fill: var(--db-light-green); transition: .3s; }
 .pin-halo { fill: rgba(141,198,63,.16); animation: pulse 2.4s infinite; transform-origin: center; transform-box: fill-box; }
 @keyframes pulse { 0%, 100% { opacity: .5; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.1); } }
-.map-pin text { fill: #DFEFE5; font-size: 13px; font-weight: 600; }
-.map-pin text tspan { fill: #8DC63F; font-weight: 800; }
-.map-pin:hover .pin-dot, .map-pin.on .pin-dot { fill: #fff; r: 8; }
+.map-pin text { fill: #F2FAF5; font-size: 24px; font-weight: 700; paint-order: stroke; stroke: rgba(6, 40, 23, .75); stroke-width: 6px; stroke-linejoin: round; }
+.map-pin text tspan { fill: #A5E859; font-weight: 800; }
+.map-pin:hover .pin-dot, .map-pin.on .pin-dot { fill: #fff; r: 11; }
+.map-pin:focus { outline: none; }
 .map-pin:focus-visible { outline: none; }
 .map-pin:focus-visible .pin-dot { stroke: #fff; stroke-width: 3; }
 .map-pin.on text { fill: #fff; }
@@ -788,3 +789,9 @@ body.menu-open { overflow: hidden; }
   .devcard dl { padding: 0 14px 16px; gap: 5px; }
   .devcard dl div { grid-template-columns: 52px 1fr; font-size: .82rem; gap: 6px; }
 }
+
+/* ---------- 게시글 첨부파일 ---------- */
+.post-files { list-style: none; padding: 14px 18px; margin: 0 0 26px; background: var(--bg-soft); border-radius: 12px; display: grid; gap: 8px; }
+.post-files a { display: inline-flex; align-items: center; gap: 8px; font-size: .93rem; font-weight: 600; color: var(--ink-soft); word-break: break-all; }
+.post-files a:hover { color: var(--db-green); text-decoration: underline; }
+.post-files svg { width: 16px; height: 16px; flex: none; color: var(--db-green); }

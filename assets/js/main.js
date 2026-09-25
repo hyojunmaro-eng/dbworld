@@ -136,7 +136,7 @@
       btns.forEach(x => x.classList.remove('on')); b.classList.add('on');
       cat = b.dataset.filter; apply();
     }));
-    const pick = p => { city = city === p.dataset.city ? null : p.dataset.city; apply(); if (city) pgrid.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); };
+    const pick = p => { city = city === p.dataset.city ? null : p.dataset.city; apply(); };
     pins.forEach(p => {
       p.addEventListener('click', () => pick(p));
       p.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(p); } });
