@@ -54,15 +54,9 @@ p { word-break: keep-all; }
 .skip { position: fixed; top: -60px; left: 16px; z-index: 200; background: var(--db-green); color: #fff; padding: 10px 18px; border-radius: 8px; transition: top .2s; }
 .skip:focus { top: 12px; }
 
-/* 스크롤 리빌 — JS 활성(html.js) 시에만 숨김: no-JS/크롤러/인쇄 폴백 */
-html.js .rv { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
-html.js .rv.in { opacity: 1; transform: none; }
+/* 등장 애니메이션 없음 — 콘텐츠 즉시 표시 */
 @media (prefers-reduced-motion: reduce) {
-  html.js .rv { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
-}
-@media print {
-  html.js .rv { opacity: 1 !important; transform: none !important; }
 }
 
 /* ==========================================================================
