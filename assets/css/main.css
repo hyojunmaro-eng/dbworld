@@ -772,6 +772,8 @@ body.menu-open { overflow: hidden; }
 .devcard dl div { display: grid; grid-template-columns: 64px 1fr; gap: 8px; font-size: .88rem; }
 .devcard dt { color: #98A2AE; font-weight: 700; }
 .devcard dd { color: var(--ink-soft); margin: 0; word-break: keep-all; }
+#devpanel-1 .devcard-media, #devpanel-2 .devcard-media { aspect-ratio: 4 / 3; }
+#devpanel-1 .devgrid, #devpanel-2 .devgrid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
 @media (max-width: 720px) {
   .dev-tabs button { padding: 13px 6px; font-size: .92rem; }
   .dev-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
