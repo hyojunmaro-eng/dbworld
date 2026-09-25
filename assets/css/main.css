@@ -619,7 +619,7 @@ body.menu-open { overflow: hidden; }
 .foot-accent { position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, #8DC63F, #009559 40%, #0061AF); opacity: .85; }
 .foot-in { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
 .foot-grid { display: grid; grid-template-columns: 1.2fr 1.6fr auto; gap: 40px; align-items: start; }
-.foot-logo { height: 36px; width: auto; filter: brightness(0) invert(1); opacity: .95; }
+.foot-logo { height: 44px; width: auto; }
 .foot-slogan { margin-top: 16px; font-size: .88rem; color: #6E7C85; max-width: 300px; line-height: 1.7; }
 .foot-info div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; padding: 5px 0; }
 .foot-info dt { font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: #57BE8B; text-transform: uppercase; padding-top: 3px; }
