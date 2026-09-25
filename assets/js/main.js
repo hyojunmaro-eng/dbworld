@@ -13,10 +13,6 @@
   let lastY = 0;
   function onScroll() {
     const y = scrollY;
-    if (!isHome || y > innerHeight * 0.7) gnb.classList.add('solid');
-    else gnb.classList.remove('solid');
-    if (y > 600 && y > lastY && !document.body.classList.contains('menu-open')) gnb.classList.add('hide');
-    else gnb.classList.remove('hide');
     lastY = y;
     $('[data-totop]').classList.toggle('show', y > 700);
   }

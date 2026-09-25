@@ -294,21 +294,23 @@ body.menu-open { overflow: hidden; }
 /* ==========================================================================
    서브 페이지 히어로 · 브레드크럼
    ========================================================================== */
+/* 서브페이지 상단: 흰색 바탕 + 다크 타이틀 (계열사 공통 스타일) */
 .phero {
-  position: relative; padding: calc(var(--gnb-h) + clamp(56px, 8vw, 96px)) 0 clamp(48px, 6vw, 80px);
-  background: linear-gradient(115deg, var(--green-deep), #0B5031 70%, #10603C); color: #fff; overflow: hidden;
+  position: relative; padding: calc(var(--gnb-h) + clamp(48px, 7vw, 84px)) 0 clamp(40px, 5vw, 64px);
+  background: linear-gradient(115deg, #FFFFFF 55%, #F0F7F3); color: var(--ink);
+  border-bottom: 1px solid var(--line); overflow: hidden;
 }
 .phero-in { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 .phero h1 { font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 800; }
-.crumbs { font-size: .85rem; color: #9FC4AE; margin-bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
-.crumbs a:hover { color: #fff; text-decoration: underline; }
+.crumbs { font-size: .85rem; color: #6B7A72; margin-bottom: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+.crumbs a:hover { color: var(--db-green); text-decoration: underline; }
 .phero-deco {
   position: absolute; right: -140px; top: -190px; width: 520px; height: 520px; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(141,198,63,.25), transparent 72%);
+  background: radial-gradient(closest-side, rgba(141,198,63,.16), transparent 72%);
 }
 .phero-deco::after {
   content: ""; position: absolute; left: -290px; bottom: -330px; width: 420px; height: 420px; border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,.12);
+  border: 1.5px solid rgba(0,133,74,.10);
 }
 
 /* ==========================================================================
