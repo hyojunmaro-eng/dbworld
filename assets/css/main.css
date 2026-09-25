@@ -562,17 +562,29 @@ body.menu-open { overflow: hidden; }
 .nf h1 { margin: 10px 0 12px; }
 .nf p { color: var(--ink-soft); margin-bottom: 30px; }
 
-.foot { background: #10151A; color: #99A6B0; padding: 60px 0 40px; margin-top: 40px; }
+.foot { position: relative; background: #0F1417; color: #98A5AE; padding: 64px 0 36px; margin-top: 40px; }
 .is-home .foot { margin-top: 0; }
+.foot-accent { position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, #8DC63F, #009559 40%, #0061AF); opacity: .85; }
 .foot-in { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
-.foot-top { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
-.foot-logo { height: 34px; width: auto; filter: brightness(0) invert(1); opacity: .92; }
-.foot-family select {
-  background: transparent; color: #C6D0D8; border: 1px solid #3A454E; border-radius: 10px; padding: 10px 14px;
-  font: inherit; font-size: .9rem; min-width: 200px;
+.foot-grid { display: grid; grid-template-columns: 1.2fr 1.6fr auto; gap: 40px; align-items: start; }
+.foot-logo { height: 36px; width: auto; filter: brightness(0) invert(1); opacity: .95; }
+.foot-slogan { margin-top: 16px; font-size: .88rem; color: #6E7C85; max-width: 300px; line-height: 1.7; }
+.foot-info div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; padding: 5px 0; }
+.foot-info dt { font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: #57BE8B; text-transform: uppercase; padding-top: 3px; }
+.foot-info dd { color: #C9D3DA; font-size: .95rem; }
+.foot-util select {
+  background: rgba(255,255,255,.04); color: #C9D3DA; border: 1px solid #333E46; border-radius: 99px; padding: 11px 20px;
+  font: inherit; font-size: .88rem; min-width: 210px; cursor: pointer; transition: border-color .3s;
 }
-.foot address p { font-size: .9rem; line-height: 1.9; }
-.foot-bottom { border-top: 1px solid #232C33; margin-top: 26px; padding-top: 22px; font-size: .85rem; display: flex; gap: 20px; flex-wrap: wrap; }
+.foot-util select:hover, .foot-util select:focus { border-color: #57BE8B; outline: none; }
+.foot-bottom {
+  border-top: 1px solid #1F282E; margin-top: 40px; padding-top: 24px;
+  display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; font-size: .84rem; color: #6E7C85;
+}
+@media (max-width: 900px) {
+  .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  .foot-bottom { flex-direction: column; }
+}
 
 .totop {
   position: fixed; right: 26px; bottom: 26px; z-index: 90; width: 50px; height: 50px; border-radius: 50%;
