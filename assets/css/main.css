@@ -737,6 +737,9 @@ body.menu-open { overflow: hidden; }
 }
 
 /* ---------- 사업영역: 부동산 개발 탭 (도심개발/지역개발/도시계획) ---------- */
+.ttl-slg { font-size: .5em; font-weight: 600; color: var(--db-green); white-space: nowrap; }
+.biz-head-tabs .lead { margin-top: 4px; }
+.dev-head.solo { padding-top: 6px; }
 .dev-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin: 44px 0 0; }
 .dev-tabs button { padding: 17px 10px; font-weight: 700; font-size: 1.02rem; color: var(--ink-soft); background: #fff; transition: .25s; }
 .dev-tabs button + button { border-left: 1px solid var(--line); }
