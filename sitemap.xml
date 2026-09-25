@@ -35,8 +35,6 @@
   <url><loc>https://dbworld.co.kr/ko/news/page/2/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/category/notice/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/category/news/</loc></url>
-  <url><loc>https://dbworld.co.kr/ko/news/category/disclosure/</loc></url>
-  <url><loc>https://dbworld.co.kr/ko/news/category/shareholders/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2026-09-25-homepage-renewal/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2026-04-30-db-womens-championship/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2026-03-13-agm-notice/</loc></url>
@@ -50,6 +48,7 @@
   <url><loc>https://dbworld.co.kr/ko/news/2025-05-08-egm-results/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2025-04-17-egm-notice/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/news/2025-03-15-caddie-system/</loc></url>
+  <url><loc>https://dbworld.co.kr/ko/news/ads/</loc></url>
   <url><loc>https://dbworld.co.kr/ko/contact/</loc></url>
   <url><loc>https://dbworld.co.kr/en/</loc></url>
   <url><loc>https://dbworld.co.kr/en/about/ceo/</loc></url>
@@ -86,8 +85,6 @@
   <url><loc>https://dbworld.co.kr/en/news/page/2/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/category/notice/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/category/news/</loc></url>
-  <url><loc>https://dbworld.co.kr/en/news/category/disclosure/</loc></url>
-  <url><loc>https://dbworld.co.kr/en/news/category/shareholders/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2026-09-25-homepage-renewal/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2026-04-30-db-womens-championship/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2026-03-13-agm-notice/</loc></url>
@@ -101,5 +98,6 @@
   <url><loc>https://dbworld.co.kr/en/news/2025-05-08-egm-results/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2025-04-17-egm-notice/</loc></url>
   <url><loc>https://dbworld.co.kr/en/news/2025-03-15-caddie-system/</loc></url>
+  <url><loc>https://dbworld.co.kr/en/news/ads/</loc></url>
   <url><loc>https://dbworld.co.kr/en/contact/</loc></url>
 </urlset>

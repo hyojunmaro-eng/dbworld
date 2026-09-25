@@ -164,8 +164,8 @@
     const results = $('[data-sresults]');
     const lang = document.body.dataset.lang;
     const CATS = lang === 'ko'
-      ? { notice: '공지사항', news: '뉴스·보도', disclosure: '공고', shareholders: '주주총회' }
-      : { notice: 'Notice', news: 'News', disclosure: 'Disclosure', shareholders: 'Shareholders' };
+      ? { notice: '공지사항', news: '뉴스·보도' }
+      : { notice: 'Notice', news: 'News' };
     let index = null, tId;
     search.addEventListener('input', async () => {
       clearTimeout(tId);
