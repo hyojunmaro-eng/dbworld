@@ -552,7 +552,8 @@ body.menu-open { overflow: hidden; }
 .proj-map h3 { margin: 0 0 4px; }
 .proj-map > p { color: #9FC4AE; font-size: .88rem; margin-bottom: 14px; }
 .kmap { width: 100%; height: auto; overflow: visible; }
-.kmap-land { fill: #10462B; stroke: #2E7D51; stroke-width: 1.4; stroke-linejoin: round; }
+.kmap-prov { fill: url(#kmap-g); stroke: rgba(255, 255, 255, .38); stroke-width: .6; stroke-linejoin: round; transition: fill-opacity .25s; }
+.kmap-dokdo circle { fill: #2E9862; }
 .map-pin { cursor: pointer; }
 .pin-dot { fill: var(--db-light-green); transition: .3s; }
 .pin-halo { fill: rgba(141,198,63,.16); animation: pulse 2.4s infinite; transform-origin: center; transform-box: fill-box; }
@@ -700,6 +701,7 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 1080px) {
   .nav { display: none; }
   .burger { display: flex; }
+  .gnb-right { margin-left: auto; }
   .agrid, .pgrid { grid-template-columns: repeat(2, 1fr); }
   .ci-colors, .vgrid { grid-template-columns: repeat(2, 1fr); }
   .affgrid, .sub-areas { grid-template-columns: repeat(2, 1fr) !important; }
@@ -782,4 +784,7 @@ body.menu-open { overflow: hidden; }
   .dev-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
   .dev-fnotes div { grid-template-columns: 1fr; gap: 5px; }
   .devgrid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+  .devcard strong { font-size: .95rem; padding: 13px 14px 8px; }
+  .devcard dl { padding: 0 14px 16px; gap: 5px; }
+  .devcard dl div { grid-template-columns: 52px 1fr; font-size: .82rem; gap: 6px; }
 }
