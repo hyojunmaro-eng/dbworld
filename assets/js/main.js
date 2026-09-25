@@ -151,6 +151,13 @@
     $$('[data-locpanel]').forEach(p => p.classList.toggle('on', p.dataset.locpanel === t.dataset.loctab));
   }));
 
+  /* ---------- 사업영역: 부동산 개발 탭 ---------- */
+  $$('[data-devtab]').forEach(t => t.addEventListener('click', () => {
+    $$('[data-devtab]').forEach(x => { x.classList.remove('on'); x.setAttribute('aria-selected', 'false'); });
+    t.classList.add('on'); t.setAttribute('aria-selected', 'true');
+    $$('[data-devpanel]').forEach(p => p.classList.toggle('on', p.dataset.devpanel === t.dataset.devtab));
+  }));
+
   /* ---------- 게시판 검색 (search-index.json) ---------- */
   const search = $('[data-search]');
   if (search) {

@@ -735,3 +735,46 @@ body.menu-open { overflow: hidden; }
   .pn-next { text-align: left; }
   .totop { right: 16px; bottom: 16px; }
 }
+
+/* ---------- 사업영역: 부동산 개발 탭 (도심개발/지역개발/도시계획) ---------- */
+.dev-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin: 44px 0 0; }
+.dev-tabs button { padding: 17px 10px; font-weight: 700; font-size: 1.02rem; color: var(--ink-soft); background: #fff; transition: .25s; }
+.dev-tabs button + button { border-left: 1px solid var(--line); }
+.dev-tabs button:hover { color: var(--db-green); background: var(--green-tint); }
+.dev-tabs button.on { background: var(--db-green); color: #fff; }
+.dev-panel { display: none; }
+.dev-panel.on { display: block; }
+.dev-head { padding: 38px 0 30px; border-bottom: 1px solid var(--line); }
+.dev-head h3 { font-size: clamp(1.25rem, 2.4vw, 1.62rem); line-height: 1.55; font-weight: 800; max-width: 900px; word-break: keep-all; }
+.dev-head h3 em { font-style: normal; color: var(--db-green); }
+.dev-note { margin-top: 14px; color: var(--ink-soft); font-size: .92rem; }
+.dev-row { display: grid; grid-template-columns: 170px 1fr; gap: 26px; padding: 36px 0; border-bottom: 1px solid var(--line); }
+.dev-row:last-child { border-bottom: 0; }
+.dev-lb { font-size: 1.18rem; font-weight: 800; }
+.dev-lb::after { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--db-green); margin-left: 7px; vertical-align: top; }
+.dev-fields { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0; }
+.dev-fields li { padding: 11px 22px; border: 1.5px solid var(--line); border-radius: 99px; font-weight: 600; font-size: .93rem; color: var(--ink-soft); background: #fff; }
+.dev-fnotes { display: grid; gap: 10px; margin: 20px 0 0; }
+.dev-fnotes div { display: grid; grid-template-columns: 170px 1fr; gap: 14px; background: var(--bg-soft); border-radius: 12px; padding: 15px 20px; }
+.dev-fnotes dt { font-weight: 700; color: var(--db-green); }
+.dev-fnotes dd { color: var(--ink-soft); font-size: .93rem; margin: 0; }
+.dev-group + .dev-group { margin-top: 40px; }
+.dev-group h5 { display: flex; align-items: center; gap: 9px; font-size: 1.05rem; font-weight: 800; color: var(--db-green); margin: 0 0 16px; }
+.dev-group h5::before { content: ''; width: 18px; height: 3px; border-radius: 2px; background: var(--db-green); }
+.devgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 20px; }
+.devcard { display: block; background: #fff; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; transition: .3s; }
+.devcard:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(0, 0, 0, .1); }
+.devcard-media { display: block; position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--bg-soft); }
+.devcard-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.devcard:hover .devcard-media img { transform: scale(1.05); }
+.devcard strong { display: block; padding: 16px 18px 10px; font-size: 1.02rem; word-break: keep-all; }
+.devcard dl { display: grid; gap: 6px; padding: 0 18px 20px; margin: 0; }
+.devcard dl div { display: grid; grid-template-columns: 64px 1fr; gap: 8px; font-size: .88rem; }
+.devcard dt { color: #98A2AE; font-weight: 700; }
+.devcard dd { color: var(--ink-soft); margin: 0; word-break: keep-all; }
+@media (max-width: 720px) {
+  .dev-tabs button { padding: 13px 6px; font-size: .92rem; }
+  .dev-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+  .dev-fnotes div { grid-template-columns: 1fr; gap: 5px; }
+  .devgrid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+}
