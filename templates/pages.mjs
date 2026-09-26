@@ -136,8 +136,8 @@ ${body}
       </div>
     </div>
     <div class="foot-bottom">
-      <p>${esc(com.legalName)} · ${lang === 'ko' ? '대표이사' : 'CEO'} ${esc(com.ceo)} · ${lang === 'ko' ? '사업자등록번호' : 'Business Reg. No.'} ${esc(com.bizNo)}</p>
       <p class="foot-copy">Copyright © DB World. All Rights Reserved.</p>
+      <p>${esc(com.legalName)} · ${lang === 'ko' ? '대표이사' : 'CEO'} ${esc(com.ceo)} · ${lang === 'ko' ? '사업자등록번호' : 'Business Reg. No.'} ${esc(com.bizNo)}</p>
     </div>
   </div>
 </footer>
