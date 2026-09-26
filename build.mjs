@@ -23,6 +23,7 @@ const { site } = await import('./content/site.mjs');
 const { copy } = await import('./content/copy.mjs');
 const { projects } = await import('./content/projects.mjs');
 const { ads } = await import('./content/ads.mjs');
+const { finance } = await import('./content/finance.mjs');
 const templates = await import('./templates/pages.mjs');
 
 /* ---------------- 게시글 로딩 ---------------- */
@@ -134,7 +135,7 @@ const v = createHash('md5')
   .update(readFileSync(join(ROOT, 'assets/css/main.css')))
   .update(readFileSync(join(ROOT, 'assets/js/main.js')))
   .digest('hex').slice(0, 8);
-const ctx = { site, projects, posts, ads, md, v };
+const ctx = { site, projects, posts, ads, finance, md, v };
 
 for (const lang of ['ko', 'en']) {
   const L = copy[lang];
@@ -169,6 +170,8 @@ for (const lang of ['ko', 'en']) {
   }
   for (const p of posts) write(`${lang}/news/${p.slug}/index.html`, templates.newsPost(c, p));
   write(`${lang}/news/ads/index.html`, templates.newsAds(c));
+  write(`${lang}/ir/finance/index.html`, templates.irFinance(c));
+  write(`${lang}/ir/disclosure/index.html`, templates.irDisclosure(c));
   write(`${lang}/esg/policy/index.html`, templates.esgPolicy(c));
   write(`${lang}/esg/ethics/index.html`, templates.esgEthics(c));
 

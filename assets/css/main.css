@@ -864,3 +864,45 @@ body.menu-open { overflow: hidden; }
   .devcard2-specs { font-size: .78rem; }
   .devcard2-badge { top: 10px; left: 10px; }
 }
+
+/* ---------- 투자정보 ---------- */
+.fin-empty { display: flex; align-items: center; gap: 16px; background: var(--bg-soft); border-radius: var(--r); padding: 34px 30px; color: var(--ink-soft); }
+.fin-empty svg { width: 34px; height: 34px; flex: none; color: var(--db-green); }
+.fin-asof { color: var(--ink-soft); font-size: .9rem; margin: -20px 0 26px; }
+.fin-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 26px 28px 18px; margin-bottom: 26px; }
+.fin-chead, .fin-thead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.fin-chead h3, .fin-thead h3 { font-size: 1.15rem; margin: 0; }
+.fin-chead span, .fin-thead span { color: #8A94A0; font-size: .82rem; }
+.finlegend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 6px; font-size: .88rem; color: var(--ink-soft); }
+.finlegend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 7px; }
+.finchart { width: 100%; height: auto; }
+.finchart .fbar-val { font-size: 15.5px; font-weight: 600; fill: var(--ink); }
+.finchart .fx-l1 { font-size: 17px; font-weight: 700; fill: var(--ink); }
+.finchart .fx-l2 { font-size: 14px; fill: #8A94A0; }
+.finchart .fbar { transition: opacity .2s; }
+.finchart:hover .fbar { opacity: .45; }
+.finchart:hover .fbar:hover { opacity: 1; }
+.finchart .fbar-val.neg { fill: #C0392B; }
+.fin-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-bottom: 30px; }
+.fin-charts .fin-card { margin-bottom: 0; }
+@media (max-width: 1080px) { .fin-charts { grid-template-columns: 1fr; } }
+.fin-notes { list-style: none; padding: 18px 22px; margin: -6px 0 0; background: var(--bg-soft); border-radius: var(--r); color: var(--ink-soft); font-size: .86rem; line-height: 1.7; }
+.fin-notes li { padding-left: 14px; position: relative; }
+.fin-notes li::before { content: '※'; position: absolute; left: 0; font-size: .78rem; }
+.fin-tablewrap { margin-bottom: 30px; overflow-x: auto; }
+.fin-table { width: 100%; border-collapse: collapse; min-width: 620px; }
+.fin-table th, .fin-table td { padding: 13px 16px; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.fin-table thead th { border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); text-align: right; font-weight: 700; }
+.fin-table thead th:first-child { text-align: left; }
+.fin-table thead th em { display: block; font-style: normal; font-weight: 500; color: #8A94A0; font-size: .8rem; }
+.fin-table td { text-align: right; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.fin-table .fin-group { text-align: left; font-weight: 800; color: var(--ink); background: var(--bg-soft); width: 90px; }
+.fin-table .fin-name { text-align: left; }
+.fin-table tr.strong td { font-weight: 700; color: var(--ink); background: #F7FAF8; }
+.dart-frame { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.dart-frame iframe { display: block; width: 100%; height: 1150px; border: 0; }
+.dart-note { color: var(--ink-soft); font-size: .88rem; margin: 14px 0 18px; }
+@media (max-width: 680px) {
+  .dart-frame iframe { height: 900px; }
+  .fin-tablewrap::before { content: attr(data-hint); display: block; margin-bottom: 8px; color: #8A94A0; font-size: .78rem; }
+}
