@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>공지사항 관리 | DB월드</title>
+<title>홈페이지 관리 | DB월드</title>
 <style>
 :root { --g: #00854A; --gd: #00693B; --ink: #1A1E23; --soft: #4A5560; --line: #E3E8ED; --bg: #F5F7F9; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,11 +48,38 @@ td.no { color: var(--soft); width: 40px; }
 ol.steps { margin: 10px 0 0 18px; font-size: .86rem; color: var(--soft); }
 ol.steps li { margin: 4px 0; }
 code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .84em; }
+/* 팝업 관리 */
+#plist, #pedit { display: none; }
+.pgrp { margin-bottom: 24px; }
+.pgrp h3 { font-size: .95rem; margin-bottom: 4px; }
+.pgrp h3 em { font-style: normal; color: var(--g); }
+.pgrp .gdesc { font-size: .8rem; color: var(--soft); margin-bottom: 10px; }
+.pgrp .none { color: #8a94a0; font-size: .88rem; }
+.pcards { display: flex; flex-wrap: wrap; gap: 14px; }
+.pcardA { width: 172px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+.pcardA .pimg { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; cursor: zoom-in; background: var(--bg); }
+.pcardA .pinfo { padding: 8px 10px; font-size: .78rem; color: var(--soft); line-height: 1.5; }
+.pcardA .pbtns { display: flex; border-top: 1px solid var(--line); }
+.pcardA .pbtns button { flex: 1; padding: 8px 0; border: 0; background: #fff; font: inherit; font-size: .8rem; cursor: pointer; color: var(--ink); }
+.pcardA .pbtns button + button { border-left: 1px solid var(--line); }
+.pcardA .pbtns button:hover { background: var(--bg); }
+.stchip { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: .72rem; font-weight: 700; }
+.stchip.on { background: #E7F3EC; color: #00703E; }
+.stchip.off { background: #FBEAE7; color: #C0392B; }
+.stchip.wait { background: #FFF4E2; color: #B26B00; }
+#peRange input[type=date] { width: 180px; }
+#peThumb { width: 132px; aspect-ratio: 3 / 4; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.pv-ov { position: fixed; inset: 0; z-index: 50; background: rgba(10, 14, 18, .55); display: flex; align-items: center; justify-content: center; padding: 24px; cursor: pointer; }
+.pv-card { width: min(360px, 86vw); background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 70px rgba(0, 0, 0, .4); }
+.pv-card img { width: 100%; display: block; }
+.pv-bar { display: flex; }
+.pv-bar span { flex: 1; padding: 13px 10px; font-size: .88rem; background: #23292F; color: rgba(255, 255, 255, .85); text-align: center; }
+.pv-bar span:last-child { flex: none; padding: 13px 20px; font-weight: 700; color: #fff; border-left: 1px solid rgba(255, 255, 255, .18); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1><em>DB월드</em> 공지사항 관리</h1>
+  <h1><em>DB월드</em> 홈페이지 관리</h1>
   <p class="sub">저장하면 GitHub에 기록되고, 1~2분 안에 사이트에 자동 반영됩니다. 날짜 기준으로 자동 정렬되므로 중간 날짜로 저장하면 목록 중간에 들어갑니다.</p>
 
   <!-- 로그인 -->
@@ -77,6 +104,7 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
     <div class="top">
       <strong>게시글 목록</strong>
       <span class="row">
+        <button class="btn line sm" onclick="showPopups()">팝업 관리</button>
         <button class="btn line sm" onclick="copyInvite()">협업자 초대 링크 복사</button>
         <a class="btn line sm" id="actLink" href="#" target="_blank" rel="noopener">반영 진행상황</a>
         <button class="btn sm" onclick="openEditor()">＋ 새 글 쓰기</button>
@@ -111,13 +139,58 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
     </div>
     <div class="msg" id="edMsg"></div>
   </div>
+
+  <!-- 팝업 목록 -->
+  <div class="card" id="plist">
+    <div class="top">
+      <strong>팝업 관리</strong>
+      <span class="row">
+        <button class="btn line sm" onclick="showPosts()">공지사항 관리</button>
+        <button class="btn sm" onclick="openPopupEditor()">＋ 새 팝업</button>
+      </span>
+    </div>
+    <p class="hint" style="margin:-6px 0 16px">팝업은 홈페이지 <strong>메인 화면 중앙</strong>에 표시됩니다. 게시 기간은 방문자 화면에서 날짜 기준으로 자동 적용되므로, 예정 팝업은 시작일에 자동으로 뜨고 종료일이 지나면 자동으로 내려갑니다.</p>
+    <div id="pgroups">불러오는 중…</div>
+    <div class="msg" id="plMsg"></div>
+  </div>
+
+  <!-- 팝업 편집 -->
+  <div class="card" id="pedit">
+    <div class="top"><strong id="peTitle">새 팝업 등록</strong><button class="btn line sm" onclick="loadPopups()">목록으로</button></div>
+    <label>팝업 이미지 <span style="color:#C0392B">*</span> <span style="font-weight:500;color:var(--soft)">— 세로형 3:4 비율 권장</span></label>
+    <div class="row" style="align-items:flex-start">
+      <img id="peThumb" alt="">
+      <div class="grow">
+        <input type="file" id="peImg" accept="image/*">
+        <p class="hint">이미지를 선택하면 바로 업로드됩니다 (5MB 이하 권장).</p>
+      </div>
+    </div>
+    <div class="row">
+      <div><label>팝업 노출 여부</label><label style="font-weight:500;margin:0"><input type="checkbox" id="peOn" checked> 노출 활성화</label></div>
+      <div><label>노출 위치</label><select id="peDev"><option value="all">전체 (PC+모바일)</option><option value="pc">PC만</option><option value="mobile">모바일만</option></select></div>
+    </div>
+    <label>팝업 게시기간</label>
+    <label style="font-weight:500;margin:0 0 8px"><input type="checkbox" id="peAlways" checked onchange="peDates()"> 항상 노출</label>
+    <div class="row" id="peRange">
+      <input type="date" id="peStart"> <span>~</span> <input type="date" id="peEnd">
+    </div>
+    <label>팝업 링크 <span style="font-weight:500;color:var(--soft)">— 선택, 팝업 클릭 시 이동할 주소</span></label>
+    <input type="text" id="peLink" placeholder="https://…">
+    <label style="font-weight:500"><input type="checkbox" id="peNew" checked> 새창으로 링크 열기</label>
+    <div class="row" style="margin-top:20px">
+      <button class="btn" id="peSave" onclick="savePopup()">저장 및 사이트 반영</button>
+      <button class="btn line" onclick="previewPopup()">미리보기</button>
+      <button class="btn danger hidden" id="peDel" onclick="delPopup()">이 팝업 삭제</button>
+    </div>
+    <div class="msg" id="peMsg"></div>
+  </div>
 </div>
 
 <script>
 /* ===== 설정 ===== */
 const OWNER = 'hyojunmaro-eng', REPO = 'dbworld', BR = 'main';
 const POSTS_DIR = 'content/posts', FILES_DIR = 'content/files';
-const SITE_BASE = location.pathname.replace(/admin\/?(index\.html)?$/, ''); // ex) /dbworld/
+const SITE_BASE = location.pathname.replace(/hyojunadmin\/?(index\.html)?$/, ''); // ex) /dbworld/
 
 const $ = id => document.getElementById(id);
 let tok = localStorage.getItem('dbw_gh_token') || '';
@@ -160,6 +233,161 @@ function serialize(p) {
   if (p.body_en) h.body_en = p.body_en;
   if (p.files.length) h.files = p.files;
   return '---\n' + JSON.stringify(h, null, 2) + '\n---\n\n' + (p.body || '').trim() + '\n';
+}
+
+/* ===== 팝업 관리 ===== */
+const POPUPS_PATH = 'content/popups.json';
+let pcache = [], pSha = null, pEditing = null, pImg = '', pImgLocal = null;
+const rawImg = src => `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BR}/content${src}`;
+const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+function pstate(p) {
+  const t = todayStr();
+  if (!p.enabled) return 'off';
+  if (!p.always && p.end && p.end < t) return 'ended';
+  if (!p.always && p.start && p.start > t) return 'wait';
+  return 'on';
+}
+const prange = p => p.always ? '항상 노출' : `${p.start || '제한 없음'} ~ ${p.end || '제한 없음'}`;
+
+function showPosts() { $('plist').style.display = 'none'; $('pedit').style.display = 'none'; loadList(); }
+function showPopups() { $('list').style.display = 'none'; $('editor').style.display = 'none'; loadPopups(); }
+
+async function loadPopups() {
+  $('pedit').style.display = 'none';
+  $('plist').style.display = 'block';
+  $('plMsg').className = 'msg';
+  try {
+    pSha = null;
+    let arr = [];
+    try {
+      const d = await gh(`/repos/${OWNER}/${REPO}/contents/${POPUPS_PATH}?ref=${BR}`);
+      pSha = d.sha; arr = JSON.parse(b64d(d.content));
+    } catch (e) { if (!/404|Not Found|찾을 수 없/i.test(e.message)) throw e; }
+    pcache = Array.isArray(arr) ? arr : [];
+    renderPopupGroups();
+  } catch (e) { show($('plMsg'), 'err', e.message); }
+}
+
+function renderPopupGroups() {
+  const g = { on: [], wait: [], off: [] };
+  for (const p of pcache) { const s = pstate(p); (s === 'on' ? g.on : s === 'wait' ? g.wait : g.off).push(p); }
+  const dev = d => d === 'pc' ? 'PC' : d === 'mobile' ? '모바일' : '전체';
+  const card = p => {
+    const i = pcache.indexOf(p);
+    const s = pstate(p);
+    const chip = s === 'on' ? '<span class="stchip on">노출 중</span>'
+      : s === 'wait' ? '<span class="stchip wait">대기</span>'
+      : !p.enabled ? '<span class="stchip off">비활성</span>' : '<span class="stchip off">기간종료</span>';
+    return `<div class="pcardA">
+      <img class="pimg" src="${rawImg(escH(p.img))}" alt="" loading="lazy" onclick="previewOf(${i})">
+      <div class="pinfo">${chip}<br>${escH(prange(p))}<br>노출: ${dev(p.device)}${p.link ? ' · 링크' : ''}</div>
+      <div class="pbtns"><button onclick="previewOf(${i})">미리보기</button><button onclick="openPopupEditor(${i})">수정</button></div>
+    </div>`;
+  };
+  const grp = (title, list, desc) => `<div class="pgrp"><h3>${title} <em>(${list.length})</em></h3><p class="gdesc">${desc}</p>` +
+    (list.length ? `<div class="pcards">${list.map(card).join('')}</div>` : '<p class="none">없음</p>') + '</div>';
+  $('pgroups').innerHTML =
+    grp('게시 중', g.on, '지금 홈페이지에 표시되는 팝업입니다.') +
+    grp('게시 예정', g.wait, '시작일이 되면 자동으로 게시됩니다.') +
+    grp('게시 중지', g.off, '기간이 종료되었거나 노출이 비활성화된 팝업입니다. 데이터는 계속 보관됩니다.');
+}
+
+function openPopupEditor(idx) {
+  const p = idx === undefined ? null : pcache[idx];
+  pEditing = p ? p.id : null;
+  pImg = p ? p.img : '';
+  pImgLocal = null;
+  $('plist').style.display = 'none';
+  $('pedit').style.display = 'block';
+  $('peMsg').className = 'msg';
+  $('peTitle').textContent = p ? '팝업 수정' : '새 팝업 등록';
+  $('peDel').classList.toggle('hidden', !p);
+  $('peOn').checked = p ? !!p.enabled : true;
+  $('peDev').value = (p && p.device) || 'all';
+  $('peAlways').checked = p ? !!p.always : true;
+  $('peStart').value = (p && p.start) || '';
+  $('peEnd').value = (p && p.end) || '';
+  $('peLink').value = (p && p.link) || '';
+  $('peNew').checked = p ? p.newtab !== false : true;
+  $('peImg').value = '';
+  $('peThumb').src = pImg ? rawImg(pImg) : '';
+  $('peThumb').style.display = pImg ? 'block' : 'none';
+  peDates();
+}
+function peDates() {
+  const off = $('peAlways').checked;
+  $('peRange').style.opacity = off ? .45 : 1;
+  $('peStart').disabled = $('peEnd').disabled = off;
+}
+
+async function uploadPopupImage(f) {
+  const buf = new Uint8Array(await f.arrayBuffer());
+  let out = ''; for (let i = 0; i < buf.length; i += 8192) out += String.fromCharCode(...buf.subarray(i, i + 8192));
+  const safe = ('popup-' + f.name).replace(/[\/\\:*?"<>|]/g, '').trim();
+  let name = safe, n = 1;
+  const taken = new Set((await gh(`/repos/${OWNER}/${REPO}/contents/${FILES_DIR}?ref=${BR}`).catch(() => [])).map(x => x.name));
+  const dot = safe.lastIndexOf('.');
+  while (taken.has(name)) name = dot > 0 ? `${safe.slice(0, dot)}-${n++}${safe.slice(dot)}` : `${safe}-${n++}`;
+  await gh(`/repos/${OWNER}/${REPO}/contents/${enc(FILES_DIR + '/' + name)}`, {
+    method: 'PUT',
+    body: JSON.stringify({ message: `팝업 이미지 업로드: ${name}`, content: btoa(out), branch: BR }),
+  });
+  return '/files/' + name;
+}
+
+async function savePopup() {
+  if (!pImg) return show($('peMsg'), 'err', '팝업 이미지를 등록해 주세요.');
+  const always = $('peAlways').checked;
+  const start = $('peStart').value, end = $('peEnd').value;
+  if (!always && !start && !end) return show($('peMsg'), 'err', '게시 기간을 입력하거나 항상 노출을 선택해 주세요.');
+  if (!always && start && end && start > end) return show($('peMsg'), 'err', '종료일이 시작일보다 빠릅니다.');
+  $('peSave').disabled = true;
+  try {
+    show($('peMsg'), 'ok', '저장 중…');
+    const idx = pcache.findIndex(x => x.id === pEditing);
+    const p = {
+      id: pEditing || 'pp' + Date.now().toString(36),
+      img: pImg, enabled: $('peOn').checked, always,
+      start: always ? '' : start, end: always ? '' : end,
+      link: $('peLink').value.trim(), newtab: $('peNew').checked, device: $('peDev').value,
+      created: idx >= 0 ? (pcache[idx].created || '') : new Date().toISOString(),
+    };
+    if (idx >= 0) pcache[idx] = p; else pcache.unshift(p);
+    await pushPopups(idx >= 0 ? '팝업 수정' : '팝업 등록');
+    show($('peMsg'), 'ok', `저장 완료 — 사이트에 자동 반영 중입니다 (약 1~2분). 반영 후 메인 화면을 <strong>Ctrl+F5</strong>로 확인하세요. <a href="https://github.com/${OWNER}/${REPO}/actions" target="_blank" rel="noopener">진행상황 보기</a>`);
+    setTimeout(loadPopups, 1800);
+  } catch (e) { show($('peMsg'), 'err', e.message); }
+  $('peSave').disabled = false;
+}
+
+async function pushPopups(msg) {
+  const body = { message: msg, content: b64e(JSON.stringify(pcache, null, 2) + '\n'), branch: BR };
+  if (pSha) body.sha = pSha;
+  const r = await gh(`/repos/${OWNER}/${REPO}/contents/${POPUPS_PATH}`, { method: 'PUT', body: JSON.stringify(body) });
+  if (r.content && r.content.sha) pSha = r.content.sha;
+}
+
+async function delPopup() {
+  if (!pEditing || !confirm('이 팝업을 삭제할까요? 되돌릴 수 없습니다.\n(게시만 멈추려면 삭제 대신 "노출 활성화"를 꺼 두세요 — 게시 중지 목록에 보관됩니다)')) return;
+  try {
+    pcache = pcache.filter(x => x.id !== pEditing);
+    await pushPopups('팝업 삭제');
+    loadPopups();
+  } catch (e) { show($('peMsg'), 'err', e.message); }
+}
+
+function pvShow(src) {
+  const ov = document.createElement('div');
+  ov.className = 'pv-ov';
+  ov.title = '클릭하면 닫힙니다';
+  ov.innerHTML = `<div class="pv-card"><img src="${src}" alt="팝업 미리보기"><div class="pv-bar"><span>오늘 하루 보지 않기</span><span>닫기</span></div></div>`;
+  ov.onclick = () => ov.remove();
+  document.body.appendChild(ov);
+}
+function previewOf(i) { pvShow(rawImg(escH(pcache[i].img))); }
+function previewPopup() {
+  if (!pImg && !pImgLocal) return show($('peMsg'), 'err', '먼저 이미지를 등록해 주세요.');
+  pvShow(pImgLocal || rawImg(escH(pImg)));
 }
 
 /* ===== 화면 ===== */
@@ -258,6 +486,20 @@ $('fUpload').addEventListener('change', async e => {
       show($('edMsg'), 'ok', `"${escH(name)}" 업로드 완료 — 저장 시 글에 연결됩니다.`);
     } catch (err) { show($('edMsg'), 'err', err.message); }
   }
+  e.target.value = '';
+});
+
+$('peImg').addEventListener('change', async e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    show($('peMsg'), 'ok', `"${escH(f.name)}" 업로드 중…`);
+    pImgLocal = URL.createObjectURL(f);
+    $('peThumb').src = pImgLocal;
+    $('peThumb').style.display = 'block';
+    pImg = await uploadPopupImage(f);
+    show($('peMsg'), 'ok', '이미지 업로드 완료 — 저장을 눌러야 팝업이 등록됩니다.');
+  } catch (err) { pImg = ''; show($('peMsg'), 'err', err.message); }
   e.target.value = '';
 });
 

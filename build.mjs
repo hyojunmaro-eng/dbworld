@@ -202,6 +202,7 @@ mkdirSync(join(DIST, 'hyojunadmin'), { recursive: true });
 copyFileSync(join(ROOT, 'hyojunadmin/web.html'), join(DIST, 'hyojunadmin/index.html'));
 // 게시글 첨부파일
 try { copyDir(join(ROOT, 'content/files'), join(DIST, 'files')); } catch {}
+try { copyFileSync(join(ROOT, 'content/popups.json'), join(DIST, 'popups.json')); } catch {}
 copyFileSync(join(ROOT, 'assets/img/favicon-32.png'), join(DIST, 'favicon.ico'));
 
 console.log(`✓ 빌드 완료: ${pages.length} pages → dist/`);

@@ -86,7 +86,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
 <a class="skip" href="#main">${lang === 'ko' ? '본문 바로가기' : 'Skip to content'}</a>
 <header class="gnb" id="gnb">
   <div class="gnb-in">
-    <a class="logo" href="${url('')}" aria-label="${esc(com.name)}"><img src="/assets/img/logo${lang === 'en' ? '-en' : ''}.png" alt="${esc(com.name)}" height="40"></a>
+    <a class="logo" href="${url('')}" aria-label="${esc(com.name)}"><img class="logo-c" src="/assets/img/logo${lang === 'en' ? '-en' : ''}.png" alt="${esc(com.name)}" height="40"><img class="logo-w" src="/assets/img/logo-white${lang === 'en' ? '-en' : ''}.png" alt="" height="40"></a>
     <nav class="nav" aria-label="main">
       <ul class="nav-l1">
         <li><a href="${url('about/ceo/')}">${nav.about}</a><ul class="nav-l2">${dd(nav.aboutItems, 'about')}</ul></li>

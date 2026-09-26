@@ -3,7 +3,7 @@
  * DB월드 공지사항 관리자 서버 (의존성 제로, Node 22+)
  *
  * - /hyojunadmin            관리 화면 (ui.html)
- * - /hyojunadmin/api/*      글 목록·작성·수정·삭제, 첨부파일 업로드
+ * - /hyojunadmin/api/*      글 목록·작성·수정·삭제, 첨부파일 업로드, 팝업 관리
  * - 글 저장/삭제 시 자동으로 `node build.mjs` 재빌드 → nginx가 곧바로 새 dist 서빙
  *
  * 환경변수:
@@ -181,6 +181,20 @@ const server = http.createServer(async (req, res) => {
       writeFileSync(join(FILES, name), buf);
       await rebuild(); // dist/files 반영
       return json(res, 200, { ok: true, name, src: `/files/${name}` });
+    }
+    /* 팝업 목록 */
+    if (req.method === 'GET' && path === '/hyojunadmin/api/popups') {
+      let arr = [];
+      try { arr = JSON.parse(readFileSync(join(ROOT, 'content/popups.json'), 'utf8')); } catch {}
+      return json(res, 200, Array.isArray(arr) ? arr : []);
+    }
+    /* 팝업 전체 저장 (배열 통째로 교체) */
+    if (req.method === 'POST' && path === '/hyojunadmin/api/popups') {
+      const arr = JSON.parse((await readBody(req, 500_000)).toString() || '[]');
+      if (!Array.isArray(arr)) return json(res, 400, { error: '형식이 올바르지 않습니다.' });
+      writeFileSync(join(ROOT, 'content/popups.json'), JSON.stringify(arr, null, 2) + '\n');
+      await rebuild();
+      return json(res, 200, { ok: true });
     }
     /* 수동 재빌드 */
     if (req.method === 'POST' && path === '/hyojunadmin/api/rebuild') {

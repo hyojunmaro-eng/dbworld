@@ -169,6 +169,66 @@
     $$('[data-devpanel]').forEach(p => p.classList.toggle('on', p.dataset.devpanel === t.dataset.devtab));
   }));
 
+  /* ---------- 홈 팝업 ---------- */
+  if (isHome) (async () => {
+    const base = location.pathname.replace(/\/(ko|en)\/.*$/, '');
+    let pops;
+    try { pops = await fetch(base + '/popups.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : []); } catch { return; }
+    const d = new Date();
+    const today = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const mob = matchMedia('(max-width: 768px)').matches;
+    const hidden = id => { try { return localStorage.getItem('dbw_pop_' + id) === today; } catch { return false; } };
+    const act = (Array.isArray(pops) ? pops : []).filter(p => p && p.id && p.img && p.enabled
+      && (p.always || ((!p.start || p.start <= today) && (!p.end || today <= p.end)))
+      && (!p.device || p.device === 'all' || (p.device === 'mobile') === mob)
+      && !hidden(p.id));
+    if (!act.length) return;
+    const ov = document.createElement('div');
+    ov.className = 'pop-ov';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-label', '안내 팝업');
+    ov.innerHTML = '<div class="pop-box"><div class="pop-row">' + act.map(p => {
+      const img = '<img src="' + esc(p.img.charAt(0) === '/' ? base + p.img : p.img) + '" alt="안내 팝업">';
+      const body = p.link
+        ? '<a class="pop-img" href="' + esc(p.link) + '"' + (p.newtab !== false ? ' target="_blank" rel="noopener"' : '') + '>' + img + '</a>'
+        : '<div class="pop-img">' + img + '</div>';
+      return '<div class="pop-card" data-pid="' + esc(p.id) + '">' + body +
+        '<div class="pop-bar"><button type="button" data-ptoday>오늘 하루 보지 않기</button><button type="button" data-pclose>닫기</button></div></div>';
+    }).join('') + '</div><div class="pop-dots">' + act.map((_, i) => '<i' + (i === 0 ? ' class="on"' : '') + '></i>').join('') + '</div></div>';
+    document.body.appendChild(ov);
+    document.body.classList.add('pop-open');
+    const row = ov.querySelector('.pop-row');
+    const closeAll = () => { ov.remove(); document.body.classList.remove('pop-open'); };
+    const syncDots = () => {
+      const cards = [...ov.querySelectorAll('.pop-card')];
+      const wrap = ov.querySelector('.pop-dots');
+      if (!wrap) return;
+      if (cards.length < 2) return wrap.remove();
+      const mid = row.scrollLeft + row.clientWidth / 2;
+      let best = 0, bd = Infinity;
+      cards.forEach((c, i) => { const cd = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (cd < bd) { bd = cd; best = i; } });
+      wrap.innerHTML = cards.map((_, i) => '<i' + (i === best ? ' class="on"' : '') + '></i>').join('');
+    };
+    const closeCard = card => {
+      card.remove();
+      if (!ov.querySelector('.pop-card')) return closeAll();
+      syncDots();
+    };
+    ov.addEventListener('click', e => {
+      const card = e.target.closest('.pop-card');
+      if (e.target.closest('[data-pclose]')) return closeCard(card);
+      if (e.target.closest('[data-ptoday]')) {
+        try { localStorage.setItem('dbw_pop_' + card.dataset.pid, today); } catch {}
+        return closeCard(card);
+      }
+      if (e.target === ov) closeAll();
+    });
+    addEventListener('keydown', function onk(e) {
+      if (e.key === 'Escape' && ov.isConnected) { closeAll(); removeEventListener('keydown', onk); }
+    });
+    row.addEventListener('scroll', syncDots, { passive: true });
+  })();
+
   /* ---------- DART iframe 폭맞춤 ---------- */
   const dartWrap = $('[data-dartfit]');
   if (dartWrap) {
