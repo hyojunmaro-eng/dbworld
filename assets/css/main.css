@@ -761,6 +761,12 @@ body.menu-open { overflow: hidden; }
 
 /* ---------- 사업영역: 부동산 개발 탭 (도심개발/지역개발/도시계획) ---------- */
 .ttl-slg { font-size: .5em; font-weight: 600; color: var(--db-green); white-space: nowrap; }
+.phero-img { background-size: cover; background-position: center; border-bottom: 0; }
+.phero-img h1 { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, .3); }
+.phero-img .crumbs, .phero-img .crumbs a { color: rgba(255, 255, 255, .78); }
+.phero-img .crumbs a:hover { color: #fff; }
+.phero-img .ttl-slg { color: #8FE3B4; }
+.phero-img .phero-deco { display: none; }
 .biz-head-tabs .lead { margin-top: 4px; }
 .dev-head.solo { padding-top: 6px; }
 .dev-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin: 44px 0 0; }

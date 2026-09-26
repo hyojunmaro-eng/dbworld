@@ -152,9 +152,13 @@ ${body}
 const FLAG_KR = `<img class="lang-flag" src="/assets/img/flags/kr.png" alt="" width="17" height="17">`;
 const FLAG_US = `<img class="lang-flag" src="/assets/img/flags/us.png" alt="" width="17" height="17">`;
 
-function pageHero(c, { title, crumbs, slogan }) {
+const PHERO_IMG = { about: 1, business: 1, projects: 1, news: 1 };
+function pageHero(c, { title, crumbs, slogan, sec }) {
   const { L, lang } = c;
-  return `<section class="phero">
+  const img = PHERO_IMG[sec]
+    ? ` class="phero phero-img" style="background-image:linear-gradient(90deg, rgba(6, 22, 14, .78), rgba(6, 22, 14, .38) 55%, rgba(6, 22, 14, .2)), url('/assets/img/phero/${sec}.jpg')"`
+    : ' class="phero"';
+  return `<section${img.startsWith(' class') ? img : ''}>
   <div class="phero-in">
     <nav class="crumbs" aria-label="breadcrumb"><a href="/${lang}/">${L.common.breadcrumbHome}</a>${crumbs.map(([t, href]) =>
       href ? ` <span>/</span> <a href="/${lang}/${href}">${esc(t)}</a>` : ` <span>/</span> <span aria-current="page">${esc(t)}</span>`).join('')}</nav>
@@ -279,7 +283,7 @@ export function aboutCeo(c) {
   const A = L.about.ceo;
   return layout(c, {
     title: A.docTitle, desc: A.headline.replace(/\n/g, ' '), path: `${lang}/about/ceo/`,
-    body: pageHero(c, { title: A.title, crumbs: [[L.nav.about, 'about/ceo/'], [A.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: A.title, crumbs: [[L.nav.about, 'about/ceo/'], [A.title]] }) + `
 <section class="sec"><div class="wrap ceo">
   <div class="ceo-head rv"><h2>${nl2br(A.headline)}</h2></div>
   <div class="ceo-body">
@@ -296,7 +300,7 @@ export function aboutOverview(c) {
   const logoSrc = `/assets/img/logo${lang === 'en' ? '-en' : ''}.png`;
   return layout(c, {
     title: O.docTitle, desc: O.paras[0], path: `${lang}/about/overview/`,
-    body: pageHero(c, { title: O.title, crumbs: [[L.nav.about, 'about/ceo/'], [O.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: O.title, crumbs: [[L.nav.about, 'about/ceo/'], [O.title]] }) + `
 <section class="sec"><div class="wrap">
   <div class="ovw-intro">
     <div class="ovw-copy">
@@ -330,7 +334,7 @@ export function aboutVision(c) {
   const V = L.about.vision;
   return layout(c, {
     title: V.docTitle, desc: V.mission.replace(/\n/g, ' '), path: `${lang}/about/vision/`,
-    body: pageHero(c, { title: V.title, crumbs: [[L.nav.about, 'about/ceo/'], [V.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: V.title, crumbs: [[L.nav.about, 'about/ceo/'], [V.title]] }) + `
 <section class="sec"><div class="wrap">
   <div class="vis-block rv"><em>${esc(V.missionLabel)}</em><h2>${nl2br(V.mission)}</h2><p>${esc(V.missionSub)}</p></div>
   <div class="vis-block vis-vision rv"><em>${esc(V.visionLabel)}</em><h2>${nl2br(V.vision)}</h2><p>${esc(V.visionSub)}</p></div>
@@ -349,7 +353,7 @@ export function aboutHistory(c) {
   const H = L.about.history;
   return layout(c, {
     title: H.docTitle, desc: H.intro, path: `${lang}/about/history/`,
-    body: pageHero(c, { title: H.title, crumbs: [[L.nav.about, 'about/ceo/'], [H.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: H.title, crumbs: [[L.nav.about, 'about/ceo/'], [H.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead rv">${esc(H.intro)}</p>
   <div class="tl">
@@ -371,7 +375,7 @@ export function aboutCi(c) {
   const CI = L.about.ci;
   return layout(c, {
     title: CI.docTitle, desc: CI.intro, path: `${lang}/about/ci/`,
-    body: pageHero(c, { title: CI.title, crumbs: [[L.nav.news, 'news/'], [CI.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: CI.title, crumbs: [[L.nav.news, 'news/'], [CI.title]] }) + `
 <section class="sec"><div class="wrap">
   <div class="ci-logo rv"><img src="/assets/img/logo${lang === 'en' ? '-en' : ''}.png" alt="DB WORLD" width="285"></div>
   <p class="lead rv">${esc(CI.intro)}</p>
@@ -413,7 +417,7 @@ export function aboutGroup(c) {
   const emph = t => NAMES.reduce((acc, n) => acc.split(esc(n)).join(`<strong>${esc(n)}</strong>`), esc(t));
   return layout(c, {
     title: G.docTitle, desc: G.sections[0].paras[0], path: `${lang}/about/group/`,
-    body: pageHero(c, { title: G.title, crumbs: [[L.nav.about, 'about/ceo/'], [G.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: G.title, crumbs: [[L.nav.about, 'about/ceo/'], [G.title]] }) + `
 <section class="sec"><div class="wrap">
   <figure class="grp-banner"><img src="/assets/img/group/banner.webp" alt="${esc(G.heroAlt)}"></figure>
 
@@ -461,7 +465,7 @@ export function aboutLocation(c) {
   const Lo = L.about.location;
   return layout(c, {
     title: Lo.docTitle, desc: Lo.tabs[0].addr, path: `${lang}/about/location/`,
-    body: pageHero(c, { title: Lo.title, crumbs: [[L.nav.about, 'about/ceo/'], [Lo.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: Lo.title, crumbs: [[L.nav.about, 'about/ceo/'], [Lo.title]] }) + `
 <section class="sec"><div class="wrap">
   ${Lo.tabs.length > 1 ? `<div class="loc-tabs" role="tablist">
     ${Lo.tabs.map((t, i) => `<button role="tab" id="loctab-${i}" aria-controls="locpanel-${i}" aria-selected="${i === 0}" data-loctab="${i}" ${i === 0 ? 'class="on"' : ''}>${esc(t.name)}</button>`).join('')}
@@ -491,7 +495,7 @@ export function businessIndex(c) {
   const B = L.business;
   return layout(c, {
     title: B.docTitle, desc: B.introSub, path: `${lang}/business/`,
-    body: pageHero(c, { title: B.pageTitle, crumbs: [[B.pageTitle]] }) + `
+    body: pageHero(c, { sec: 'business', title: B.pageTitle, crumbs: [[B.pageTitle]] }) + `
 <section class="sec"><div class="wrap">
   <div class="biz-intro rv"><h2>${nl2br(B.introTitle)}</h2><p>${esc(B.introSub)}</p></div>
   <div class="cycle rv" aria-label="${esc(B.cycleTitle)}">
@@ -563,7 +567,7 @@ export function businessDetail(c, key) {
 
   return layout(c, {
     title: `${a.name} | ${c.site.company[lang].name}`, desc: a.desc, path: `${lang}/business/${key}/`,
-    body: pageHero(c, { title: a.name, slogan: a.slogan, crumbs: [[L.business.pageTitle, 'business/'], [a.name]] }) + `
+    body: pageHero(c, { sec: 'business', title: a.name, slogan: a.slogan, crumbs: [[L.business.pageTitle, 'business/'], [a.name]] }) + `
 <section class="sec"><div class="wrap">
   ${a.tabs
     ? `<div class="biz-head biz-head-tabs rv"><em>${esc(a.en)}</em><p class="lead">${esc(a.desc)}</p></div>`
@@ -585,7 +589,7 @@ export function projectsIndex(c) {
   const P = L.projects;
   return layout(c, {
     title: P.docTitle, desc: P.intro, path: `${lang}/projects/`,
-    body: pageHero(c, { title: P.title, crumbs: [[P.title]] }) + `
+    body: pageHero(c, { sec: 'projects', title: P.title, crumbs: [[P.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead rv">${esc(P.intro)}</p>
   <div class="proj-layout">
@@ -620,7 +624,7 @@ export function projectDetail(c, p) {
   const catNames = Object.fromEntries(P.filters);
   return layout(c, {
     title: `${d.name} | ${c.site.company[lang].name}`, desc: d.desc, path: `${lang}/projects/${p.slug}/`,
-    body: pageHero(c, { title: d.name, crumbs: [[P.title, 'projects/'], [d.name]] }) + `
+    body: pageHero(c, { sec: 'projects', title: d.name, crumbs: [[P.title, 'projects/'], [d.name]] }) + `
 <section class="sec"><div class="wrap">
   <div class="pd-media ${CAT_CLASS[p.cats[0]]} rv">${img ? `<img src="${img}" alt="${esc(d.name)}">` : `<div class="ph-pattern big" aria-hidden="true"><span>${esc(initials(d.name))}</span></div>`}</div>
   <div class="pd-grid">
@@ -653,7 +657,7 @@ export function newsList(c, { cat, page, nPages, items }) {
   const title = (cat === 'all' ? N.title : `${catNames[cat]} | ${N.title}`) + pageSuffix;
   return layout(c, {
     title: `${title} | ${c.site.company[lang].name}`, desc: N.intro, path: pageUrl(page).slice(1),
-    body: pageHero(c, { title: N.title, crumbs: cat === 'all' ? [[N.title]] : [[N.title, 'news/'], [catNames[cat]]] }) + `
+    body: pageHero(c, { sec: 'news', title: N.title, crumbs: cat === 'all' ? [[N.title]] : [[N.title, 'news/'], [catNames[cat]]] }) + `
 <section class="sec"><div class="wrap">
   <div class="news-head rv">
     <div class="filters" role="group">
@@ -688,7 +692,7 @@ export function newsPost(c, p) {
   return layout(c, {
     title: `${lang === 'ko' ? p.title : p.title_en} | ${N.title}`, desc: excerpt || (lang === 'ko' ? p.title : p.title_en),
     ogType: 'article', path: `${lang}/news/${p.slug}/`,
-    body: pageHero(c, { title: N.title, crumbs: [[N.title, 'news/'], [N.catNames[p.category] || p.category]] }) + `
+    body: pageHero(c, { sec: 'news', title: N.title, crumbs: [[N.title, 'news/'], [N.catNames[p.category] || p.category]] }) + `
 <section class="sec"><div class="wrap"><div class="post">
   <header class="post-head rv">
     <em class="chip">${esc(N.catNames[p.category] || p.category)}</em>
@@ -720,7 +724,7 @@ export function newsAds(c) {
   const items = (ads.items || []).filter(i => ytId(i.youtube) || (i.title && i.title[lang]));
   return layout(c, {
     title: A.docTitle, desc: A.intro, path: `${lang}/news/ads/`,
-    body: pageHero(c, { title: A.title, crumbs: [[L.nav.news, 'news/'], [A.title]] }) + `
+    body: pageHero(c, { sec: 'news', title: A.title, crumbs: [[L.nav.news, 'news/'], [A.title]] }) + `
 <section class="sec"><div class="wrap">
   <div class="ad-feature">
     <div class="ad-copy rv">
