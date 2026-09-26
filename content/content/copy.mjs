@@ -16,8 +16,8 @@ export const copy = {
         ['development', '부동산 개발'], ['pm', '부동산 Total Service'], ['consulting', '부동산 컨설팅'],
         ['golf', '골프장 운영'],
       ],
-      esg: 'ESG',
-      esgMenu: [['esg/policy/', 'ESG정책'], ['esg/ethics/', '윤리경영']],
+      esg: '지속가능경영',
+      esgMenu: [['esg/policy/', 'ESG 경영'], ['esg/ethics/', '윤리경영']],
       newsCats: [['all', '전체'], ['notice', '공지사항'], ['news', '뉴스·보도']],
       newsMenu: [['news/', '공지사항'], ['news/ads/', 'DB광고'], ['about/ci/', 'CI']],
     },
@@ -411,7 +411,7 @@ export const copy = {
     },
     esg: {
       policy: {
-        title: 'ESG정책', docTitle: 'ESG정책 | DB월드',
+        title: 'ESG 경영', docTitle: 'ESG 경영 | DB월드',
         intro: 'DB월드는 경제적 가치를 넘어 사회적·환경적 가치를 함께 만들어 가는 지속가능경영을 실천합니다.',
         items: [
           '이해관계자와 소통하며 경제적 가치와 더불어 사회적, 환경적 가치를 창출하고자 노력합니다',
@@ -471,8 +471,8 @@ export const copy = {
         ['development', 'Development'], ['pm', 'Total Service'], ['consulting', 'Consulting'],
         ['golf', 'Golf Course'],
       ],
-      esg: 'ESG',
-      esgMenu: [['esg/policy/', 'ESG Policy'], ['esg/ethics/', 'Ethical Management']],
+      esg: 'Sustainability',
+      esgMenu: [['esg/policy/', 'ESG Management'], ['esg/ethics/', 'Ethical Management']],
       newsCats: [['all', 'All'], ['notice', 'Notice'], ['news', 'News']],
       newsMenu: [['news/', 'Notice'], ['news/ads/', 'Advertising'], ['about/ci/', 'CI']],
     },
@@ -866,7 +866,7 @@ export const copy = {
     },
     esg: {
       policy: {
-        title: 'ESG Policy', docTitle: 'ESG Policy | DB World',
+        title: 'ESG Management', docTitle: 'ESG Management | DB World',
         intro: 'DB World practices sustainable management that creates social and environmental value beyond economic value.',
         items: [
           'We communicate with stakeholders and strive to create social and environmental value alongside economic value.',
