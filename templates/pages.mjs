@@ -535,15 +535,10 @@ function businessDevTabs(c, a) {
     <div class="dev-row">
       <h4 class="dev-lb">${esc(a.worksLabel)}</h4>
       <div class="dev-body">
-        ${t.groups.length > 1 ? `<div class="filters devfilters" role="group">
-          <button class="on" data-devfilter="all">${esc(c.L.projects.filterAll)}</button>
-          ${t.groups.map((g, gi) => `<button data-devfilter="g${gi}">${esc(g.name)}</button>`).join('')}
-        </div>` : ''}
         <div class="devgrid2">
-          ${t.groups.map((g, gi) => g.items.map(it => `
-          <a class="devcard2" href="/${lang}/projects/${it.slug}/" data-devgroup="g${gi}">
+          ${t.groups.map(g => g.items.map(it => `
+          <a class="devcard2" href="/${lang}/projects/${it.slug}/">
             ${bizImg(it.img) ? `<img src="${bizImg(it.img)}?v=${v}" alt="" loading="lazy">` : `<span class="ph-pattern" aria-hidden="true"><span>${esc(initials(it.name))}</span></span>`}
-            <em class="devcard2-badge">${esc(g.name)}</em>
             <span class="devcard2-info">
               <strong>${esc(it.name)}</strong>
               <span class="devcard2-specs">${it.specs.map((s, si) => `<span><b>${esc(a.specLabels[si])}</b>${esc(s)}</span>`).join('')}</span>
