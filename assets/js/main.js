@@ -166,6 +166,31 @@
     $$('[data-devpanel]').forEach(p => p.classList.toggle('on', p.dataset.devpanel === t.dataset.devtab));
   }));
 
+  /* ---------- DART iframe 폭맞춤 ---------- */
+  const dartWrap = $('[data-dartfit]');
+  if (dartWrap) {
+    const ifr = $('iframe', dartWrap);
+    const BASE = parseInt(dartWrap.dataset.dartfit, 10) || 1080;
+    function fitDart() {
+      const w = dartWrap.clientWidth;
+      if (w >= BASE) {
+        const s = w / BASE;
+        const h = 1500;
+        ifr.style.width = BASE + 'px';
+        ifr.style.height = Math.round(h / s) + 'px';
+        ifr.style.transform = 'scale(' + s + ')';
+        dartWrap.style.height = h + 'px';
+      } else {
+        ifr.style.width = '100%';
+        ifr.style.height = '1000px';
+        ifr.style.transform = 'none';
+        dartWrap.style.height = 'auto';
+      }
+    }
+    fitDart();
+    addEventListener('resize', fitDart, { passive: true });
+  }
+
   /* ---------- 게시판 검색 (search-index.json) ---------- */
   const search = $('[data-search]');
   if (search) {

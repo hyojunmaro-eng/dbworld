@@ -743,60 +743,7 @@ export function newsAds(c) {
 
 /* ---------- 문의 · 404 · 루트 ---------- */
 /* ---------- 투자정보 ---------- */
-const FIN_COLORS = ['#00854A', '#0588CB', '#F47920']; // 검증된 카테고리 팔레트 (그린·블루·오렌지)
 const finNum = n => n == null ? '-' : n < 0 ? `(${Math.abs(n).toLocaleString('ko-KR')})` : n.toLocaleString('ko-KR');
-
-/* 연도별 그룹 막대차트 (빌드타임 SVG, 음수 지원) — 최신 기수가 왼쪽 */
-function finChart(years, series, lang) {
-  const W = 960, H = 320, TOP = 46, BOT = 54, LEFT = 24, RIGHT = 24;
-  const plotH = H - TOP - BOT;
-  const nice = m => { const p = Math.pow(10, Math.floor(Math.log10(m))); return ([1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].map(k => k * p).find(k => k >= m) || m); };
-  const vals = series.flatMap(s => s.v).filter(v => v != null);
-  const maxV = nice(Math.max(...vals.map(v => Math.max(v, 0)), 1));
-  const minRaw = Math.min(...vals, 0);
-  const minV = minRaw < 0 ? -nice(-minRaw) : 0;
-  const y = v => TOP + (maxV - v) / (maxV - minV) * plotH;
-  const zeroY = y(0);
-  const xs = years;                                      // 최신 → 과거 (표와 동일)
-  const groupW = (W - LEFT - RIGHT) / xs.length;
-  const barW = 64, gap = 16;
-  const grid = [0.25, 0.5, 0.75, 1].map(f => {
-    const gy = TOP + (1 - f) * plotH;
-    return `<line x1="${LEFT}" y1="${gy}" x2="${W - RIGHT}" y2="${gy}" stroke="#EDF1F4" stroke-width="1"/>`;
-  }).join('');
-  const bars = xs.map((yr, xi) => {
-    const yi = years.indexOf(yr);
-    const cx = LEFT + groupW * xi + groupW / 2;
-    const total = series.length * barW + (series.length - 1) * gap;
-    return series.map((s, si) => {
-      const v = s.v[yi];
-      if (v == null) return '';
-      const bx = cx - total / 2 + si * (barW + gap);
-      const vy = y(v);
-      const top = Math.min(vy, zeroY), bh = Math.max(Math.abs(zeroY - vy), 2);
-      const name = lang === 'ko' ? s.ko : s.en;
-      const label = v < 0
-        ? `<text x="${bx + barW / 2}" y="${top + bh + 15}" text-anchor="middle" class="fbar-val neg">${finNum(v)}</text>`
-        : `<text x="${bx + barW / 2}" y="${top - 8}" text-anchor="middle" class="fbar-val">${finNum(v)}</text>`;
-      return `<g class="fbar"><title>${esc(yr.label)} ${esc(name)} : ${finNum(v)}</title>
-        <path d="M${bx} ${top + bh} V${top + 4} Q${bx} ${top} ${bx + 4} ${top} H${bx + barW - 4} Q${bx + barW} ${top} ${bx + barW} ${top + 4} V${top + bh} Z" fill="${FIN_COLORS[si]}"${v < 0 ? ` transform="rotate(180 ${bx + barW / 2} ${top + bh / 2})"` : ''}/>
-        ${label}</g>`;
-    }).join('');
-  }).join('');
-  const xlabels = xs.map((yr, xi) => {
-    const cx = LEFT + groupW * xi + groupW / 2;
-    return `<text x="${cx}" y="${H - 24}" text-anchor="middle" class="fx-l1">${esc(yr.label)}</text>
-      <text x="${cx}" y="${H - 6}" text-anchor="middle" class="fx-l2">${esc(yr.year)}</text>`;
-  }).join('');
-  return `<svg class="finchart" viewBox="0 0 ${W} ${H}" role="img">
-    ${grid}${bars}
-    <line x1="${LEFT}" y1="${zeroY}" x2="${W - RIGHT}" y2="${zeroY}" stroke="#1A1E23" stroke-width="1.5"/>
-    ${xlabels}
-  </svg>`;
-}
-
-const finLegend = (series, lang) => `<div class="finlegend">${series.map((s, i) =>
-  `<span><i style="background:${FIN_COLORS[i]}"></i>${esc(lang === 'ko' ? s.ko : s.en)}</span>`).join('')}</div>`;
 
 export function irFinance(c) {
   const { L, lang, finance } = c;
@@ -831,18 +778,6 @@ export function irFinance(c) {
     const asOf = finance.asOf[lang] ? `<p class="fin-asof rv">${esc(finance.asOf[lang])}</p>` : '';
     body = `
   ${asOf}
-  <div class="fin-charts">
-    <div class="fin-card rv">
-      <div class="fin-chead"><h3>${esc(F.bsTitle)}</h3><span>(${unit})</span></div>
-      ${finLegend(finance.bsKey, lang)}
-      ${finChart(finance.years, finance.bsKey, lang)}
-    </div>
-    <div class="fin-card rv">
-      <div class="fin-chead"><h3>${esc(F.isTitle)}</h3><span>(${unit})</span></div>
-      ${finLegend(finance.isKey, lang)}
-      ${finChart(finance.years, finance.isKey, lang)}
-    </div>
-  </div>
   ${table(bsRows, F.bsTableTitle, 2)}
   ${table(isRows, F.isTableTitle, 1)}
   ${notes}`;
@@ -867,7 +802,7 @@ export function irDisclosure(c) {
     body: pageHero(c, { sec: 'ir', title: D.title, crumbs: [[L.nav.ir, 'ir/finance/'], [D.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead esg-intro rv">${esc(D.intro)}</p>
-  <div class="dart-frame rv"><iframe src="${dartEmbed}" title="DART" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  <div class="dart-frame rv" data-dartfit="1080"><iframe src="${dartEmbed}" title="DART" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
   <p class="dart-note rv">${esc(D.note)}</p>
   <a class="btn-solid rv" href="${dartLink}" target="_blank" rel="noopener">${esc(D.btn)} ${ARROW}</a>
 </div></section>`,
