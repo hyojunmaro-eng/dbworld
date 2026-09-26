@@ -181,7 +181,6 @@ function projCard(c, p) {
   return `<a class="pcard rv" href="/${lang}/projects/${p.slug}/" data-cats="${p.cats.join(' ')}" data-city="${esc(p.map.city[lang])}">
     <div class="pcard-media ${CAT_CLASS[p.cats[0]]}">${img ? `<img src="${img}" alt="" loading="lazy">` : `<div class="ph-pattern" aria-hidden="true"><span>${esc(initials(d.name))}</span></div>`}</div>
     <div class="pcard-body">
-      <div class="pcard-cats">${p.cats.map(k => `<em class="chip ${CAT_CLASS[k]}">${esc(catNames[k] || k)}</em>`).join('')}</div>
       <strong>${esc(d.name)}</strong>
       <span>${esc(d.location)}</span>
     </div>
@@ -605,10 +604,6 @@ export function projectsIndex(c) {
       <button class="btn-line btn-reset" data-mapreset hidden>${esc(P.filterAll)} ${ARROW}</button>
     </aside>
     <div class="proj-main">
-      <div class="filters rv" role="group">
-        <button class="on" data-filter="all">${esc(P.filterAll)}</button>
-        ${P.filters.map(([k, n]) => `<button data-filter="${k}">${esc(n)}</button>`).join('')}
-      </div>
       <div class="pgrid" data-pgrid>
         ${projects.map(p => projCard(c, p)).join('')}
       </div>
@@ -638,7 +633,6 @@ export function projectDetail(c, p) {
       <div><dt>${esc(P.specLabels.scale)}</dt><dd>${esc(d.scale)}</dd></div>
       <div><dt>${esc(P.specLabels.area)}</dt><dd>${esc(d.area)}</dd></div>
       <div><dt>${esc(P.specLabels.status)}</dt><dd>${esc(d.completed)}</dd></div>
-      <div><dt>${esc(P.specLabels.category)}</dt><dd>${p.cats.map(k => `<em class="chip ${CAT_CLASS[k]}">${esc(catNames[k] || k)}</em>`).join(' ')}</dd></div>
     </dl>
     <div class="pd-desc rv"><p>${esc(d.desc)}</p></div>
   </div>
