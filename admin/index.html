@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>공지사항 관리 | DB월드</title>
+<style>
+:root { --g: #00854A; --gd: #00693B; --ink: #1A1E23; --soft: #4A5560; --line: #E3E8ED; --bg: #F5F7F9; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 40px 20px 80px; }
+h1 { font-size: 1.4rem; margin-bottom: 6px; }
+h1 em { font-style: normal; color: var(--g); }
+.sub { color: var(--soft); font-size: .9rem; margin-bottom: 28px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
+label { display: block; font-weight: 700; font-size: .88rem; margin: 14px 0 6px; }
+input[type=text], input[type=date], input[type=password], select, textarea {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; font: inherit; font-size: .95rem; background: #fff;
+}
+textarea { min-height: 140px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g); }
+.btn { display: inline-block; padding: 10px 22px; border: 0; border-radius: 99px; background: var(--g); color: #fff; font: inherit; font-weight: 700; font-size: .92rem; cursor: pointer; text-decoration: none; }
+.btn:hover { background: var(--gd); }
+.btn.line { background: #fff; color: var(--g); border: 1.5px solid var(--g); }
+.btn.danger { background: #fff; color: #C0392B; border: 1.5px solid #E7B4AD; }
+.btn.sm { padding: 6px 14px; font-size: .85rem; }
+.btn[disabled] { opacity: .55; cursor: default; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); font-size: .92rem; vertical-align: middle; }
+th { color: var(--soft); font-size: .8rem; }
+td.no { color: var(--soft); width: 40px; }
+.chip { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: .76rem; font-weight: 700; background: #E7F3EC; color: #00703E; }
+.chip.news { background: #E5F3FB; color: #036DA3; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.row > * { flex: none; }
+.grow { flex: 1 !important; min-width: 200px; }
+.msg { padding: 10px 14px; border-radius: 8px; font-size: .9rem; margin-top: 14px; display: none; }
+.msg.ok { display: block; background: #E7F3EC; color: #00703E; }
+.msg.err { display: block; background: #FBEAE7; color: #C0392B; }
+.files li { display: flex; align-items: center; gap: 8px; font-size: .9rem; padding: 6px 0; list-style: none; }
+.files a { color: var(--g); word-break: break-all; }
+.hint { font-size: .8rem; color: var(--soft); margin-top: 6px; line-height: 1.7; }
+.hint a { color: var(--g); }
+.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+#editor, #list { display: none; }
+.hidden { display: none !important; }
+ol.steps { margin: 10px 0 0 18px; font-size: .86rem; color: var(--soft); }
+ol.steps li { margin: 4px 0; }
+code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .84em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><em>DB월드</em> 공지사항 관리</h1>
+  <p class="sub">저장하면 GitHub에 기록되고, 1~2분 안에 사이트에 자동 반영됩니다. 날짜 기준으로 자동 정렬되므로 중간 날짜로 저장하면 목록 중간에 들어갑니다.</p>
+
+  <!-- 로그인 -->
+  <div class="card" id="login">
+    <label for="tok">접속 토큰</label>
+    <div class="row">
+      <input class="grow" type="password" id="tok" placeholder="github_pat_… 또는 ghp_… 로 시작하는 토큰" autocomplete="off">
+      <button class="btn" onclick="login()">접속</button>
+    </div>
+    <div class="msg" id="loginMsg"></div>
+    <p class="hint" style="margin-top:14px"><strong>토큰이 없다면 (관리자 1회 발급 후 협업자와 공유):</strong></p>
+    <ol class="steps">
+      <li>GitHub 로그인 → <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">토큰 발급 페이지 열기</a></li>
+      <li>Repository access → <em>Only select repositories</em> → <code>dbworld</code> 선택</li>
+      <li>Permissions → Repository permissions → <em>Contents</em> → <code>Read and write</code></li>
+      <li>Generate token → <code>github_pat_…</code> 복사해서 위에 붙여넣기</li>
+    </ol>
+  </div>
+
+  <!-- 목록 -->
+  <div class="card" id="list">
+    <div class="top">
+      <strong>게시글 목록</strong>
+      <span class="row">
+        <a class="btn line sm" id="actLink" href="#" target="_blank" rel="noopener">반영 진행상황</a>
+        <button class="btn sm" onclick="openEditor()">＋ 새 글 쓰기</button>
+      </span>
+    </div>
+    <table>
+      <thead><tr><th>번호</th><th>분류</th><th>제목</th><th>날짜</th><th style="width:90px"></th></tr></thead>
+      <tbody id="rows"><tr><td colspan="5" style="color:#8a94a0">불러오는 중…</td></tr></tbody>
+    </table>
+    <div class="msg" id="listMsg"></div>
+  </div>
+
+  <!-- 편집기 -->
+  <div class="card" id="editor">
+    <div class="top"><strong id="edTitle">새 글 쓰기</strong><button class="btn line sm" onclick="loadList()">목록으로</button></div>
+    <div class="row">
+      <div><label>날짜</label><input type="date" id="fDate"></div>
+      <div><label>분류</label><select id="fCat"><option value="notice">공지사항</option><option value="news">뉴스·보도</option></select></div>
+      <div><label>&nbsp;</label><label style="font-weight:500;margin:0"><input type="checkbox" id="fPin"> 목록 상단 고정</label></div>
+    </div>
+    <label>제목</label><input type="text" id="fTitle">
+    <label>제목 (영문, 영문 페이지용 — 비우면 한국어 제목 표시)</label><input type="text" id="fTitleEn">
+    <label>본문</label><textarea id="fBody" placeholder="일반 문장으로 쓰면 됩니다. **굵게**, - 목록, | 표 | 같은 마크다운도 지원합니다."></textarea>
+    <label>본문 (영문, 선택)</label><textarea id="fBodyEn" style="min-height:90px"></textarea>
+    <label>첨부파일</label>
+    <ul class="files" id="fFiles"></ul>
+    <div class="row"><input type="file" id="fUpload" multiple></div>
+    <p class="hint">PDF·이미지·한글문서 등 첨부 가능 (파일당 15MB 이하 권장). 업로드하면 목록에 추가되고, 저장 시 글에 연결됩니다.</p>
+    <div class="row" style="margin-top:20px">
+      <button class="btn" id="saveBtn" onclick="save()">저장 및 사이트 반영</button>
+      <button class="btn danger hidden" id="delBtn" onclick="del()">이 글 삭제</button>
+    </div>
+    <div class="msg" id="edMsg"></div>
+  </div>
+</div>
+
+<script>
+/* ===== 설정 ===== */
+const OWNER = 'hyojunmaro-eng', REPO = 'dbworld', BR = 'main';
+const POSTS_DIR = 'content/posts', FILES_DIR = 'content/files';
+const SITE_BASE = location.pathname.replace(/admin\/?(index\.html)?$/, ''); // ex) /dbworld/
+
+const $ = id => document.getElementById(id);
+let tok = localStorage.getItem('dbw_gh_token') || '';
+let editing = null;   // 수정 중인 파일명
+let editingSha = null;
+let files = [];       // [{name, src}]
+let cache = [];       // 목록 캐시
+
+/* ===== GitHub API ===== */
+async function gh(path, opt = {}) {
+  const r = await fetch('https://api.github.com' + path, {
+    ...opt,
+    headers: { Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json', ...(opt.headers || {}) },
+  });
+  if (!r.ok) {
+    let m = '';
+    try { m = (await r.json()).message || ''; } catch {}
+    if (r.status === 401) m = '토큰이 올바르지 않거나 만료되었습니다.';
+    if (r.status === 403 && /rate/i.test(m)) m = 'API 사용량 제한 — 잠시 후 다시 시도하세요.';
+    if (r.status === 404 && opt.method === 'PUT') m = '토큰에 dbworld 저장소 쓰기 권한(Contents: Read and write)이 없습니다.';
+    throw new Error(m || 'GitHub 오류 (' + r.status + ')');
+  }
+  return r.status === 204 ? {} : r.json();
+}
+const enc = p => p.split('/').map(encodeURIComponent).join('/');
+const b64e = s => { const b = new TextEncoder().encode(s); let out = ''; for (let i = 0; i < b.length; i += 8192) out += String.fromCharCode(...b.subarray(i, i + 8192)); return btoa(out); };
+const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g, '')), c => c.charCodeAt(0)));
+
+/* ===== 게시글 파싱/직렬화 (사이트 빌더와 동일 형식) ===== */
+function parse(md) {
+  const m = md.match(/^---\s*\n([\s\S]*?)\n---\s*\n?([\s\S]*)$/);
+  if (!m) return null;
+  let h; try { h = JSON.parse(m[1]); } catch { return null; }
+  return { title: h.title || '', title_en: h.title_en || '', category: h.category || 'notice',
+           pinned: !!h.pinned, files: Array.isArray(h.files) ? h.files : [], body: m[2].trim(), body_en: h.body_en || '' };
+}
+function serialize(p) {
+  const h = { title: p.title, title_en: p.title_en, category: p.category };
+  if (p.pinned) h.pinned = true;
+  if (p.body_en) h.body_en = p.body_en;
+  if (p.files.length) h.files = p.files;
+  return '---\n' + JSON.stringify(h, null, 2) + '\n---\n\n' + (p.body || '').trim() + '\n';
+}
+
+/* ===== 화면 ===== */
+const show = (el, cls, text) => { el.className = 'msg ' + cls; el.innerHTML = text; };
+const escH = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+async function login() {
+  tok = $('tok').value.trim() || tok;
+  if (!tok) return show($('loginMsg'), 'err', '토큰을 입력해 주세요.');
+  try {
+    await gh(`/repos/${OWNER}/${REPO}`);
+    localStorage.setItem('dbw_gh_token', tok);
+    $('login').classList.add('hidden');
+    $('actLink').href = `https://github.com/${OWNER}/${REPO}/actions`;
+    loadList();
+  } catch (e) { show($('loginMsg'), 'err', e.message); }
+}
+
+async function loadList() {
+  $('editor').style.display = 'none';
+  $('list').style.display = 'block';
+  try {
+    const dir = await gh(`/repos/${OWNER}/${REPO}/contents/${POSTS_DIR}?ref=${BR}`);
+    const mds = dir.filter(f => f.name.endsWith('.md'));
+    cache = await Promise.all(mds.map(async f => {
+      const d = await gh(`/repos/${OWNER}/${REPO}/contents/${enc(POSTS_DIR + '/' + f.name)}?ref=${BR}`);
+      return { file: f.name, sha: d.sha, date: f.name.slice(0, 10), ...parse(b64d(d.content)) };
+    }));
+    cache.sort((a, b) => (b.pinned - a.pinned) || b.date.localeCompare(a.date) || b.file.localeCompare(a.file));
+    const byDate = [...cache].sort((a, b) => a.date.localeCompare(b.date) || a.file.localeCompare(b.file));
+    const no = new Map(byDate.map((p, i) => [p.file, i + 1]));
+    const catName = c => c === 'news' ? '뉴스·보도' : '공지사항';
+    $('rows').innerHTML = cache.map((p, i) => `
+      <tr>
+        <td class="no">${no.get(p.file)}</td>
+        <td><span class="chip ${p.category}">${catName(p.category)}</span></td>
+        <td>${p.pinned ? '📌 ' : ''}<a href="${SITE_BASE}ko/news/${p.file.replace(/\.md$/, '')}/" target="_blank" rel="noopener" style="color:inherit">${escH(p.title)}</a>${p.files.length ? ' 📎' : ''}</td>
+        <td>${p.date}</td>
+        <td><button class="btn line sm" onclick="openEditor(${i})">수정</button></td>
+      </tr>`).join('') || '<tr><td colspan="5">게시글이 없습니다.</td></tr>';
+  } catch (e) { show($('listMsg'), 'err', e.message); }
+}
+
+function openEditor(idx) {
+  const p = idx === undefined ? null : cache[idx];
+  editing = p ? p.file : null;
+  editingSha = p ? p.sha : null;
+  files = p ? [...p.files] : [];
+  $('list').style.display = 'none';
+  $('editor').style.display = 'block';
+  $('edMsg').className = 'msg';
+  $('delBtn').classList.toggle('hidden', !p);
+  $('edTitle').textContent = p ? '글 수정' : '새 글 쓰기';
+  $('fDate').value = p ? p.date : new Date().toISOString().slice(0, 10);
+  $('fCat').value = p ? p.category : 'notice';
+  $('fPin').checked = p ? p.pinned : false;
+  $('fTitle').value = p ? p.title : '';
+  $('fTitleEn').value = p ? p.title_en : '';
+  $('fBody').value = p ? p.body : '';
+  $('fBodyEn').value = p ? p.body_en : '';
+  renderFiles();
+}
+
+function renderFiles() {
+  $('fFiles').innerHTML = files.map((f, i) => `
+    <li>📎 <a href="${SITE_BASE}${escH(f.src).replace(/^\//, '')}" target="_blank" rel="noopener">${escH(f.name)}</a>
+    <button class="btn danger sm" onclick="files.splice(${i},1);renderFiles()">빼기</button></li>`).join('')
+    || '<li style="color:#8a94a0">첨부된 파일이 없습니다.</li>';
+}
+
+$('fUpload').addEventListener('change', async e => {
+  for (const f of e.target.files) {
+    try {
+      show($('edMsg'), 'ok', `"${escH(f.name)}" 업로드 중…`);
+      const buf = new Uint8Array(await f.arrayBuffer());
+      let out = ''; for (let i = 0; i < buf.length; i += 8192) out += String.fromCharCode(...buf.subarray(i, i + 8192));
+      const safe = f.name.replace(/[\/\\:*?"<>|]/g, '').trim();
+      // 동일 이름 존재 시 뒤에 번호
+      let name = safe, n = 1;
+      const taken = new Set((await gh(`/repos/${OWNER}/${REPO}/contents/${FILES_DIR}?ref=${BR}`).catch(() => [])).map(x => x.name));
+      const dot = safe.lastIndexOf('.');
+      while (taken.has(name)) name = dot > 0 ? `${safe.slice(0, dot)}-${n++}${safe.slice(dot)}` : `${safe}-${n++}`;
+      await gh(`/repos/${OWNER}/${REPO}/contents/${enc(FILES_DIR + '/' + name)}`, {
+        method: 'PUT',
+        body: JSON.stringify({ message: `첨부파일 업로드: ${name}`, content: btoa(out), branch: BR }),
+      });
+      files.push({ name, src: '/files/' + name });
+      renderFiles();
+      show($('edMsg'), 'ok', `"${escH(name)}" 업로드 완료 — 저장 시 글에 연결됩니다.`);
+    } catch (err) { show($('edMsg'), 'err', err.message); }
+  }
+  e.target.value = '';
+});
+
+async function save() {
+  const date = $('fDate').value, title = $('fTitle').value.trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return show($('edMsg'), 'err', '날짜를 선택해 주세요.');
+  if (!title) return show($('edMsg'), 'err', '제목을 입력해 주세요.');
+  $('saveBtn').disabled = true;
+  try {
+    show($('edMsg'), 'ok', '저장 중…');
+    const p = { title, title_en: $('fTitleEn').value.trim(), category: $('fCat').value,
+                pinned: $('fPin').checked, body: $('fBody').value, body_en: $('fBodyEn').value, files };
+    let file = editing;
+    if (file && file.slice(0, 10) !== date) { // 날짜 변경 → 새 파일 + 기존 삭제
+      const renamed = date + file.slice(10);
+      await gh(`/repos/${OWNER}/${REPO}/contents/${enc(POSTS_DIR + '/' + renamed)}`, {
+        method: 'PUT', body: JSON.stringify({ message: `글 날짜 변경: ${title}`, content: b64e(serialize(p)), branch: BR }),
+      });
+      await gh(`/repos/${OWNER}/${REPO}/contents/${enc(POSTS_DIR + '/' + file)}`, {
+        method: 'DELETE', body: JSON.stringify({ message: `이전 날짜 파일 정리: ${file}`, sha: editingSha, branch: BR }),
+      });
+    } else {
+      if (!file) file = `${date}-p${Date.now().toString(36)}.md`;
+      const body = { message: `${editing ? '글 수정' : '새 글'}: ${title}`, content: b64e(serialize(p)), branch: BR };
+      if (editingSha) body.sha = editingSha;
+      await gh(`/repos/${OWNER}/${REPO}/contents/${enc(POSTS_DIR + '/' + file)}`, { method: 'PUT', body: JSON.stringify(body) });
+    }
+    show($('edMsg'), 'ok', `저장 완료 — 사이트에 자동 반영 중입니다 (약 1~2분). 반영 후에도 안 보이면 <strong>Ctrl+F5</strong>로 새로고침하세요. <a href="https://github.com/${OWNER}/${REPO}/actions" target="_blank" rel="noopener">진행상황 보기</a>`);
+    setTimeout(loadList, 1500);
+  } catch (e) { show($('edMsg'), 'err', e.message); }
+  $('saveBtn').disabled = false;
+}
+
+async function del() {
+  if (!editing || !confirm('이 글을 삭제할까요? 되돌릴 수 없습니다.')) return;
+  try {
+    await gh(`/repos/${OWNER}/${REPO}/contents/${enc(POSTS_DIR + '/' + editing)}`, {
+      method: 'DELETE', body: JSON.stringify({ message: `글 삭제: ${editing}`, sha: editingSha, branch: BR }),
+    });
+    loadList();
+  } catch (e) { show($('edMsg'), 'err', e.message); }
+}
+
+/* 자동 로그인 */
+if (tok) { $('tok').value = tok; login(); }
+$('tok').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+</script>
+</body>
+</html>

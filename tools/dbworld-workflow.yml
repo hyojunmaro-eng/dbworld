@@ -1,0 +1,41 @@
+# dbworld 저장소의 .github/workflows/build.yml 로 배포되는 워크플로
+# (웹 관리자에서 글을 저장하면 이 워크플로가 사이트를 재생성해 반영)
+name: build-site
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'templates/**'
+      - 'assets/**'
+      - 'build.mjs'
+      - 'admin/**'
+      - 'tools/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: build-site
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build & prefix
+        run: |
+          node build.mjs
+          node tools/prefix.mjs /dbworld
+      - name: Publish (main root + gh-pages)
+        run: |
+          cp -r dist/. .
+          rm -rf dist
+          git config user.name "dbworld-site-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "사이트 자동 반영 [skip ci]" || echo "no changes"
+          git push origin main
+          git push -f origin main:gh-pages

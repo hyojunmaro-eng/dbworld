@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>공지사항 관리 | DB월드</title>
+<style>
+:root { --g: #00854A; --gd: #00693B; --ink: #1A1E23; --soft: #4A5560; --line: #E3E8ED; --bg: #F5F7F9; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 40px 20px 80px; }
+h1 { font-size: 1.4rem; margin-bottom: 6px; }
+h1 em { font-style: normal; color: var(--g); }
+.sub { color: var(--soft); font-size: .9rem; margin-bottom: 28px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
+label { display: block; font-weight: 700; font-size: .88rem; margin: 14px 0 6px; }
+input[type=text], input[type=date], input[type=password], select, textarea {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; font: inherit; font-size: .95rem; background: #fff;
+}
+textarea { min-height: 140px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g); }
+.btn { display: inline-block; padding: 10px 22px; border: 0; border-radius: 99px; background: var(--g); color: #fff; font: inherit; font-weight: 700; font-size: .92rem; cursor: pointer; }
+.btn:hover { background: var(--gd); }
+.btn.line { background: #fff; color: var(--g); border: 1.5px solid var(--g); }
+.btn.danger { background: #fff; color: #C0392B; border: 1.5px solid #E7B4AD; }
+.btn.sm { padding: 6px 14px; font-size: .85rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); font-size: .92rem; vertical-align: middle; }
+th { color: var(--soft); font-size: .8rem; }
+td.no { color: var(--soft); width: 40px; }
+.chip { display: inline-block; padding: 2px 10px; border-radius: 99px; font-size: .76rem; font-weight: 700; background: #E7F3EC; color: #00703E; }
+.chip.news { background: #E5F3FB; color: #036DA3; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.row > * { flex: none; }
+.grow { flex: 1 !important; min-width: 200px; }
+.msg { padding: 10px 14px; border-radius: 8px; font-size: .9rem; margin-top: 14px; display: none; }
+.msg.ok { display: block; background: #E7F3EC; color: #00703E; }
+.msg.err { display: block; background: #FBEAE7; color: #C0392B; }
+.files li { display: flex; align-items: center; gap: 8px; font-size: .9rem; padding: 6px 0; list-style: none; }
+.files a { color: var(--g); word-break: break-all; }
+.hint { font-size: .8rem; color: var(--soft); margin-top: 4px; }
+.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+#editor { display: none; }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><em>DB월드</em> 공지사항 관리</h1>
+  <p class="sub">글 작성·수정·삭제와 첨부파일 업로드를 하면 사이트에 즉시 반영됩니다. 날짜를 기준으로 자동 정렬되므로, 중간 날짜로 저장하면 목록 중간에 들어갑니다.</p>
+
+  <!-- 로그인 -->
+  <div class="card" id="login">
+    <label for="pw">관리자 비밀번호</label>
+    <div class="row">
+      <input class="grow" type="password" id="pw" autocomplete="current-password">
+      <button class="btn" onclick="login()">로그인</button>
+    </div>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+
+  <!-- 목록 -->
+  <div class="card hidden" id="list">
+    <div class="top">
+      <strong>게시글 목록</strong>
+      <button class="btn sm" onclick="openEditor()">＋ 새 글 쓰기</button>
+    </div>
+    <table>
+      <thead><tr><th>번호</th><th>분류</th><th>제목</th><th>날짜</th><th style="width:130px"></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <!-- 편집기 -->
+  <div class="card" id="editor">
+    <div class="top"><strong id="edTitle">새 글 쓰기</strong><button class="btn line sm" onclick="closeEditor()">목록으로</button></div>
+    <div class="row">
+      <div><label>날짜</label><input type="date" id="fDate"></div>
+      <div><label>분류</label><select id="fCat"><option value="notice">공지사항</option><option value="news">뉴스·보도</option></select></div>
+      <div><label>&nbsp;</label><label style="font-weight:500;margin:0"><input type="checkbox" id="fPin"> 목록 상단 고정</label></div>
+    </div>
+    <label>제목</label><input type="text" id="fTitle">
+    <label>제목 (영문, 영문 페이지용 — 비우면 한국어 제목 표시)</label><input type="text" id="fTitleEn">
+    <label>본문</label><textarea id="fBody" placeholder="일반 문장으로 쓰면 됩니다. **굵게**, - 목록, | 표 | 같은 마크다운도 지원합니다."></textarea>
+    <label>본문 (영문, 선택)</label><textarea id="fBodyEn" style="min-height:90px"></textarea>
+    <label>첨부파일</label>
+    <ul class="files" id="fFiles"></ul>
+    <div class="row">
+      <input type="file" id="fUpload" multiple>
+    </div>
+    <p class="hint">PDF·이미지 등 첨부 가능 (파일당 25MB 이하). 업로드하면 아래 목록에 추가되고, 저장 시 글에 연결됩니다.</p>
+    <div class="row" style="margin-top:20px">
+      <button class="btn" id="saveBtn" onclick="save()">저장 및 사이트 반영</button>
+      <button class="btn danger hidden" id="delBtn" onclick="del()">이 글 삭제</button>
+    </div>
+    <div class="msg" id="edMsg"></div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let editing = null; // 수정 중인 파일명
+let files = [];     // [{name, src}]
+
+const api = async (method, path, body, raw) => {
+  const opt = { method, headers: {} };
+  if (body !== undefined) {
+    if (raw) { opt.body = body; }
+    else { opt.headers['Content-Type'] = 'application/json'; opt.body = JSON.stringify(body); }
+  }
+  const r = await fetch(path, opt);
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || ('오류 (' + r.status + ')'));
+  return j;
+};
+const show = (el, cls, text) => { el.className = 'msg ' + cls; el.textContent = text; };
+
+async function login() {
+  try {
+    await api('POST', '/admin/api/login', { password: $('pw').value });
+    $('login').classList.add('hidden');
+    loadList();
+  } catch (e) { show($('loginMsg'), 'err', e.message); }
+}
+$('pw').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+async function loadList() {
+  const list = await api('GET', '/admin/api/posts');
+  $('list').classList.remove('hidden');
+  $('editor').style.display = 'none';
+  const catName = c => c === 'news' ? '뉴스·보도' : '공지사항';
+  // 번호: 날짜 오름차순 기준 (기존 홈페이지 방식)
+  const byDate = [...list].sort((a, b) => a.date.localeCompare(b.date) || a.file.localeCompare(b.file));
+  const no = new Map(byDate.map((p, i) => [p.file, i + 1]));
+  $('rows').innerHTML = list.map(p => `
+    <tr>
+      <td class="no">${no.get(p.file)}</td>
+      <td><span class="chip ${p.category}">${catName(p.category)}</span></td>
+      <td>${p.pinned ? '📌 ' : ''}${p.title.replace(/</g, '&lt;')}${p.files.length ? ' 📎' : ''}</td>
+      <td>${p.date}</td>
+      <td>
+        <button class="btn line sm" onclick="openEditor('${p.file}')">수정</button>
+      </td>
+    </tr>`).join('');
+}
+
+async function openEditor(file) {
+  editing = file || null;
+  files = [];
+  $('list').classList.add('hidden');
+  $('editor').style.display = 'block';
+  $('edMsg').className = 'msg';
+  $('delBtn').classList.toggle('hidden', !file);
+  $('edTitle').textContent = file ? '글 수정' : '새 글 쓰기';
+  if (file) {
+    const p = await api('GET', '/admin/api/post?f=' + encodeURIComponent(file));
+    $('fDate').value = p.date; $('fCat').value = p.category; $('fPin').checked = p.pinned;
+    $('fTitle').value = p.title; $('fTitleEn').value = p.title_en;
+    $('fBody').value = p.body; $('fBodyEn').value = p.body_en;
+    files = p.files || [];
+  } else {
+    $('fDate').value = new Date().toISOString().slice(0, 10);
+    $('fCat').value = 'notice'; $('fPin').checked = false;
+    $('fTitle').value = ''; $('fTitleEn').value = ''; $('fBody').value = ''; $('fBodyEn').value = '';
+  }
+  renderFiles();
+}
+function closeEditor() { loadList(); }
+
+function renderFiles() {
+  $('fFiles').innerHTML = files.map((f, i) => `
+    <li>📎 <a href="${f.src}" target="_blank" rel="noopener">${f.name.replace(/</g, '&lt;')}</a>
+    <button class="btn danger sm" onclick="files.splice(${i},1);renderFiles()">빼기</button></li>`).join('')
+    || '<li style="color:#8a94a0">첨부된 파일이 없습니다.</li>';
+}
+
+$('fUpload').addEventListener('change', async e => {
+  for (const f of e.target.files) {
+    try {
+      show($('edMsg'), 'ok', `"${f.name}" 업로드 중…`);
+      const r = await api('POST', '/admin/api/upload?name=' + encodeURIComponent(f.name), f, true);
+      files.push({ name: r.name, src: r.src });
+      renderFiles();
+      show($('edMsg'), 'ok', `"${r.name}" 업로드 완료`);
+    } catch (err) { show($('edMsg'), 'err', err.message); }
+  }
+  e.target.value = '';
+});
+
+async function save() {
+  $('saveBtn').disabled = true;
+  try {
+    show($('edMsg'), 'ok', '저장 및 사이트 재생성 중…');
+    await api('POST', '/admin/api/post', {
+      file: editing, date: $('fDate').value, category: $('fCat').value, pinned: $('fPin').checked,
+      title: $('fTitle').value.trim(), title_en: $('fTitleEn').value.trim(),
+      body: $('fBody').value, body_en: $('fBodyEn').value, files,
+    });
+    show($('edMsg'), 'ok', '저장 완료 — 사이트에 반영되었습니다.');
+    setTimeout(loadList, 700);
+  } catch (e) { show($('edMsg'), 'err', e.message); }
+  $('saveBtn').disabled = false;
+}
+
+async function del() {
+  if (!editing || !confirm('이 글을 삭제할까요? 되돌릴 수 없습니다.')) return;
+  try {
+    await api('DELETE', '/admin/api/post?f=' + encodeURIComponent(editing));
+    loadList();
+  } catch (e) { show($('edMsg'), 'err', e.message); }
+}
+</script>
+</body>
+</html>
