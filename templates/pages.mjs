@@ -695,7 +695,7 @@ export function newsPost(c, p) {
     title: `${lang === 'ko' ? p.title : p.title_en} | ${N.title}`, desc: excerpt || (lang === 'ko' ? p.title : p.title_en),
     ogType: 'article', path: `${lang}/news/${p.slug}/`,
     body: pageHero(c, { title: N.title, crumbs: [[N.title, 'news/'], [N.catNames[p.category] || p.category]] }) + `
-<section class="sec"><div class="wrap post">
+<section class="sec"><div class="wrap"><div class="post">
   <header class="post-head rv">
     <em class="chip">${esc(N.catNames[p.category] || p.category)}</em>
     <h2>${esc(lang === 'ko' ? p.title : p.title_en)}</h2>
@@ -704,7 +704,7 @@ export function newsPost(c, p) {
   ${p.files && p.files.length ? `<ul class="post-files rv">${p.files.map(f => `<li><a href="${esc(f.src)}" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m21.4 11.05-8.84 8.84a5.5 5.5 0 0 1-7.78-7.78l8.84-8.84a3.67 3.67 0 0 1 5.19 5.19l-8.85 8.84a1.83 1.83 0 0 1-2.59-2.59l8.49-8.49"/></svg>${esc(f.name)}</a></li>`).join('')}</ul>` : ''}
   <div class="post-body rv">${md(body)}</div>
   <div class="post-foot rv"><a class="btn-line" href="/${lang}/news/">${esc(L.common.list)}</a></div>
-</div></section>`,
+</div></div></section>`,
   });
 }
 
