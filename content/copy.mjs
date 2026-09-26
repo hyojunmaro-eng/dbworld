@@ -73,7 +73,6 @@ export const copy = {
         body: [
           'DB월드 홈페이지를 찾아주신 여러분께 진심으로 감사드립니다.',
           'DB월드는 1969년 미륭건설에서 출발해 동부건설과 DB Inc. 부동산 부문으로 이어져 온 반세기 부동산 전문가 그룹의 전통 위에 서 있는 DB그룹의 종합부동산서비스 전문기업입니다. 부동산 개발과 자산관리(PM), 건설사업관리(CM), 컨설팅에서 골프장 운영에 이르기까지, 부동산의 전 생애주기에 걸친 토털 서비스를 제공하고 있습니다.',
-          '2025년에는 DB월드건설을 합병하여 시행·설계·시공·관리·운영을 아우르는 명실상부한 종합부동산회사의 체제를 갖추었습니다. 서울 강남의 DB금융센터를 비롯한 프라임 자산의 운영 경험, 그리고 "한국의 페블비치"로 불리는 레인보우힐스CC의 성공적 운영은 DB월드가 쌓아온 신뢰의 증거입니다.',
           '부동산은 단순한 건축물이 아니라 사람과 도시의 삶을 담는 그릇입니다. DB월드는 축적된 전문성과 DB그룹의 탄탄한 신뢰를 바탕으로, 고객의 소중한 자산에 새로운 가치를 더하고 지역과 함께 성장하는 기업이 되겠습니다.',
           '앞으로도 변함없는 관심과 성원을 부탁드립니다. 감사합니다.',
         ],
@@ -547,7 +546,6 @@ export const copy = {
         body: [
           'Thank you for visiting DB World.',
           'DB World is the total real estate service company of DB Group, standing on a half-century heritage of real estate expertise that began with Miryung Construction in 1969 and continued through Dongbu Corporation and the real estate division of DB Inc. We provide services across the entire life cycle of real estate — development, property management, construction management, consulting, and the operation of a championship golf course.',
-          'In 2025, through the merger of DB World E&C, we completed a fully integrated structure covering development, design, construction, management and operation. Our track record with prime assets such as the DB Financial Center in Gangnam, Seoul, and the successful operation of Rainbow Hills Country Club — often called the Pebble Beach of Korea — stand as proof of the trust we have earned.',
           'Real estate is more than buildings; it is the vessel that holds the lives of people and cities. With accumulated expertise and the solid trust of DB Group, DB World will continue to add new value to our clients’ assets and grow together with the communities we serve.',
           'We look forward to your continued interest and support. Thank you.',
         ],
