@@ -58,7 +58,7 @@
       cur = (i + slides.length) % slides.length;
       slides[cur].classList.add('on'); dots[cur].classList.add('on');
     }
-    function auto() { timer = setInterval(() => go(cur + 1), 6500); }
+    function auto() { timer = setInterval(() => go(cur + 1), 2500); }
     dots.forEach((d, i) => d.addEventListener('click', () => { clearInterval(timer); go(i); auto(); }));
     if (!reduced && slides.length > 1) {
       auto();

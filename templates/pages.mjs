@@ -260,7 +260,7 @@ export function home(c) {
   ${slides}
   <div class="hero-ui">
     <div class="hero-dots">${H.hero.map((_, i) => `<button data-dot="${i}" ${i === 0 ? 'class="on"' : ''} aria-label="slide ${i + 1}"></button>`).join('')}</div>
-    <span class="hero-scroll">${L.common.scroll}<i></i></span>
+
   </div>
 </section>
 
