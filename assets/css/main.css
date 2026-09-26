@@ -95,7 +95,7 @@ p { word-break: keep-all; }
 .gnb-right { display: flex; align-items: center; gap: 14px; }
 .lang { display: inline-flex; align-items: center; padding: 8px 18px; border: 1.5px solid var(--line); border-radius: 99px; background: #fff; }
 .lang-cur, .lang-alt { display: inline-flex; align-items: center; font-weight: 700; font-size: .85rem; letter-spacing: .04em; color: var(--ink); }
-.lang-flag { width: 17px; height: 17px; flex: none; }
+.lang-flag { width: 17px; height: 17px; flex: none; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); }
 .lang-cur .lang-flag { width: 0; opacity: 0; margin-right: 0; transition: width .3s, opacity .25s, margin .3s; }
 .lang:hover .lang-cur .lang-flag, .lang:focus-within .lang-cur .lang-flag { width: 17px; opacity: 1; margin-right: 7px; }
 .lang-alt .lang-flag { margin-right: 7px; }

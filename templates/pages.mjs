@@ -148,9 +148,9 @@ ${body}
 }
 
 /* 서브페이지 상단 히어로 */
-/* 언어 전환용 미니 국기 (원형) */
-const FLAG_KR = `<svg class="lang-flag" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#fff"/><path d="M4.5 10a5.5 5.5 0 0 1 11 0 2.75 2.75 0 0 1-5.5 0 2.75 2.75 0 0 0-5.5 0z" fill="#CD2E3A"/><path d="M15.5 10a5.5 5.5 0 0 1-11 0 2.75 2.75 0 0 1 5.5 0 2.75 2.75 0 0 0 5.5 0z" fill="#0047A0"/><circle cx="10" cy="10" r="9.5" fill="none" stroke="rgba(0,0,0,.12)"/></svg>`;
-const FLAG_US = `<svg class="lang-flag" viewBox="0 0 20 20" aria-hidden="true"><defs><clipPath id="lf-us"><circle cx="10" cy="10" r="10"/></clipPath></defs><g clip-path="url(#lf-us)"><rect width="20" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="20" height="2.2"/><rect y="4.4" width="20" height="2.2"/><rect y="8.8" width="20" height="2.2"/><rect y="13.2" width="20" height="2.2"/><rect y="17.6" width="20" height="2.4"/></g><rect width="10" height="8.8" fill="#3C3B6E"/><g fill="#fff"><circle cx="2.5" cy="2.2" r=".75"/><circle cx="5.5" cy="2.2" r=".75"/><circle cx="8.5" cy="2.2" r=".75"/><circle cx="4" cy="4.4" r=".75"/><circle cx="7" cy="4.4" r=".75"/><circle cx="2.5" cy="6.6" r=".75"/><circle cx="5.5" cy="6.6" r=".75"/><circle cx="8.5" cy="6.6" r=".75"/></g></g><circle cx="10" cy="10" r="9.5" fill="none" stroke="rgba(0,0,0,.12)"/></svg>`;
+/* 언어 전환용 미니 국기 (사용자 제공 SVG, 원형 크롭) */
+const FLAG_KR = `<img class="lang-flag" src="/assets/img/flags/kr.svg" alt="" width="17" height="17">`;
+const FLAG_US = `<img class="lang-flag" src="/assets/img/flags/us.svg" alt="" width="17" height="17">`;
 
 function pageHero(c, { title, crumbs, slogan }) {
   const { L, lang } = c;
