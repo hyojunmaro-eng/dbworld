@@ -92,6 +92,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
         <li><a href="${url('about/ceo/')}">${nav.about}</a><ul class="nav-l2">${dd(nav.aboutItems, 'about')}</ul></li>
         <li><a href="${url('business/')}">${nav.business}</a><ul class="nav-l2">${dd(nav.businessItems, 'business')}<li><a href="${url('business/')}">${lang === 'ko' ? '사업영역 총괄' : 'Overview'}</a></li></ul></li>
         <li><a href="${url('projects/')}">${nav.projects}</a></li>
+        <li><a href="${url('esg/policy/')}">${nav.esg}</a><ul class="nav-l2">${nav.esgMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
         <li><a href="${url('news/')}">${nav.news}</a><ul class="nav-l2">${nav.newsMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
       </ul>
     </nav>
@@ -108,6 +109,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
     <details open><summary>${nav.about}</summary><ul>${dd(nav.aboutItems, 'about')}</ul></details>
     <details><summary>${nav.business}</summary><ul><li><a href="${url('business/')}">${lang === 'ko' ? '사업영역 총괄' : 'Overview'}</a></li>${dd(nav.businessItems, 'business')}</ul></details>
     <a class="mnav-link" href="${url('projects/')}">${nav.projects}</a>
+    <details><summary>${nav.esg}</summary><ul>${nav.esgMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></details>
     <details><summary>${nav.news}</summary><ul>${nav.newsMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></details>
   </nav>
 </div>
@@ -152,11 +154,11 @@ ${body}
 const FLAG_KR = `<img class="lang-flag" src="/assets/img/flags/kr.png" alt="" width="17" height="17">`;
 const FLAG_US = `<img class="lang-flag" src="/assets/img/flags/us.png" alt="" width="17" height="17">`;
 
-const PHERO_IMG = { about: 1, business: 1, projects: 1, news: 1 };
+const PHERO_IMG = { about: 1, business: 1, projects: 1, news: 1, esg: 1 };
 function pageHero(c, { title, crumbs, slogan, sec }) {
   const { L, lang } = c;
   const img = PHERO_IMG[sec]
-    ? ` class="phero phero-img" style="background-image:linear-gradient(90deg, rgba(6, 22, 14, .78), rgba(6, 22, 14, .38) 55%, rgba(6, 22, 14, .2)), url('/assets/img/phero/${sec}.jpg')"`
+    ? ` class="phero phero-img${sec === 'esg' ? ' phero-tall' : ''}" style="background-image:linear-gradient(90deg, rgba(6, 22, 14, .78), rgba(6, 22, 14, .38) 55%, rgba(6, 22, 14, .2)), url('/assets/img/phero/${sec}.jpg')"`
     : ' class="phero"';
   return `<section${img.startsWith(' class') ? img : ''}>
   <div class="phero-in">
@@ -746,6 +748,37 @@ export function newsAds(c) {
 }
 
 /* ---------- 문의 · 404 · 루트 ---------- */
+/* ---------- ESG ---------- */
+export function esgPolicy(c) {
+  const { L, lang } = c;
+  const E = L.esg.policy;
+  return layout(c, {
+    title: E.docTitle, desc: E.intro, path: `${lang}/esg/policy/`,
+    body: pageHero(c, { sec: 'esg', title: E.title, crumbs: [[L.nav.esg, 'esg/policy/'], [E.title]] }) + `
+<section class="sec"><div class="wrap">
+  <p class="lead esg-intro rv">${esc(E.intro)}</p>
+  <ol class="esg-list">
+    ${E.items.map((item, i) => `<li class="rv"><em>${String(i + 1).padStart(2, '0')}</em><p>${esc(item)}</p></li>`).join('')}
+  </ol>
+</div></section>`,
+  });
+}
+
+export function esgEthics(c) {
+  const { L, lang } = c;
+  const E = L.esg.ethics;
+  return layout(c, {
+    title: E.docTitle, desc: E.intro, path: `${lang}/esg/ethics/`,
+    body: pageHero(c, { sec: 'esg', title: E.title, crumbs: [[L.nav.esg, 'esg/policy/'], [E.title]] }) + `
+<section class="sec"><div class="wrap">
+  <p class="lead esg-intro rv">${esc(E.intro)}</p>
+  <div class="ethics-grid">
+    ${E.items.map(([k, d]) => `<div class="ethcard rv"><strong>${esc(k)}</strong><p>${esc(d)}</p></div>`).join('')}
+  </div>
+</div></section>`,
+  });
+}
+
 export function contact(c) {
   const { L, lang } = c;
   const T = L.contact;

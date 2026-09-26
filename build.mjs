@@ -169,6 +169,8 @@ for (const lang of ['ko', 'en']) {
   }
   for (const p of posts) write(`${lang}/news/${p.slug}/index.html`, templates.newsPost(c, p));
   write(`${lang}/news/ads/index.html`, templates.newsAds(c));
+  write(`${lang}/esg/policy/index.html`, templates.esgPolicy(c));
+  write(`${lang}/esg/ethics/index.html`, templates.esgEthics(c));
 
   write(`${lang}/contact/index.html`, templates.contact(c));
   write(`${lang}/404.html`, templates.notFound(c));

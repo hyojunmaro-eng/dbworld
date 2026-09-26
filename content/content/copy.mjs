@@ -16,6 +16,8 @@ export const copy = {
         ['development', '부동산 개발'], ['pm', '부동산 Total Service'], ['consulting', '부동산 컨설팅'],
         ['golf', '골프장 운영'],
       ],
+      esg: 'ESG',
+      esgMenu: [['esg/policy/', 'ESG정책'], ['esg/ethics/', '윤리경영']],
       newsCats: [['all', '전체'], ['notice', '공지사항'], ['news', '뉴스·보도']],
       newsMenu: [['news/', '공지사항'], ['news/ads/', 'DB광고'], ['about/ci/', 'CI']],
     },
@@ -407,6 +409,30 @@ export const copy = {
       mapSub: '핀을 선택하면 해당 프로젝트로 이동합니다',
       specLabels: { location: '위치', scale: '규모', area: '면적', status: '진행 현황', completed: '준공', category: '분류' },
     },
+    esg: {
+      policy: {
+        title: 'ESG정책', docTitle: 'ESG정책 | DB월드',
+        intro: 'DB월드는 경제적 가치를 넘어 사회적·환경적 가치를 함께 만들어 가는 지속가능경영을 실천합니다.',
+        items: [
+          '이해관계자와 소통하며 경제적 가치와 더불어 사회적, 환경적 가치를 창출하고자 노력합니다',
+          '자사 및 협력사 임직원들의 인권을 존중하며 인간으로서의 존엄과 가치를 수호합니다',
+          '정직하고 공정한 자세로 기업윤리를 준수합니다',
+          '환경, 안전, 보건에 대한 기업의 책임과 의무를 다하며 주기적인 검토를 통해 지속적인 개선활동을 추진합니다',
+          '협력사 및 지역사회와 함께 상생하며 지속가능한 발전을 위해 사회적 책임을 다하고 있습니다',
+        ],
+      },
+      ethics: {
+        title: '윤리경영', docTitle: '윤리경영 | DB월드',
+        intro: '모든 임직원이 함께 지켜 가는 DB월드의 윤리 실천 원칙입니다.',
+        items: [
+          ['공정거래', '하나, 우리는 윤리적 가치관에 입각하여 제반법규를 준수하며 부정거래를 하지 않는다.'],
+          ['고객가치창조', '하나, 우리는 고객의 의견을 존중하며 고객가치를 창조하기 위해 항상 노력한다.'],
+          ['사회공헌', '하나, 우리는 지속적인 사회공헌과 투명한 기업 경영을 통해 초일류 기업으로 성장한다.'],
+          ['주주이익보호', '하나, 우리는 주주의 이익 보호와 기업가치 증대를 위해 최선을 다하여 주주에게 장기적, 안정적 이익을 제공한다.'],
+          ['직원인격존중', '하나, 우리는 임직원 상호간 차별을 하지 않으며 개개인의 인격과 품위를 존중한다.'],
+        ],
+      },
+    },
     news: {
       title: '홍보센터', docTitle: '홍보센터 | DB월드',
       intro: 'DB월드의 공지사항과 새로운 소식을 전해드립니다.',
@@ -445,6 +471,8 @@ export const copy = {
         ['development', 'Development'], ['pm', 'Total Service'], ['consulting', 'Consulting'],
         ['golf', 'Golf Course'],
       ],
+      esg: 'ESG',
+      esgMenu: [['esg/policy/', 'ESG Policy'], ['esg/ethics/', 'Ethical Management']],
       newsCats: [['all', 'All'], ['notice', 'Notice'], ['news', 'News']],
       newsMenu: [['news/', 'Notice'], ['news/ads/', 'Advertising'], ['about/ci/', 'CI']],
     },
@@ -835,6 +863,30 @@ export const copy = {
       mapTitle: 'Project Map',
       mapSub: 'Select a pin to jump to the project',
       specLabels: { location: 'Location', scale: 'Scale', area: 'Area', status: 'Status', completed: 'Completed', category: 'Category' },
+    },
+    esg: {
+      policy: {
+        title: 'ESG Policy', docTitle: 'ESG Policy | DB World',
+        intro: 'DB World practices sustainable management that creates social and environmental value beyond economic value.',
+        items: [
+          'We communicate with stakeholders and strive to create social and environmental value alongside economic value.',
+          'We respect the human rights of employees of the company and its partners, upholding human dignity and worth.',
+          'We comply with corporate ethics with honesty and fairness.',
+          'We fulfill our responsibilities for the environment, safety and health, and pursue continuous improvement through periodic reviews.',
+          'We grow together with our partners and local communities, fulfilling our social responsibility for sustainable development.',
+        ],
+      },
+      ethics: {
+        title: 'Ethical Management', docTitle: 'Ethical Management | DB World',
+        intro: 'The principles of ethical practice that every member of DB World upholds.',
+        items: [
+          ['Fair Trade', 'We comply with all laws and regulations based on ethical values and do not engage in unfair transactions.'],
+          ['Customer Value', 'We respect the opinions of our customers and always strive to create customer value.'],
+          ['Social Contribution', 'We grow into a world-class company through continuous social contribution and transparent management.'],
+          ['Shareholder Value', 'We do our best to protect shareholder interests and increase corporate value, providing long-term, stable returns.'],
+          ['Respect for People', 'We do not discriminate among employees and respect the character and dignity of each individual.'],
+        ],
+      },
     },
     news: {
       title: 'Newsroom', docTitle: 'Newsroom | DB World',
