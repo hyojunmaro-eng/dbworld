@@ -735,6 +735,17 @@ body.menu-open { overflow: hidden; }
   .lang { padding: 7px 14px; cursor: pointer; }
   .lang-sep, .lang-alt { display: none; }
   .lang-cur .lang-flag { width: 17px; opacity: 1; margin-right: 7px; }
+  /* 메뉴 열림: KOR | ENG (국기 없이, 현재 언어 강조) + 버거 → X */
+  body.menu-open .lang { cursor: default; }
+  body.menu-open .lang .lang-flag { display: none; }
+  body.menu-open .lang-cur .lang-flag { width: 0; margin-right: 0; }
+  body.menu-open .lang-sep { display: block; opacity: 1; margin: 0 10px; }
+  body.menu-open .lang-alt { display: inline-flex; max-width: none; opacity: 1; color: var(--ink); }
+  body.menu-open .lang-cur { color: var(--db-green); }
+  .burger span { transition: transform .3s, opacity .2s; }
+  body.menu-open .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  body.menu-open .burger span:nth-child(2) { opacity: 0; }
+  body.menu-open .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .agrid, .pgrid { grid-template-columns: repeat(2, 1fr); }
   .ci-colors, .vgrid { grid-template-columns: repeat(2, 1fr); }
   .affgrid, .sub-areas { grid-template-columns: repeat(2, 1fr) !important; }

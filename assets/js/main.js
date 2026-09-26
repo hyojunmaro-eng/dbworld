@@ -51,6 +51,7 @@
   const langPill = $('.lang');
   if (langPill) langPill.addEventListener('click', e => {
     if (!matchMedia('(max-width: 1080px)').matches || e.target.closest('[data-langswitch]')) return;
+    if (document.body.classList.contains('menu-open')) return; // 열림 상태에선 KOR/ENG 각자 탭
     switchLang();
   });
 
