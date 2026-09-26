@@ -928,3 +928,5 @@ body.pop-open { overflow: hidden; }
   .pop-dots i.on { background: #fff; }
   .pop-dots:has(i:only-child) { display: none; }
 }
+
+.ovw-vis { margin-top: clamp(48px, 6vw, 72px); }

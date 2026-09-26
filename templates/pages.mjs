@@ -300,7 +300,7 @@ export function aboutCeo(c) {
 export function aboutOverview(c) {
   const { L, lang } = c;
   const O = L.about.overview;
-  const logoSrc = `/assets/img/logo${lang === 'en' ? '-en' : ''}.png`;
+  const V = L.about.vision;
   return layout(c, {
     title: O.docTitle, desc: O.paras[0], path: `${lang}/about/overview/`,
     body: pageHero(c, { sec: 'about', title: O.title, crumbs: [[L.nav.about, 'about/ceo/'], [O.title]] }) + `
@@ -318,33 +318,14 @@ export function aboutOverview(c) {
     ${O.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}
   </dl>
 
-  <h3 class="ovw-h3">${esc(O.bizTitle)}</h3>
-  <div class="ovw-cycle" role="img" aria-label="${esc(O.bizTitle)}">
-    <svg class="cycle-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" pathLength="100"/></svg>
-    <div class="ovw-center"><img src="${logoSrc}" alt="" height="40"></div>
-    ${O.bizNodes.map((n, i) => `
-    <div class="ovw-node n${i}">
-      <strong>${nl2br(n.name)}</strong>
-      ${n.subs.length ? `<span>${n.subs.map(esc).join('<br>')}</span>` : ''}
-    </div>`).join('')}
-  </div>
-</div></section>`,
-  });
-}
-
-export function aboutVision(c) {
-  const { L, lang } = c;
-  const V = L.about.vision;
-  return layout(c, {
-    title: V.docTitle, desc: V.mission.replace(/\n/g, ' '), path: `${lang}/about/vision/`,
-    body: pageHero(c, { sec: 'about', title: V.title, crumbs: [[L.nav.about, 'about/ceo/'], [V.title]] }) + `
-<section class="sec"><div class="wrap">
-  <div class="vis-block rv"><em>${esc(V.missionLabel)}</em><h2>${nl2br(V.mission)}</h2><p>${esc(V.missionSub)}</p></div>
-  <div class="vis-block vis-vision rv"><em>${esc(V.visionLabel)}</em><h2>${nl2br(V.vision)}</h2><p>${esc(V.visionSub)}</p></div>
-  <div class="vis-values">
-    <em class="rv">${esc(V.valuesLabel)}</em>
-    <div class="vgrid">
-      ${V.values.map(([t, s, d]) => `<div class="vcard rv"><strong>${esc(t)}</strong><em>${esc(s)}</em><p>${esc(d)}</p></div>`).join('')}
+  <div class="ovw-vis">
+    <div class="vis-block rv"><em>${esc(V.missionLabel)}</em><h2>${nl2br(V.mission)}</h2><p>${esc(V.missionSub)}</p></div>
+    <div class="vis-block vis-vision rv"><em>${esc(V.visionLabel)}</em><h2>${nl2br(V.vision)}</h2><p>${esc(V.visionSub)}</p></div>
+    <div class="vis-values">
+      <em class="rv">${esc(V.valuesLabel)}</em>
+      <div class="vgrid">
+        ${V.values.map(([tt, ss, dd]) => `<div class="vcard rv"><strong>${esc(tt)}</strong><em>${esc(ss)}</em><p>${esc(dd)}</p></div>`).join('')}
+      </div>
     </div>
   </div>
 </div></section>`,

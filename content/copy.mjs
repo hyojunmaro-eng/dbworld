@@ -9,7 +9,7 @@ export const copy = {
     nav: {
       about: '회사소개', business: '사업영역', projects: '사업실적', news: '홍보센터', contact: '문의',
       aboutItems: [
-        ['ceo', 'CEO 인사말'], ['overview', '기업정보'], ['vision', '미션·비전'],
+        ['ceo', 'CEO 인사말'], ['overview', '기업정보'],
         ['group', 'DB그룹 소개'], ['location', '오시는 길'],
       ],
       businessItems: [
@@ -483,7 +483,7 @@ export const copy = {
     nav: {
       about: 'About', business: 'Business', projects: 'Projects', news: 'Newsroom', contact: 'Contact',
       aboutItems: [
-        ['ceo', 'CEO Message'], ['overview', 'Company Overview'], ['vision', 'Mission & Vision'],
+        ['ceo', 'CEO Message'], ['overview', 'Company Overview'], 
         ['group', 'DB Group'], ['location', 'Location'],
       ],
       businessItems: [

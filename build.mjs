@@ -144,7 +144,6 @@ for (const lang of ['ko', 'en']) {
   write(`${lang}/index.html`, templates.home(c));
   write(`${lang}/about/ceo/index.html`, templates.aboutCeo(c));
   write(`${lang}/about/overview/index.html`, templates.aboutOverview(c));
-  write(`${lang}/about/vision/index.html`, templates.aboutVision(c));
   write(`${lang}/about/ci/index.html`, templates.aboutCi(c));
   write(`${lang}/about/group/index.html`, templates.aboutGroup(c));
   write(`${lang}/about/location/index.html`, templates.aboutLocation(c));
