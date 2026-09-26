@@ -805,8 +805,8 @@ body.menu-open { overflow: hidden; }
 .devcard dl div { display: grid; grid-template-columns: 64px 1fr; gap: 8px; font-size: .88rem; }
 .devcard dt { color: #98A2AE; font-weight: 700; }
 .devcard dd { color: var(--ink-soft); margin: 0; word-break: keep-all; }
-#devpanel-1 .devcard-media, #devpanel-2 .devcard-media { aspect-ratio: 4 / 3; }
-#devpanel-1 .devgrid, #devpanel-2 .devgrid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+#devpanel-1 .devcard2, #devpanel-2 .devcard2 { aspect-ratio: 4 / 3; }
+#devpanel-1 .devgrid2, #devpanel-2 .devgrid2 { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
 @media (max-width: 720px) {
   .dev-tabs button { padding: 13px 6px; font-size: .92rem; }
   .dev-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
@@ -837,4 +837,30 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 680px) {
   .esg-list li { grid-template-columns: 56px 1fr; gap: 14px; padding: 22px 0; }
   .esg-list em { font-size: 1.5rem; }
+}
+
+/* ---------- 사업영역 실적: 몰입형 카드 그리드 ---------- */
+.devfilters { margin-bottom: 24px; }
+.devgrid2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 18px; }
+.devcard2 { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: var(--r); overflow: hidden; background: var(--bg-soft); }
+.devcard2 img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.devcard2::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 20, 13, .05) 38%, rgba(7, 20, 13, .87) 100%); transition: background .35s; }
+.devcard2:hover img, .devcard2:focus-visible img { transform: scale(1.06); }
+.devcard2:hover::after, .devcard2:focus-visible::after { background: linear-gradient(180deg, rgba(7, 20, 13, .22) 22%, rgba(0, 74, 42, .93) 100%); }
+.devcard2-badge { position: absolute; top: 14px; left: 14px; z-index: 2; background: rgba(255, 255, 255, .93); color: #00703E; font-style: normal; font-size: .74rem; font-weight: 700; padding: 4px 12px; border-radius: 99px; }
+.devcard2-info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 18px; color: #fff; display: flex; flex-direction: column; gap: 9px; }
+.devcard2-info strong { font-size: 1.05rem; line-height: 1.4; word-break: keep-all; text-shadow: 0 2px 8px rgba(0, 0, 0, .35); }
+.devcard2-specs { display: grid; gap: 4px; font-size: .84rem; color: rgba(255, 255, 255, .93); max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s var(--ease), opacity .3s; }
+.devcard2:hover .devcard2-specs, .devcard2:focus-visible .devcard2-specs { max-height: 150px; opacity: 1; }
+.devcard2-specs span { display: flex; gap: 8px; word-break: keep-all; }
+.devcard2-specs b { flex: none; font-weight: 700; font-size: .78rem; color: #A5E859; padding-top: 1px; }
+@media (hover: none) {
+  .devcard2-specs { max-height: none; opacity: 1; }
+}
+@media (max-width: 720px) {
+  .devgrid2 { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
+  .devcard2-info { padding: 13px; gap: 6px; }
+  .devcard2-info strong { font-size: .93rem; }
+  .devcard2-specs { font-size: .78rem; }
+  .devcard2-badge { top: 10px; left: 10px; }
 }

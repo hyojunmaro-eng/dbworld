@@ -536,18 +536,21 @@ function businessDevTabs(c, a) {
     <div class="dev-row">
       <h4 class="dev-lb">${esc(a.worksLabel)}</h4>
       <div class="dev-body">
-        ${t.groups.map(g => `
-        <div class="dev-group">
-          <h5>${esc(g.name)}</h5>
-          <div class="devgrid">
-            ${g.items.map(it => `
-            <a class="devcard" href="/${lang}/projects/${it.slug}/">
-              <span class="devcard-media">${bizImg(it.img) ? `<img src="${bizImg(it.img)}?v=${v}" alt="${esc(it.name)}" loading="lazy">` : `<span class="ph-pattern" aria-hidden="true"><span>${esc(initials(it.name))}</span></span>`}</span>
+        ${t.groups.length > 1 ? `<div class="filters devfilters" role="group">
+          <button class="on" data-devfilter="all">${esc(c.L.projects.filterAll)}</button>
+          ${t.groups.map((g, gi) => `<button data-devfilter="g${gi}">${esc(g.name)}</button>`).join('')}
+        </div>` : ''}
+        <div class="devgrid2">
+          ${t.groups.map((g, gi) => g.items.map(it => `
+          <a class="devcard2" href="/${lang}/projects/${it.slug}/" data-devgroup="g${gi}">
+            ${bizImg(it.img) ? `<img src="${bizImg(it.img)}?v=${v}" alt="" loading="lazy">` : `<span class="ph-pattern" aria-hidden="true"><span>${esc(initials(it.name))}</span></span>`}
+            <em class="devcard2-badge">${esc(g.name)}</em>
+            <span class="devcard2-info">
               <strong>${esc(it.name)}</strong>
-              <dl>${it.specs.map((s, si) => `<div><dt>${esc(a.specLabels[si])}</dt><dd>${esc(s)}</dd></div>`).join('')}</dl>
-            </a>`).join('')}
-          </div>
-        </div>`).join('')}
+              <span class="devcard2-specs">${it.specs.map((s, si) => `<span><b>${esc(a.specLabels[si])}</b>${esc(s)}</span>`).join('')}</span>
+            </span>
+          </a>`).join('')).join('')}
+        </div>
       </div>
     </div>
   </div>`).join('')}`;

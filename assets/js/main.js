@@ -151,6 +151,14 @@
     $$('[data-locpanel]').forEach(p => p.classList.toggle('on', p.dataset.locpanel === t.dataset.loctab));
   }));
 
+  /* ---------- 사업영역: 실적 필터 ---------- */
+  $$('[data-devfilter]').forEach(b => b.addEventListener('click', () => {
+    const wrap = b.closest('.dev-body');
+    wrap.querySelectorAll('[data-devfilter]').forEach(x => x.classList.toggle('on', x === b));
+    const f = b.dataset.devfilter;
+    wrap.querySelectorAll('[data-devgroup]').forEach(card => { card.hidden = f !== 'all' && card.dataset.devgroup !== f; });
+  }));
+
   /* ---------- 사업영역: 부동산 개발 탭 ---------- */
   $$('[data-devtab]').forEach(t => t.addEventListener('click', () => {
     $$('[data-devtab]').forEach(x => { x.classList.remove('on'); x.setAttribute('aria-selected', 'false'); });
