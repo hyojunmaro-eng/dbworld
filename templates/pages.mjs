@@ -149,8 +149,8 @@ ${body}
 
 /* 서브페이지 상단 히어로 */
 /* 언어 전환용 미니 국기 (사용자 제공 SVG, 원형 크롭) */
-const FLAG_KR = `<img class="lang-flag" src="/assets/img/flags/kr.svg" alt="" width="17" height="17">`;
-const FLAG_US = `<img class="lang-flag" src="/assets/img/flags/us.svg" alt="" width="17" height="17">`;
+const FLAG_KR = `<img class="lang-flag" src="/assets/img/flags/kr.png" alt="" width="17" height="17">`;
+const FLAG_US = `<img class="lang-flag" src="/assets/img/flags/us.png" alt="" width="17" height="17">`;
 
 function pageHero(c, { title, crumbs, slogan }) {
   const { L, lang } = c;
