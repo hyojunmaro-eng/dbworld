@@ -732,8 +732,8 @@ body.menu-open { overflow: hidden; }
   .nav { display: none; }
   .burger { display: flex; }
   .gnb-right { margin-left: auto; }
-  .lang-sep { opacity: 1; margin: 0 10px; }
-  .lang-alt { max-width: 80px; opacity: 1; }
+  .lang { padding: 7px 14px; cursor: pointer; }
+  .lang-sep, .lang-alt { display: none; }
   .lang-cur .lang-flag { width: 17px; opacity: 1; margin-right: 7px; }
   .agrid, .pgrid { grid-template-columns: repeat(2, 1fr); }
   .ci-colors, .vgrid { grid-template-columns: repeat(2, 1fr); }
@@ -747,8 +747,12 @@ body.menu-open { overflow: hidden; }
 }
 @media (max-width: 680px) {
   body { font-size: 16px; }
-  :root { --gnb-h: 64px; }
-  .logo img { height: 33px; }
+  :root { --gnb-h: 60px; }
+  .logo img { height: 29px; }
+  .gnb-in { padding: 0 18px; gap: 16px; }
+  .lang { padding: 6px 12px; }
+  .lang-cur { font-size: .8rem; }
+  .lang-cur .lang-flag { width: 15px; height: 15px; }
   .newslist a { grid-template-columns: auto 1fr; grid-template-rows: auto auto; }
   .newslist strong {
     white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;

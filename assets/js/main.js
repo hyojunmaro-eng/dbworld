@@ -42,13 +42,17 @@
 
   /* ---------- 언어 전환: 현재 경로 유지 ---------- */
   const langBtn = $('[data-langswitch]');
-  if (langBtn) {
-    langBtn.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.body.dataset.lang === 'ko' ? 'en' : 'ko';
-      location.href = location.pathname.replace(/\/(ko|en)\//, '/' + target + '/');
-    });
-  }
+  const switchLang = () => {
+    const target = document.body.dataset.lang === 'ko' ? 'en' : 'ko';
+    location.href = location.pathname.replace(/\/(ko|en)\//, '/' + target + '/');
+  };
+  if (langBtn) langBtn.addEventListener('click', e => { e.preventDefault(); switchLang(); });
+  // 모바일(컴팩트 표시)에서는 필 전체 탭으로 전환
+  const langPill = $('.lang');
+  if (langPill) langPill.addEventListener('click', e => {
+    if (!matchMedia('(max-width: 1080px)').matches || e.target.closest('[data-langswitch]')) return;
+    switchLang();
+  });
 
   /* ---------- 히어로 슬라이더 ---------- */
   const hero = $('[data-hero]');

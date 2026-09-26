@@ -98,7 +98,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
       </ul>
     </nav>
     <div class="gnb-right">
-      <div class="lang">
+      <div class="lang" role="button" tabindex="0" title="${esc(L.langSwitchTitle)}">
         <span class="lang-cur">${lang === 'ko' ? FLAG_KR + 'KOR' : FLAG_US + 'ENG'}</span><i class="lang-sep" aria-hidden="true"></i><a class="lang-alt" href="/${other}/${path.replace(/^(ko|en)\//, '')}" title="${esc(L.langSwitchTitle)}" data-langswitch>${lang === 'ko' ? FLAG_US + 'ENG' : FLAG_KR + 'KOR'}</a>
       </div>
       <button class="burger" aria-label="${lang === 'ko' ? '메뉴' : 'Menu'}" aria-expanded="false" aria-controls="mnav" data-burger><span></span><span></span><span></span></button>
