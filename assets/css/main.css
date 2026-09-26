@@ -204,7 +204,7 @@ body.menu-open { overflow: hidden; }
    메인: 사업영역 카드
    ========================================================================== */
 .sec-areas { background: var(--bg-soft); }
-.agrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.agrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .acard {
   position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--r);
   padding: 34px 30px 30px; display: flex; flex-direction: column; gap: 12px; overflow: hidden;
