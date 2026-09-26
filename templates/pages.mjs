@@ -502,12 +502,6 @@ export function businessIndex(c) {
     </a>`).join('')}
     <svg class="cycle-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" pathLength="100"/></svg>
   </div>
-  <div class="agrid biz-grid">
-    ${L.nav.businessItems.map(([k, name]) => {
-      const a = B.areas[k];
-      return `<a class="acard acard-img rv" href="/${lang}/business/${k}/" style="background-image:url('/assets/img/business/area-${k}.jpg')"><span class="acard-ic">${ICONS[k]}</span><strong>${esc(name)}</strong><p>${esc(a.headline)}</p><span class="acard-go">${ARROW}</span></a>`;
-    }).join('')}
-  </div>
 </div></section>`,
   });
 }
