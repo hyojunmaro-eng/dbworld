@@ -156,7 +156,7 @@ ${body}
 const FLAG_KR = `<img class="lang-flag" src="/assets/img/flags/kr.png" alt="" width="17" height="17">`;
 const FLAG_US = `<img class="lang-flag" src="/assets/img/flags/us.png" alt="" width="17" height="17">`;
 
-const PHERO_IMG = { about: 'about', business: 'business', projects: 'projects', news: 'news', esg: 'esg', ir: 'about' };
+const PHERO_IMG = { about: 'about', business: 'business', projects: 'projects', news: 'news', esg: 'esg', ir: 'ir' };
 function pageHero(c, { title, crumbs, slogan, sec }) {
   const { L, lang } = c;
   const img = PHERO_IMG[sec]
