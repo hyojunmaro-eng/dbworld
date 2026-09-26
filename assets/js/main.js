@@ -10,13 +10,15 @@
   /* ---------- GNB: 스크롤 상태 ---------- */
   const gnb = $('#gnb');
   const isHome = document.body.classList.contains('is-home');
+  const clearHdr = document.body.classList.contains('gnb-clear');
   let lastY = 0;
   function onScroll() {
     const y = scrollY;
     lastY = y;
     $('[data-totop]').classList.toggle('show', y > 700);
+    if (clearHdr && !document.body.classList.contains('menu-open')) gnb.classList.toggle('solid', y > 8);
   }
-  if (!isHome) gnb.classList.add('solid');
+  if (!isHome && !clearHdr) gnb.classList.add('solid');
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
@@ -31,6 +33,7 @@
     burger.setAttribute('aria-expanded', String(open));
     document.body.classList.toggle('menu-open', open);
     if (open) gnb.classList.add('solid');
+    else if (document.body.classList.contains('gnb-clear') && scrollY <= 8) gnb.classList.remove('solid');
   });
 
   /* ---------- 패밀리사이트 ---------- */

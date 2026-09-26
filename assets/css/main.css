@@ -109,6 +109,16 @@ p { word-break: keep-all; }
 .burger span { width: 22px; height: 2px; background: var(--ink); transition: .3s; }
 .gnb.hide { transform: translateY(-100%); }
 
+/* 투명 헤더 페이지(지속가능경영): 밴드 사진이 메뉴 뒤까지 차오름. 스크롤하면 .solid로 복귀 */
+.gnb { transition: transform .35s, background .3s, box-shadow .3s; }
+body.gnb-clear .gnb:not(.solid) { background: transparent; backdrop-filter: none; box-shadow: none; }
+body.gnb-clear .gnb:not(.solid) .logo img { filter: brightness(0) invert(1) drop-shadow(0 1px 6px rgba(0,0,0,.25)); }
+body.gnb-clear .gnb:not(.solid) .nav-l1 > li > a { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.3); }
+body.gnb-clear .gnb:not(.solid) .nav-l1 > li > a::after { background: #fff; }
+body.gnb-clear .gnb:not(.solid) .burger span { background: #fff; }
+body.gnb-clear .phero-img { min-height: clamp(360px, 34vw, 500px); }
+body.gnb-clear .phero-img::before { content: ''; position: absolute; inset: 0 0 auto; height: 150px; background: linear-gradient(rgba(10, 20, 14, .42), transparent); pointer-events: none; }
+
 /* 모바일 메뉴 */
 .mnav {
   position: fixed; inset: var(--gnb-h) 0 0; z-index: 99; background: #fff; overflow: auto;

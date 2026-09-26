@@ -815,7 +815,7 @@ export function esgPolicy(c) {
   const { L, lang } = c;
   const E = L.esg.policy;
   return layout(c, {
-    title: E.docTitle, desc: E.intro, path: `${lang}/esg/policy/`,
+    title: E.docTitle, desc: E.intro, path: `${lang}/esg/policy/`, cls: 'gnb-clear',
     body: pageHero(c, { sec: 'esg', title: E.title, crumbs: [[L.nav.esg, 'esg/policy/'], [E.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead esg-intro rv">${esc(E.intro)}</p>
@@ -830,7 +830,7 @@ export function esgEthics(c) {
   const { L, lang } = c;
   const E = L.esg.ethics;
   return layout(c, {
-    title: E.docTitle, desc: E.intro, path: `${lang}/esg/ethics/`,
+    title: E.docTitle, desc: E.intro, path: `${lang}/esg/ethics/`, cls: 'gnb-clear',
     body: pageHero(c, { sec: 'esg', title: E.title, crumbs: [[L.nav.esg, 'esg/policy/'], [E.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead esg-intro rv">${esc(E.intro)}</p>
