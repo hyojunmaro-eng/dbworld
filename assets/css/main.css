@@ -222,6 +222,16 @@ body.menu-open { overflow: hidden; }
 .acard p { color: var(--ink-soft); font-size: .95rem; flex: 1; }
 .acard-go { color: var(--db-green); transition: translate .3s; align-self: flex-start; }
 .acard:hover .acard-go { translate: 6px 0; }
+/* 이미지 배경 카드 */
+.acard-img { background-size: cover; background-position: center; border: 0; min-height: 340px; justify-content: flex-end; color: #fff; }
+.acard-img::before { content: ""; position: absolute; inset: 0; height: auto; transform: none; background: linear-gradient(180deg, rgba(7, 20, 13, .16) 30%, rgba(7, 20, 13, .82) 100%); transition: background .35s; }
+.acard-img:hover::before { background: linear-gradient(180deg, rgba(7, 20, 13, .3) 20%, rgba(0, 74, 42, .9) 100%); }
+.acard-img > * { position: relative; z-index: 1; }
+.acard-img .acard-ic { position: absolute; top: 26px; left: 30px; color: #fff; width: 42px; height: 42px; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .35)); }
+.acard-img strong { font-size: 1.28rem; text-shadow: 0 2px 10px rgba(0, 0, 0, .35); }
+.acard-img p { color: rgba(255, 255, 255, .88); flex: none; text-shadow: 0 1px 8px rgba(0, 0, 0, .35); }
+.acard-img .acard-go { color: #fff; }
+@media (max-width: 680px) { .acard-img { min-height: 240px; } }
 
 /* ==========================================================================
    메인: 통계 밴드

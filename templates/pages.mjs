@@ -245,7 +245,7 @@ export function home(c) {
 
   const areas = L.nav.businessItems.map(([k, name]) => {
     const a = L.business.areas[k];
-    return `<a class="acard rv" href="/${lang}/business/${k}/">
+    return `<a class="acard acard-img rv" href="/${lang}/business/${k}/" style="background-image:url('/assets/img/business/area-${k}.jpg')">
       <span class="acard-ic">${ICONS[k]}</span>
       <strong>${esc(name)}</strong>
       <p>${esc(a.headline)}</p>
@@ -505,7 +505,7 @@ export function businessIndex(c) {
   <div class="agrid biz-grid">
     ${L.nav.businessItems.map(([k, name]) => {
       const a = B.areas[k];
-      return `<a class="acard rv" href="/${lang}/business/${k}/"><span class="acard-ic">${ICONS[k]}</span><strong>${esc(name)}</strong><p>${esc(a.headline)}</p><span class="acard-go">${ARROW}</span></a>`;
+      return `<a class="acard acard-img rv" href="/${lang}/business/${k}/" style="background-image:url('/assets/img/business/area-${k}.jpg')"><span class="acard-ic">${ICONS[k]}</span><strong>${esc(name)}</strong><p>${esc(a.headline)}</p><span class="acard-go">${ARROW}</span></a>`;
     }).join('')}
   </div>
 </div></section>`,
