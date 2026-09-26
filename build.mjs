@@ -197,9 +197,9 @@ writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${sit
 
 // 정적 에셋
 copyDir(join(ROOT, 'assets'), join(DIST, 'assets'));
-// 웹 관리자 (GitHub Pages용 — 도커 배포에서는 nginx가 /admin을 관리자 서버로 프록시하므로 미사용)
-mkdirSync(join(DIST, 'admin'), { recursive: true });
-copyFileSync(join(ROOT, 'admin/web.html'), join(DIST, 'admin/index.html'));
+// 웹 관리자 (GitHub Pages용 — 도커 배포에서는 nginx가 /hyojunadmin을 관리자 서버로 프록시하므로 미사용)
+mkdirSync(join(DIST, 'hyojunadmin'), { recursive: true });
+copyFileSync(join(ROOT, 'hyojunadmin/web.html'), join(DIST, 'hyojunadmin/index.html'));
 // 게시글 첨부파일
 try { copyDir(join(ROOT, 'content/files'), join(DIST, 'files')); } catch {}
 copyFileSync(join(ROOT, 'assets/img/favicon-32.png'), join(DIST, 'favicon.ico'));

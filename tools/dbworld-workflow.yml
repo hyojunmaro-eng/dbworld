@@ -9,7 +9,7 @@ on:
       - 'templates/**'
       - 'assets/**'
       - 'build.mjs'
-      - 'admin/**'
+      - 'hyojunadmin/**'
       - 'tools/**'
   workflow_dispatch:
 permissions:

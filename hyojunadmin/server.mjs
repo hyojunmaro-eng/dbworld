@@ -2,8 +2,8 @@
 /**
  * DB월드 공지사항 관리자 서버 (의존성 제로, Node 22+)
  *
- * - /admin            관리 화면 (ui.html)
- * - /admin/api/*      글 목록·작성·수정·삭제, 첨부파일 업로드
+ * - /hyojunadmin            관리 화면 (ui.html)
+ * - /hyojunadmin/api/*      글 목록·작성·수정·삭제, 첨부파일 업로드
  * - 글 저장/삭제 시 자동으로 `node build.mjs` 재빌드 → nginx가 곧바로 새 dist 서빙
  *
  * 환경변수:
@@ -108,39 +108,39 @@ const server = http.createServer(async (req, res) => {
   const path = url.pathname;
   try {
     /* 관리자 외 경로 = 정적 사이트 */
-    if (!path.startsWith('/admin') && req.method === 'GET') return serveStatic(res, path);
+    if (!path.startsWith('/hyojunadmin') && req.method === 'GET') return serveStatic(res, path);
     /* 관리 화면 */
-    if (req.method === 'GET' && (path === '/admin' || path === '/admin/')) {
+    if (req.method === 'GET' && (path === '/hyojunadmin' || path === '/hyojunadmin/')) {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Frame-Options': 'DENY' });
-      return res.end(readFileSync(join(ROOT, 'admin/ui.html')));
+      return res.end(readFileSync(join(ROOT, 'hyojunadmin/ui.html')));
     }
     /* 로그인 */
-    if (req.method === 'POST' && path === '/admin/api/login') {
+    if (req.method === 'POST' && path === '/hyojunadmin/api/login') {
       const body = JSON.parse((await readBody(req, 10_000)).toString() || '{}');
       if (body.password !== PASSWORD) return json(res, 401, { error: '비밀번호가 올바르지 않습니다.' });
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=utf-8',
-        'Set-Cookie': `admtok=${TOKEN}; Path=/admin; HttpOnly; SameSite=Strict`,
+        'Set-Cookie': `admtok=${TOKEN}; Path=/hyojunadmin; HttpOnly; SameSite=Strict`,
       });
       return res.end('{"ok":true}');
     }
-    if (!path.startsWith('/admin/api/')) return json(res, 404, { error: 'not found' });
+    if (!path.startsWith('/hyojunadmin/api/')) return json(res, 404, { error: 'not found' });
     if (!authed(req)) return json(res, 401, { error: '로그인이 필요합니다.' });
 
     /* 글 목록 */
-    if (req.method === 'GET' && path === '/admin/api/posts') {
+    if (req.method === 'GET' && path === '/hyojunadmin/api/posts') {
       const list = readdirSync(POSTS).filter(f => POST_FILE.test(f)).map(parsePost).filter(Boolean);
       list.sort((a, b) => (b.pinned - a.pinned) || b.date.localeCompare(a.date) || b.file.localeCompare(a.file));
       return json(res, 200, list);
     }
     /* 글 단건 */
-    if (req.method === 'GET' && path === '/admin/api/post') {
+    if (req.method === 'GET' && path === '/hyojunadmin/api/post') {
       const f = url.searchParams.get('f') || '';
       if (!POST_FILE.test(f) || !existsSync(join(POSTS, f))) return json(res, 404, { error: '글을 찾을 수 없습니다.' });
       return json(res, 200, parsePost(f));
     }
     /* 글 저장 (신규/수정) */
-    if (req.method === 'POST' && path === '/admin/api/post') {
+    if (req.method === 'POST' && path === '/hyojunadmin/api/post') {
       const p = JSON.parse((await readBody(req, 1_000_000)).toString() || '{}');
       if (!DATE.test(p.date || '')) return json(res, 400, { error: '날짜 형식이 올바르지 않습니다 (YYYY-MM-DD).' });
       if (!p.title) return json(res, 400, { error: '제목을 입력해 주세요.' });
@@ -161,7 +161,7 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { ok: true, file });
     }
     /* 글 삭제 */
-    if (req.method === 'DELETE' && path === '/admin/api/post') {
+    if (req.method === 'DELETE' && path === '/hyojunadmin/api/post') {
       const f = url.searchParams.get('f') || '';
       if (!POST_FILE.test(f) || !existsSync(join(POSTS, f))) return json(res, 404, { error: '글을 찾을 수 없습니다.' });
       unlinkSync(join(POSTS, f));
@@ -169,7 +169,7 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { ok: true });
     }
     /* 첨부파일 업로드 (원본 바이너리 그대로 전송) */
-    if (req.method === 'POST' && path === '/admin/api/upload') {
+    if (req.method === 'POST' && path === '/hyojunadmin/api/upload') {
       mkdirSync(FILES, { recursive: true });
       const orig = safeName(url.searchParams.get('name') || 'file');
       const dot = orig.lastIndexOf('.');
@@ -183,7 +183,7 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { ok: true, name, src: `/files/${name}` });
     }
     /* 수동 재빌드 */
-    if (req.method === 'POST' && path === '/admin/api/rebuild') {
+    if (req.method === 'POST' && path === '/hyojunadmin/api/rebuild') {
       await rebuild();
       return json(res, 200, { ok: true });
     }
@@ -194,6 +194,6 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, '127.0.0.1', () => {
-  console.log(`관리자 서버 실행 중: http://127.0.0.1:${PORT}/admin`);
+  console.log(`관리자 서버 실행 중: http://127.0.0.1:${PORT}/hyojunadmin`);
   if (PASSWORD === 'dbworld!2026') console.log('⚠ 기본 비밀번호 사용 중 — 운영 배포 시 ADMIN_PASSWORD 환경변수를 설정하세요.');
 });

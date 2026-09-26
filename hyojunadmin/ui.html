@@ -118,7 +118,7 @@ const show = (el, cls, text) => { el.className = 'msg ' + cls; el.textContent = 
 
 async function login() {
   try {
-    await api('POST', '/admin/api/login', { password: $('pw').value });
+    await api('POST', '/hyojunadmin/api/login', { password: $('pw').value });
     $('login').classList.add('hidden');
     loadList();
   } catch (e) { show($('loginMsg'), 'err', e.message); }
@@ -126,7 +126,7 @@ async function login() {
 $('pw').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
 
 async function loadList() {
-  const list = await api('GET', '/admin/api/posts');
+  const list = await api('GET', '/hyojunadmin/api/posts');
   $('list').classList.remove('hidden');
   $('editor').style.display = 'none';
   const catName = c => c === 'news' ? '뉴스·보도' : '공지사항';
@@ -154,7 +154,7 @@ async function openEditor(file) {
   $('delBtn').classList.toggle('hidden', !file);
   $('edTitle').textContent = file ? '글 수정' : '새 글 쓰기';
   if (file) {
-    const p = await api('GET', '/admin/api/post?f=' + encodeURIComponent(file));
+    const p = await api('GET', '/hyojunadmin/api/post?f=' + encodeURIComponent(file));
     $('fDate').value = p.date; $('fCat').value = p.category; $('fPin').checked = p.pinned;
     $('fTitle').value = p.title; $('fTitleEn').value = p.title_en;
     $('fBody').value = p.body; $('fBodyEn').value = p.body_en;
@@ -179,7 +179,7 @@ $('fUpload').addEventListener('change', async e => {
   for (const f of e.target.files) {
     try {
       show($('edMsg'), 'ok', `"${f.name}" 업로드 중…`);
-      const r = await api('POST', '/admin/api/upload?name=' + encodeURIComponent(f.name), f, true);
+      const r = await api('POST', '/hyojunadmin/api/upload?name=' + encodeURIComponent(f.name), f, true);
       files.push({ name: r.name, src: r.src });
       renderFiles();
       show($('edMsg'), 'ok', `"${r.name}" 업로드 완료`);
@@ -192,7 +192,7 @@ async function save() {
   $('saveBtn').disabled = true;
   try {
     show($('edMsg'), 'ok', '저장 및 사이트 재생성 중…');
-    await api('POST', '/admin/api/post', {
+    await api('POST', '/hyojunadmin/api/post', {
       file: editing, date: $('fDate').value, category: $('fCat').value, pinned: $('fPin').checked,
       title: $('fTitle').value.trim(), title_en: $('fTitleEn').value.trim(),
       body: $('fBody').value, body_en: $('fBodyEn').value, files,
@@ -206,7 +206,7 @@ async function save() {
 async function del() {
   if (!editing || !confirm('이 글을 삭제할까요? 되돌릴 수 없습니다.')) return;
   try {
-    await api('DELETE', '/admin/api/post?f=' + encodeURIComponent(editing));
+    await api('DELETE', '/hyojunadmin/api/post?f=' + encodeURIComponent(editing));
     loadList();
   } catch (e) { show($('edMsg'), 'err', e.message); }
 }
