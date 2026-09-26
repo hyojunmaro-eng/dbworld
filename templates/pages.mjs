@@ -746,7 +746,7 @@ export function newsAds(c) {
 const FIN_COLORS = ['#00854A', '#0588CB', '#F47920']; // 검증된 카테고리 팔레트 (그린·블루·오렌지)
 const finNum = n => n == null ? '-' : n < 0 ? `(${Math.abs(n).toLocaleString('ko-KR')})` : n.toLocaleString('ko-KR');
 
-/* 연도별 그룹 막대차트 (빌드타임 SVG, 음수 지원) — 시간축은 과거 → 최신 */
+/* 연도별 그룹 막대차트 (빌드타임 SVG, 음수 지원) — 최신 기수가 왼쪽 */
 function finChart(years, series, lang) {
   const W = 960, H = 320, TOP = 46, BOT = 54, LEFT = 24, RIGHT = 24;
   const plotH = H - TOP - BOT;
@@ -757,7 +757,7 @@ function finChart(years, series, lang) {
   const minV = minRaw < 0 ? -nice(-minRaw) : 0;
   const y = v => TOP + (maxV - v) / (maxV - minV) * plotH;
   const zeroY = y(0);
-  const xs = [...years].reverse();                        // 과거 → 최신
+  const xs = years;                                      // 최신 → 과거 (표와 동일)
   const groupW = (W - LEFT - RIGHT) / xs.length;
   const barW = 64, gap = 16;
   const grid = [0.25, 0.5, 0.75, 1].map(f => {

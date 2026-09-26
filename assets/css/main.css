@@ -883,9 +883,13 @@ body.menu-open { overflow: hidden; }
 .finchart:hover .fbar { opacity: .45; }
 .finchart:hover .fbar:hover { opacity: 1; }
 .finchart .fbar-val.neg { fill: #C0392B; }
-.fin-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-bottom: 30px; }
+.fin-charts { display: grid; grid-template-columns: 1fr; gap: 26px; margin-bottom: 30px; }
 .fin-charts .fin-card { margin-bottom: 0; }
-@media (max-width: 1080px) { .fin-charts { grid-template-columns: 1fr; } }
+@media (max-width: 680px) {
+  .finchart .fbar-val { font-size: 20px; }
+  .finchart .fx-l1 { font-size: 22px; }
+  .finchart .fx-l2 { font-size: 18px; }
+}
 .fin-notes { list-style: none; padding: 18px 22px; margin: -6px 0 0; background: var(--bg-soft); border-radius: var(--r); color: var(--ink-soft); font-size: .86rem; line-height: 1.7; }
 .fin-notes li { padding-left: 14px; position: relative; }
 .fin-notes li::before { content: '※'; position: absolute; left: 0; font-size: .78rem; }
