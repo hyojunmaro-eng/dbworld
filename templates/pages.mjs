@@ -758,6 +758,7 @@ export function irFinance(c) {
     <div class="fin-tablewrap rv" data-hint="${esc(F.swipe)}">
       <div class="fin-thead"><h3>${esc(title)}</h3><span>(${unit})</span></div>
       <table class="fin-table">
+        <colgroup>${catSpan > 1 ? '<col style="width:110px"><col>' : '<col>'}<col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
         <thead><tr><th scope="col"${catSpan > 1 ? ` colspan="${catSpan}"` : ''}>${esc(F.catLabel)}</th>${yearTh}</tr></thead>
         <tbody>${rows}</tbody>
       </table>
