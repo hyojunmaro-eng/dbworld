@@ -158,7 +158,7 @@ const PHERO_IMG = { about: 1, business: 1, projects: 1, news: 1, esg: 1 };
 function pageHero(c, { title, crumbs, slogan, sec }) {
   const { L, lang } = c;
   const img = PHERO_IMG[sec]
-    ? ` class="phero phero-img${sec === 'esg' ? ' phero-tall' : ''}" style="background-image:linear-gradient(90deg, rgba(6, 22, 14, .78), rgba(6, 22, 14, .38) 55%, rgba(6, 22, 14, .2)), url('/assets/img/phero/${sec}.jpg')"`
+    ? ` class="phero phero-img" style="background-image:linear-gradient(90deg, rgba(6, 22, 14, .78), rgba(6, 22, 14, .38) 55%, rgba(6, 22, 14, .2)), url('/assets/img/phero/${sec}.jpg')"`
     : ' class="phero"';
   return `<section${img.startsWith(' class') ? img : ''}>
   <div class="phero-in">

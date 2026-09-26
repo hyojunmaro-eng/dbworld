@@ -823,8 +823,6 @@ body.menu-open { overflow: hidden; }
 .post-files svg { width: 16px; height: 16px; flex: none; color: var(--db-green); }
 
 /* ---------- ESG ---------- */
-.phero-tall { min-height: clamp(300px, 30vw, 440px); display: flex; align-items: center; }
-.phero-tall .phero-in { width: 100%; }
 .esg-intro { max-width: 820px; word-break: keep-all; margin-bottom: 46px; }
 .esg-list { list-style: none; margin: 0; padding: 0; max-width: 920px; }
 .esg-list li { display: grid; grid-template-columns: 88px 1fr; gap: 26px; align-items: start; padding: 28px 4px; border-bottom: 1px solid var(--line); }
