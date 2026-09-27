@@ -630,7 +630,6 @@ export function projectsIndex(c) {
     title: P.docTitle, desc: P.intro, path: `${lang}/projects/`,
     body: pageHero(c, { sec: 'projects', title: P.title, crumbs: [[P.title]] }) + `
 <section class="sec"><div class="wrap">
-  <p class="lead rv">${esc(P.intro)}</p>
   <div class="proj-layout">
     <aside class="proj-map rv">
       <h3>${esc(P.mapTitle)}</h3>
