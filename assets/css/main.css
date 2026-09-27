@@ -696,7 +696,7 @@ body.menu-open { overflow: hidden; }
 .foot-in { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
 .foot-grid { display: grid; grid-template-columns: 1fr 1.7fr auto; gap: 30px; align-items: start; }
 .foot-logo { height: 44px; width: auto; }
-.foot-slogan { margin-top: 12px; font-size: .88rem; color: #6E7C85; max-width: 300px; line-height: 1.7; }
+.foot-brand .foot-links { margin-top: 18px; }
 .foot-info div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; padding: 5px 0; }
 .foot-info dt { font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: #57BE8B; text-transform: uppercase; padding-top: 3px; }
 .foot-info dd { color: #C9D3DA; font-size: .95rem; word-break: keep-all; }

@@ -124,7 +124,10 @@ ${body}
     <div class="foot-grid">
       <div class="foot-brand">
         <img class="foot-logo" src="/assets/img/logo-white${lang === 'en' ? '-en' : ''}.png" alt="${esc(com.name)}" height="44">
-        <p class="foot-slogan">${esc(com.slogan)}</p>
+        <nav class="foot-links" aria-label="${lang === 'ko' ? '약관' : 'Policies'}">
+          <button type="button" class="foot-privacy" data-privacymodal>${esc(L.legal.privacy.title)}</button>
+          <button type="button" data-emailmodal>${esc(L.legal.email.title)}</button>
+        </nav>
       </div>
       <dl class="foot-info">
         <div><dt>Address</dt><dd>${esc(com.address)}</dd></div>
@@ -132,10 +135,6 @@ ${body}
         <div><dt>Fax</dt><dd>${esc(com.fax)}</dd></div>
       </dl>
       <div class="foot-util">
-        <nav class="foot-links" aria-label="${lang === 'ko' ? '약관' : 'Policies'}">
-          <button type="button" class="foot-privacy" data-privacymodal>${esc(L.legal.privacy.title)}</button>
-          <button type="button" data-emailmodal>${esc(L.legal.email.title)}</button>
-        </nav>
         <div class="fam" data-fam>
           <ul class="fam-list" id="famList" hidden>
             ${site.familySites.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener">${esc(f[lang])}</a></li>`).join('')}
