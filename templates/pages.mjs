@@ -144,10 +144,7 @@ ${body}
         <button type="button" class="foot-privacy" data-privacymodal>${esc(L.legal.privacy.title)}</button>
         <button type="button" data-emailmodal>${esc(L.legal.email.title)}</button>
       </nav>
-      <div class="foot-legal">
-        <p>${esc(com.legalName)} · ${lang === 'ko' ? '대표이사' : 'CEO'} ${esc(com.ceo)} · ${lang === 'ko' ? '사업자등록번호' : 'Business Reg. No.'} ${esc(com.bizNo)}</p>
-        <p class="foot-copy">Copyright © DB World. All Rights Reserved.</p>
-      </div>
+      <p class="foot-copy">Copyright © DB World. All Rights Reserved.</p>
     </div>
   </div>
 </footer>

@@ -956,7 +956,6 @@ body.pop-open { overflow: hidden; }
 }
 .foot-privacy { font-weight: 700 !important; color: #C9D3DA !important; }
 .foot-privacy:hover { color: #fff !important; }
-.foot-legal { display: flex; flex-direction: column; gap: 4px; text-align: right; }
 
 /* ---------- 약관 모달 ---------- */
 .emod { position: fixed; inset: 0; z-index: 320; background: rgba(10, 14, 18, .55); display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadein .2s; }
@@ -989,5 +988,4 @@ body.pop-open { overflow: hidden; }
   .emod-head h2 { font-size: 1.08rem; }
   .emod-body { flex-direction: column; text-align: center; gap: 22px; padding: 30px 22px; }
   .emod-scroll { padding: 24px 20px 28px; }
-  .foot-legal { text-align: left; }
 }
