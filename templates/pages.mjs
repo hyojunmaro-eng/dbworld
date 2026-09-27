@@ -89,8 +89,8 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
     <a class="logo" href="${url('')}" aria-label="${esc(com.name)}"><img class="logo-c" src="/assets/img/logo${lang === 'en' ? '-en' : ''}.png" alt="${esc(com.name)}" height="40"><img class="logo-w" src="/assets/img/logo-white${lang === 'en' ? '-en' : ''}.png" alt="" height="40"></a>
     <nav class="nav" aria-label="main">
       <ul class="nav-l1">
-        <li><a href="${url('about/ceo/')}">${nav.about}</a><ul class="nav-l2">${dd(nav.aboutItems, 'about')}</ul></li>
-        <li><a href="${url('business/')}">${nav.business}</a><ul class="nav-l2">${dd(nav.businessItems, 'business')}<li><a href="${url('business/')}">${lang === 'ko' ? '사업영역 총괄' : 'Overview'}</a></li></ul></li>
+        <li><a href="${url('about/overview/')}">${nav.about}</a><ul class="nav-l2">${dd(nav.aboutItems, 'about')}</ul></li>
+        <li><a href="${url('business/development/')}">${nav.business}</a><ul class="nav-l2">${dd(nav.businessItems, 'business')}<li><a href="${url('business/')}">${lang === 'ko' ? '사업영역 총괄' : 'Overview'}</a></li></ul></li>
         <li><a href="${url('projects/')}">${nav.projects}</a></li>
         <li><a href="${url('ir/finance/')}">${nav.ir}</a><ul class="nav-l2">${nav.irMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
         <li><a href="${url('esg/policy/')}">${nav.esg}</a><ul class="nav-l2">${nav.esgMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
@@ -286,7 +286,7 @@ export function aboutCeo(c) {
   const A = L.about.ceo;
   return layout(c, {
     title: A.docTitle, desc: A.headline.replace(/\n/g, ' '), path: `${lang}/about/ceo/`,
-    body: pageHero(c, { sec: 'about', title: A.title, crumbs: [[L.nav.about, 'about/ceo/'], [A.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: A.title, crumbs: [[L.nav.about, 'about/overview/'], [A.title]] }) + `
 <section class="sec"><div class="wrap ceo">
   <div class="ceo-head rv"><h2>${nl2br(A.headline)}</h2></div>
   <div class="ceo-body">
@@ -303,7 +303,7 @@ export function aboutOverview(c) {
   const V = L.about.vision;
   return layout(c, {
     title: O.docTitle, desc: O.paras[0], path: `${lang}/about/overview/`,
-    body: pageHero(c, { sec: 'about', title: O.title, crumbs: [[L.nav.about, 'about/ceo/'], [O.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: O.title, crumbs: [[L.nav.about, 'about/overview/'], [O.title]] }) + `
 <section class="sec"><div class="wrap">
   <div class="ovw-intro">
     <div class="ovw-copy">
@@ -337,7 +337,7 @@ export function aboutHistory(c) {
   const H = L.about.history;
   return layout(c, {
     title: H.docTitle, desc: H.intro, path: `${lang}/about/history/`,
-    body: pageHero(c, { sec: 'about', title: H.title, crumbs: [[L.nav.about, 'about/ceo/'], [H.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: H.title, crumbs: [[L.nav.about, 'about/overview/'], [H.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead rv">${esc(H.intro)}</p>
   <div class="tl">
@@ -401,7 +401,7 @@ export function aboutGroup(c) {
   const emph = t => NAMES.reduce((acc, n) => acc.split(esc(n)).join(`<strong>${esc(n)}</strong>`), esc(t));
   return layout(c, {
     title: G.docTitle, desc: G.sections[0].paras[0], path: `${lang}/about/group/`,
-    body: pageHero(c, { sec: 'about', title: G.title, crumbs: [[L.nav.about, 'about/ceo/'], [G.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: G.title, crumbs: [[L.nav.about, 'about/overview/'], [G.title]] }) + `
 <section class="sec"><div class="wrap">
   <figure class="grp-banner"><img src="/assets/img/group/banner.webp" alt="${esc(G.heroAlt)}"></figure>
 
@@ -449,7 +449,7 @@ export function aboutLocation(c) {
   const Lo = L.about.location;
   return layout(c, {
     title: Lo.docTitle, desc: Lo.tabs[0].addr, path: `${lang}/about/location/`,
-    body: pageHero(c, { sec: 'about', title: Lo.title, crumbs: [[L.nav.about, 'about/ceo/'], [Lo.title]] }) + `
+    body: pageHero(c, { sec: 'about', title: Lo.title, crumbs: [[L.nav.about, 'about/overview/'], [Lo.title]] }) + `
 <section class="sec"><div class="wrap">
   ${Lo.tabs.length > 1 ? `<div class="loc-tabs" role="tablist">
     ${Lo.tabs.map((t, i) => `<button role="tab" id="loctab-${i}" aria-controls="locpanel-${i}" aria-selected="${i === 0}" data-loctab="${i}" ${i === 0 ? 'class="on"' : ''}>${esc(t.name)}</button>`).join('')}
