@@ -83,7 +83,8 @@ p { word-break: keep-all; }
 }
 .nav-l1 > li:hover > a::after, .nav-l1 > li:focus-within > a::after { transform: scaleX(1); }
 .nav-l2 {
-  position: absolute; top: 100%; left: 50%; translate: -50% 0; width: 150px; padding: 18px 6px 14px;
+  position: absolute; top: 100%; left: 50%; translate: -50% 0; width: calc(100% + 8px); padding: 18px 6px 14px;
+  transition: opacity .22s, transform .22s, visibility .22s, width .3s var(--ease);
   opacity: 0; visibility: hidden; transform: translateY(6px);
   transition: opacity .22s, transform .22s, visibility .22s;
 }
@@ -98,7 +99,7 @@ p { word-break: keep-all; }
 @media (min-width: 1081px) {
   .gnb.mega-on .mega-bg { opacity: 1; visibility: visible; }
   .gnb.mega-on .nav-l1 { gap: 40px; }
-  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transform: none; border-left: 1px solid var(--line); }
+  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transform: none; width: calc(100% + 40px); border-left: 1px solid var(--line); }
   .gnb.mega-on .nav-l1 > li:last-child .nav-l2 { border-right: 1px solid var(--line); }
   .gnb.mega-on .nav-l1 > li.on .nav-l2 { background: #F7F9F8; }
   .gnb.mega-on .nav-l1 > li.on > a { color: var(--db-green); }
