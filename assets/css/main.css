@@ -157,9 +157,8 @@ body.menu-open { overflow: hidden; }
 .hero-copy { position: relative; z-index: 2; max-width: 1360px; width: 100%; margin: 0 auto; padding: 0 28px; color: #fff; }
 .hero-copy em {
   display: inline-block; font-style: normal; font-weight: 700; font-size: .85rem; letter-spacing: .22em;
-  color: #9FD6B9; margin-bottom: 22px; padding-left: 44px; position: relative;
+  color: #9FD6B9; margin-bottom: 22px;
 }
-.hero-copy em::before { content: ""; position: absolute; left: 0; top: 50%; width: 32px; height: 2px; background: var(--db-light-green); }
 .hero-copy h1, .hero-copy h2 { font-size: clamp(2.4rem, 5.2vw, 4.4rem); font-weight: 800; margin-bottom: 24px; text-wrap: balance; }
 .hero-copy p { max-width: 560px; font-size: clamp(1rem, 1.4vw, 1.18rem); color: #D9E7DE; margin-bottom: 38px; }
 .btn-ghost {
@@ -341,7 +340,6 @@ body.menu-open { overflow: hidden; }
    ========================================================================== */
 .ceo { display: grid; grid-template-columns: 1fr 1.35fr; gap: clamp(36px, 6vw, 90px); }
 .ceo-head h2 { font-size: clamp(1.6rem, 2.7vw, 2.3rem); font-weight: 800; position: sticky; top: calc(var(--gnb-h) + 30px); }
-.ceo-head h2::before { content: ""; display: block; width: 52px; height: 4px; background: var(--grad-green); margin-bottom: 26px; border-radius: 4px; }
 .ceo-body p { color: var(--ink-soft); margin-bottom: 22px; }
 .ceo-body p:first-child { font-size: 1.15rem; color: var(--ink); font-weight: 500; }
 .ceo-sign { margin-top: 40px; color: var(--ink-soft); }

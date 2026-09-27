@@ -43,7 +43,7 @@ export const copy = {
         {
           eyebrow: 'DEVELOPMENT · CM',
           title: '부동산 Life Cycle\n전 과정을 수행합니다',
-          sub: '사업계획과 인허가부터 시공관리, 준공 후 자산관리까지 — DB손해보험 부산사옥 프로젝트가 진행 중입니다',
+          sub: '사업계획과 인허가부터 시공관리, 준공 후 자산관리까지 부동산 개발의 전 과정을 책임집니다',
           img: 'busan-hq', link: ['business/development/', '부동산 개발 보기'],
         },
       ],
@@ -516,7 +516,7 @@ export const copy = {
         {
           eyebrow: 'DEVELOPMENT · CM',
           title: 'Covering the Full\nReal Estate Life Cycle',
-          sub: 'From planning and permits to construction management and post-completion asset management — the DB Insurance Busan HQ project is underway.',
+          sub: 'From planning and permits to construction management and post-completion asset management, we take charge of the entire development process.',
           img: 'busan-hq', link: ['business/development/', 'Real estate development'],
         },
       ],
