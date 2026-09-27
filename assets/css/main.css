@@ -97,6 +97,9 @@ p { word-break: keep-all; }
   opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s;
 }
 @media (min-width: 1081px) {
+  /* 높이 측정 전용 상태: 최종 간격·폭을 전환 없이 즉시 적용 */
+  .gnb.mega-measure .nav-l1 { gap: 40px; transition: none; }
+  .gnb.mega-measure .nav-l2 { width: calc(100% + 40px); transition: none; }
   .gnb.mega-on .mega-bg { opacity: 1; visibility: visible; }
   .gnb.mega-on .nav-l1 { gap: 40px; }
   .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transform: none; width: calc(100% + 40px); border-left: 1px solid var(--line); }

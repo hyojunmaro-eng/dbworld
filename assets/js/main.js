@@ -29,19 +29,32 @@
   const megaBg = $('.mega-bg');
   if (navRoot && megaBg) {
     let forcedSolid = false;
-    const openMega = () => {
+    /* 패널 높이는 '메뉴가 다 벌어진 최종 상태' 기준으로 미리 잰다.
+       열리는 순간 재면 컬럼이 아직 좁아 글자가 더 접히고, 나중에 다시 재면 높이가 줄어 화면이 튄다. */
+    let panelH = 0;
+    const measurePanel = () => {
       if (!matchMedia('(min-width: 1081px)').matches) return;
-      if (clearHdr && !gnb.classList.contains('solid')) { gnb.classList.add('solid'); forcedSolid = true; }
-      gnb.classList.add('mega-on');
       const cols = $$('.nav-l2', navRoot);
+      if (!cols.length) return;
+      gnb.classList.add('mega-measure');
       cols.forEach(u => { u.style.minHeight = ''; });
       let h = 0;
       cols.forEach(u => { h = Math.max(h, u.offsetHeight); });
       h += 4;
+      const offset = Math.max(0, cols[0].getBoundingClientRect().top - megaBg.getBoundingClientRect().top);
+      gnb.classList.remove('mega-measure');
       cols.forEach(u => { u.style.minHeight = h + 'px'; });
-      /* 컬럼은 메뉴 항목 아래에서 시작하므로 헤더 하단과의 차이만큼 패널을 더 키운다 */
-      const gap = cols.length ? Math.max(0, cols[0].getBoundingClientRect().top - megaBg.getBoundingClientRect().top) : 0;
-      megaBg.style.height = (h + gap) + 'px';
+      panelH = h + offset;
+    };
+    let reMeasure;
+    addEventListener('resize', () => { clearTimeout(reMeasure); reMeasure = setTimeout(() => { panelH = 0; measurePanel(); }, 200); }, { passive: true });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { panelH = 0; measurePanel(); });
+    const openMega = () => {
+      if (!matchMedia('(min-width: 1081px)').matches) return;
+      if (clearHdr && !gnb.classList.contains('solid')) { gnb.classList.add('solid'); forcedSolid = true; }
+      gnb.classList.add('mega-on');
+      if (!panelH) measurePanel();
+      megaBg.style.height = panelH + 'px';
     };
     const closeMega = () => {
       gnb.classList.remove('mega-on');
