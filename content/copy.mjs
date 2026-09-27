@@ -418,7 +418,7 @@ export const copy = {
           '회사는 개인정보 처리방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.',
           '회사는 개인정보 처리방침을 개정하는 경우 홈페이지 공지사항을 통하여 공지할 것입니다.',
         ],
-        effective: '본 방침은 2026년 9월 27일부터 시행됩니다.',
+        effective: '본 방침은 2012년 3월 29일부터 시행됩니다.',
         sections: [
           { t: '수집하는 개인정보 항목', body: [
             '회사 홈페이지는 회원가입 절차를 운영하지 않으며, 홈페이지를 통해 개인정보를 직접 수집하지 않습니다. 전화·팩스·우편 등을 통해 문의, 제안, 채용 지원 등이 접수되는 경우에 한하여 아래 항목을 수집합니다.',
@@ -955,7 +955,7 @@ export const copy = {
           'Through this privacy policy the Company explains how the personal data you provide is used and what measures are taken to protect it.',
           'Should this privacy policy be revised, the Company will announce the changes through the notices section of its website.',
         ],
-        effective: 'This policy takes effect on 27 September 2026.',
+        effective: 'This policy takes effect on 29 March 2012.',
         sections: [
           { t: 'Personal Data Collected', body: [
             'The Company website does not operate membership registration and does not collect personal data directly through the site. Personal data is collected only where enquiries, proposals or job applications are received by telephone, fax or post.',
