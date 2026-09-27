@@ -36,9 +36,20 @@
     else if (document.body.classList.contains('gnb-clear') && scrollY <= 8) gnb.classList.remove('solid');
   });
 
-  /* ---------- 패밀리사이트 ---------- */
-  const fam = $('[data-family]');
-  if (fam) fam.addEventListener('change', () => { if (fam.value) { window.open(fam.value, '_blank', 'noopener'); fam.value = ''; } });
+  /* ---------- 패밀리사이트 (위로 열리는 드롭다운) ---------- */
+  const fam = $('[data-fam]');
+  if (fam) {
+    const btn = $('[data-famtoggle]', fam);
+    const list = $('.fam-list', fam);
+    const setOpen = on => {
+      fam.classList.toggle('on', on);
+      list.hidden = !on;
+      btn.setAttribute('aria-expanded', String(on));
+    };
+    btn.addEventListener('click', e => { e.stopPropagation(); setOpen(list.hidden); });
+    document.addEventListener('click', e => { if (!fam.contains(e.target)) setOpen(false); });
+    fam.addEventListener('keydown', e => { if (e.key === 'Escape') { setOpen(false); btn.focus(); } });
+  }
 
   /* ---------- 언어 전환: 현재 경로 유지 ---------- */
   const langBtn = $('[data-langswitch]');

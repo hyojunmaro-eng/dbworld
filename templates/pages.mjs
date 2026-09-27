@@ -132,18 +132,22 @@ ${body}
         <div><dt>Fax</dt><dd>${esc(com.fax)}</dd></div>
       </dl>
       <div class="foot-util">
-        <label class="visually-hidden" for="family">${L.common.familySites}</label>
-        <select id="family" data-family>
-          <option value="">${L.common.familySites}</option>
-          ${site.familySites.map(f => `<option value="${f.url}">${esc(f[lang])}</option>`).join('')}
-        </select>
+        <nav class="foot-links" aria-label="${lang === 'ko' ? '약관' : 'Policies'}">
+          <button type="button" class="foot-privacy" data-privacymodal>${esc(L.legal.privacy.title)}</button>
+          <button type="button" data-emailmodal>${esc(L.legal.email.title)}</button>
+        </nav>
+        <div class="fam" data-fam>
+          <ul class="fam-list" id="famList" hidden>
+            ${site.familySites.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener">${esc(f[lang])}</a></li>`).join('')}
+          </ul>
+          <button type="button" class="fam-btn" data-famtoggle aria-expanded="false" aria-controls="famList">
+            <span>${esc(L.common.familySites)}</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
       </div>
     </div>
     <div class="foot-bottom">
-      <nav class="foot-links" aria-label="${lang === 'ko' ? '약관' : 'Policies'}">
-        <button type="button" class="foot-privacy" data-privacymodal>${esc(L.legal.privacy.title)}</button>
-        <button type="button" data-emailmodal>${esc(L.legal.email.title)}</button>
-      </nav>
       <p class="foot-copy">Copyright © DB World. All Rights Reserved.</p>
     </div>
   </div>
