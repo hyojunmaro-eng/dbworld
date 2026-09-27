@@ -66,6 +66,19 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
 .pcardA .pbtns button { flex: 1; padding: 8px 0; border: 0; background: #fff; font: inherit; font-size: .8rem; cursor: pointer; color: var(--ink); }
 .pcardA .pbtns button + button { border-left: 1px solid var(--line); }
 .pcardA .pbtns button:hover { background: var(--bg); }
+.pcardA { position: relative; }
+.pcardA[draggable="true"] { cursor: grab; }
+.pcardA.dragging { opacity: .4; }
+.pcardA.drop-before { box-shadow: -5px 0 0 var(--g); }
+.pcardA.drop-after { box-shadow: 5px 0 0 var(--g); }
+.pnum { position: absolute; top: 8px; left: 8px; z-index: 1; min-width: 26px; height: 26px; padding: 0 8px; border-radius: 99px; background: var(--g); color: #fff; font-size: .8rem; font-weight: 700; display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0, 0, 0, .18); }
+.pord { display: flex; border-top: 1px solid var(--line); }
+.pord button { flex: 1; padding: 7px 0; border: 0; background: #F4F9F6; font: inherit; font-size: .78rem; font-weight: 700; color: var(--g); cursor: pointer; }
+.pord button + button { border-left: 1px solid var(--line); }
+.pord button:hover:not(:disabled) { background: #E7F3EC; }
+.pord button:disabled { color: #B8C2CA; background: #fff; cursor: default; }
+.ordbar { position: sticky; top: 12px; z-index: 3; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; padding: 12px 14px; margin-bottom: 18px; border: 1px solid #EFC46B; border-radius: 10px; background: #FFF9EA; font-size: .88rem; box-shadow: 0 6px 18px rgba(20, 30, 40, .08); }
+.ordbar strong { margin-right: auto; color: #8A5300; }
 .stchip { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: .72rem; font-weight: 700; }
 .stchip.on { background: #E7F3EC; color: #00703E; }
 .stchip.off { background: #FBEAE7; color: #C0392B; }
@@ -424,7 +437,7 @@ function normLink(v) {
   return null;
 }
 
-function showPosts() { $('plist').style.display = 'none'; $('pedit').style.display = 'none'; loadList(); }
+function showPosts() { if (!leaveOrder()) return; $('plist').style.display = 'none'; $('pedit').style.display = 'none'; loadList(); }
 function showPopups() { $('list').style.display = 'none'; $('editor').style.display = 'none'; loadPopups(); }
 
 async function loadPopups() {
@@ -434,10 +447,12 @@ async function loadPopups() {
   try {
     const [arr] = await Promise.all([readPopupsAt(BR), loadPageCat()]);
     pcache = arr;
+    orderSynced();
     renderPopupGroups();
   } catch (e) { show($('plMsg'), 'err', escH(e.message)); }
 }
-function showPopupList(msg) {
+function showPopupList(msg) { // 저장·삭제 직후 (pcache = 서버 최신 목록)
+  orderSynced();
   $('pedit').style.display = 'none';
   $('plist').style.display = 'block';
   renderPopupGroups();
@@ -445,31 +460,120 @@ function showPopupList(msg) {
   scrollTo(0, 0);
 }
 
+/* ===== 노출 순서 — 같은 화면에 함께 뜨면 이 순서대로 넘겨 봄 (목록 배열 순서 = 노출 순서) ===== */
+let pOrigOrder = [], pDirty = false, dragId = null;
+const groupOf = p => { const s = pstate(p); return s === 'on' || s === 'wait' ? s : 'off'; };
+function markOrder() { pDirty = pcache.map(p => p.id).join() !== pOrigOrder.join(); renderPopupGroups(); }
+function orderSynced() { pOrigOrder = pcache.map(p => p.id); pDirty = false; }
+function placePopup(id, targetId, after) {
+  const item = pcache.find(p => p.id === id);
+  if (!item || id === targetId) return;
+  pcache = pcache.filter(p => p.id !== id);
+  const j = pcache.findIndex(p => p.id === targetId);
+  pcache.splice(after ? j + 1 : j, 0, item);
+  markOrder();
+}
+function movePopup(id, dir) { // 같은 그룹 안에서 한 칸 앞(-1)/뒤(+1)
+  const p = pcache.find(x => x.id === id);
+  const same = pcache.filter(x => groupOf(x) === groupOf(p));
+  const t = same[same.indexOf(p) + dir];
+  if (t) placePopup(id, t.id, dir > 0);
+}
+const sortByOrder = (arr, ids) => { const pos = new Map(ids.map((id, i) => [id, i])); const at = p => pos.has(p.id) ? pos.get(p.id) : -1; return arr.sort((a, b) => at(a) - at(b)); };
+function revertOrder() { sortByOrder(pcache, pOrigOrder); markOrder(); }
+function leaveOrder() { // 저장 안 한 순서 변경이 있으면 확인
+  if (!pDirty) return true;
+  if (!confirm('저장하지 않은 순서 변경이 있습니다. 버리고 이동할까요?')) return false;
+  sortByOrder(pcache, pOrigOrder); pDirty = false;
+  return true;
+}
+
 function renderPopupGroups() {
   const g = { on: [], wait: [], off: [] };
-  for (const p of pcache) { const s = pstate(p); (s === 'on' ? g.on : s === 'wait' ? g.wait : g.off).push(p); }
+  for (const p of pcache) g[groupOf(p)].push(p);
   const dev = d => d === 'pc' ? 'PC' : d === 'mobile' ? '모바일' : '전체';
-  const card = p => {
+  const card = (p, n, list, ordered) => {
     const i = pcache.indexOf(p);
     const s = pstate(p);
     const chip = s === 'on' ? '<span class="stchip on">노출 중</span>'
       : s === 'wait' ? '<span class="stchip wait">대기</span>'
       : !p.enabled ? '<span class="stchip off">비활성</span>' : '<span class="stchip off">기간종료</span>';
-    return `<div class="pcardA">
-      <img class="pimg" src="${escA(imgUrl(p.img))}" alt="" loading="lazy" onclick="previewOf(${i})">
+    const mv = ordered && list.length > 1
+      ? `<div class="pord"><button type="button" data-mv="-1" aria-label="${n + 1}번을 앞으로"${n ? '' : ' disabled'}>◀ 앞으로</button><button type="button" data-mv="1" aria-label="${n + 1}번을 뒤로"${n < list.length - 1 ? '' : ' disabled'}>뒤로 ▶</button></div>` : '';
+    return `<div class="pcardA" data-id="${escA(p.id)}"${ordered && list.length > 1 ? ' draggable="true" title="끌어서 순서 변경"' : ''}>
+      ${ordered ? `<span class="pnum" title="노출 순서">${n + 1}</span>` : ''}
+      <img class="pimg" src="${escA(imgUrl(p.img))}" alt="" loading="lazy" draggable="false" onclick="previewOf(${i})">
       <div class="pinfo">${chip}<br>${escH(prange(p))}<br>페이지: ${escH(pagesSummary(p))}<br>기기: ${dev(p.device)}${p.link ? ' · 링크' : ''}</div>
+      ${mv}
       <div class="pbtns"><button onclick="previewOf(${i})">미리보기</button><button onclick="openPopupEditor(${i})">수정</button></div>
     </div>`;
   };
-  const grp = (title, list, desc) => `<div class="pgrp"><h3>${title} <em>(${list.length})</em></h3><p class="gdesc">${desc}</p>` +
-    (list.length ? `<div class="pcards">${list.map(card).join('')}</div>` : '<p class="none">없음</p>') + '</div>';
+  const grp = (title, list, desc, ordered) => `<div class="pgrp"><h3>${title} <em>(${list.length})</em></h3><p class="gdesc">${desc}</p>` +
+    (list.length ? `<div class="pcards">${list.map((p, n) => card(p, n, list, ordered)).join('')}</div>` : '<p class="none">없음</p>') + '</div>';
   $('pgroups').innerHTML =
-    grp('게시 중', g.on, '지금 홈페이지에 표시되는 팝업입니다.') +
-    grp('게시 예정', g.wait, '시작일이 되면 자동으로 게시됩니다.') +
-    grp('게시 중지', g.off, '기간이 종료되었거나 노출이 비활성화된 팝업입니다. 데이터는 계속 보관됩니다.');
+    (pDirty ? '<div class="ordbar"><strong>순서를 바꿨습니다 — 저장해야 사이트에 반영됩니다.</strong><button class="btn sm" id="ordSave" onclick="saveOrder()">순서 저장 및 사이트 반영</button><button class="btn line sm" onclick="revertOrder()">되돌리기</button></div>' : '') +
+    grp('게시 중', g.on, '지금 홈페이지에 표시되는 팝업입니다. 같은 화면에 함께 뜨면 <strong>번호 순서대로</strong> 넘겨 보게 됩니다 — ◀ ▶ 버튼이나 카드를 끌어서 순서를 바꿀 수 있습니다.', true) +
+    grp('게시 예정', g.wait, '시작일이 되면 자동으로 게시됩니다. 이 번호 순서도 게시 후에 그대로 적용됩니다.', true) +
+    grp('게시 중지', g.off, '기간이 종료되었거나 노출이 비활성화된 팝업입니다. 데이터는 계속 보관됩니다.', false);
+}
+$('pgroups').addEventListener('click', e => {
+  const b = e.target.closest('[data-mv]');
+  if (b) movePopup(b.closest('.pcardA').dataset.id, +b.dataset.mv);
+});
+/* 끌어서 순서 변경 (같은 그룹 안에서만) */
+const clearDrop = () => document.querySelectorAll('.pcardA.drop-before, .pcardA.drop-after').forEach(x => x.classList.remove('drop-before', 'drop-after'));
+const dropTarget = e => {
+  const c = e.target.closest('.pcardA[draggable="true"]');
+  if (!c || !dragId || c.dataset.id === dragId) return null;
+  const a = pcache.find(p => p.id === dragId), b = pcache.find(p => p.id === c.dataset.id);
+  if (!a || !b || groupOf(a) !== groupOf(b)) return null;
+  const r = c.getBoundingClientRect();
+  return { c, after: e.clientX > r.left + r.width / 2 };
+};
+$('pgroups').addEventListener('dragstart', e => {
+  const c = e.target.closest('.pcardA[draggable="true"]');
+  if (!c) return;
+  dragId = c.dataset.id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', dragId);
+  c.classList.add('dragging');
+});
+$('pgroups').addEventListener('dragover', e => {
+  const t = dropTarget(e);
+  clearDrop();
+  if (!t) return;
+  e.preventDefault();
+  t.c.classList.add(t.after ? 'drop-after' : 'drop-before');
+});
+$('pgroups').addEventListener('drop', e => {
+  const t = dropTarget(e);
+  if (!t) return;
+  e.preventDefault();
+  placePopup(dragId, t.c.dataset.id, t.after);
+});
+$('pgroups').addEventListener('dragend', () => {
+  dragId = null;
+  clearDrop();
+  document.querySelectorAll('.pcardA.dragging').forEach(x => x.classList.remove('dragging'));
+});
+
+async function saveOrder() {
+  if (canWrite === false && !(await checkWrite())) { scrollTo(0, 0); return show($('plMsg'), 'err', '토큰이 읽기 전용이라 저장할 수 없습니다 — 화면 맨 위 안내대로 토큰 설정을 바꿔 주세요.'); }
+  const order = pcache.map(p => p.id);
+  $('ordSave').disabled = true;
+  try {
+    show($('plMsg'), 'ok', '순서 저장 중…');
+    const r = await commitPopups('팝업 순서 변경', arr => sortByOrder(arr, order), null);
+    pcache = r.popups;
+    showPopupList(`순서를 저장했습니다 — 1~2분 후 사이트에 반영됩니다. <a href="https://github.com/${OWNER}/${REPO}/actions" target="_blank" rel="noopener">진행상황 보기</a>`);
+  } catch (e) {
+    show($('plMsg'), 'err', '순서를 저장하지 못했습니다 — ' + escH(e.message));
+    if ($('ordSave')) $('ordSave').disabled = false;
+  }
 }
 
 function openPopupEditor(idx) {
+  if (!leaveOrder()) return;
   const p = idx === undefined ? null : pcache[idx];
   pEditing = p ? p.id : null;
   pImg = p ? p.img : '';

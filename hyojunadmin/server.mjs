@@ -240,6 +240,18 @@ const server = http.createServer(async (req, res) => {
       await rebuild();
       return json(res, 200, { ok: true, popups: after, img: p.img });
     }
+    /* 팝업 노출 순서 저장 (ids 순서대로 정렬, 목록에 없는 id는 맨 앞 유지) */
+    if (req.method === 'POST' && path === '/hyojunadmin/api/popup-order') {
+      const b = JSON.parse((await readBody(req, 100_000)).toString() || '{}');
+      if (!Array.isArray(b.ids)) return json(res, 400, { error: '형식이 올바르지 않습니다.' });
+      const pos = new Map(b.ids.map((id, i) => [String(id), i]));
+      const at = p => pos.has(p.id) ? pos.get(p.id) : -1;
+      const before = readPopups();
+      const after = before.slice().sort((x, y) => at(x) - at(y));
+      savePopups(after, before);
+      await rebuild();
+      return json(res, 200, { ok: true, popups: after });
+    }
     /* 팝업 삭제 */
     if (req.method === 'DELETE' && path === '/hyojunadmin/api/popup') {
       const id = url.searchParams.get('id') || '';
