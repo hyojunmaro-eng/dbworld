@@ -106,12 +106,58 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
 .pgdrop li small { color: #8a94a0; font-size: .76rem; flex: none; }
 .pgdrop li.on, .pgdrop li:hover { background: #F0F6F2; }
 .pgdrop li.empty { color: #8a94a0; cursor: default; background: none; }
+/* 사용방법 (매뉴얼) */
+html { scrollbar-gutter: stable; }
+.head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.manbtn { display: inline-flex; align-items: center; gap: 6px; flex: none; margin-top: 2px; }
+.manbtn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.man-ov { position: fixed; inset: 0; z-index: 60; background: rgba(10, 14, 18, .55); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.man-ov[hidden] { display: none; }
+.man { width: min(760px, 100%); max-height: calc(100vh - 48px); display: flex; flex-direction: column; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 70px rgba(0, 0, 0, .35); }
+.man-head { display: flex; align-items: flex-end; gap: 6px 18px; padding: 16px 16px 0 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.man-head strong { font-size: 1.1rem; padding-bottom: 13px; }
+.man-tabs { display: flex; gap: 2px; margin-right: auto; }
+.man-tabs button { padding: 10px 14px 11px; border: 0; border-bottom: 3px solid transparent; background: none; font: inherit; font-size: .95rem; font-weight: 700; color: #8A94A0; cursor: pointer; }
+.man-tabs button:hover { color: var(--ink); }
+.man-tabs button[aria-selected="true"] { color: var(--g); border-bottom-color: var(--g); }
+.man-x { align-self: center; width: 40px; height: 40px; margin-bottom: 4px; border: 0; border-radius: 50%; background: none; font-size: 1.7rem; line-height: 1; color: var(--soft); cursor: pointer; }
+.man-x:hover { background: var(--bg); color: var(--ink); }
+.man-body { position: relative; overflow-y: auto; overscroll-behavior: contain; padding: 4px 28px 32px; outline: none; }
+.man-lead { margin-top: 18px; color: var(--soft); font-size: .9rem; }
+.man-body h3 { display: flex; align-items: center; gap: 9px; margin: 28px 0 10px; font-size: 1.02rem; }
+.man-body h3 .n { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--g); color: #fff; font-size: .78rem; }
+.man-body p, .man-body li, .man-body dd { font-size: .9rem; line-height: 1.75; }
+.man-body p + p, .man-body p + ol, .man-body ol + p { margin-top: 8px; }
+.man-body ol, .man-body ul { padding-left: 22px; }
+.man-body li + li { margin-top: 5px; }
+.man-body .dim { color: #7C8792; font-size: .85rem; }
+.man-body code { background: var(--bg); padding: 1px 6px; border-radius: 5px; font-size: .84em; }
+.man-body kbd { display: inline-block; padding: 0 7px; border: 1px solid #C9D2DA; border-bottom-width: 2px; border-radius: 5px; background: #F7F9FA; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.6; }
+.man-body .tip { margin: 14px 0 0; padding: 12px 15px; border-radius: 8px; background: #F0F7F3; color: #245C3F; font-size: .86rem; line-height: 1.8; }
+.man-body .tip.warn { background: #FFF6E5; color: #7A4B00; }
+.man-body table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.man-body th, .man-body td { border: 1px solid var(--line); padding: 7px 10px; font-size: .84rem; text-align: left; vertical-align: top; }
+.man-body th { background: var(--bg); color: var(--soft); font-weight: 700; }
+.man-body dt { margin-top: 12px; font-weight: 700; font-size: .9rem; }
+.man-body dd { color: var(--soft); }
+@media (max-width: 600px) {
+  .head { flex-direction: column; gap: 0; }
+  .manbtn { margin: -14px 0 20px; }
+  .man-ov { padding: 10px; }
+  .man { max-height: calc(100vh - 20px); }
+  .man-body { padding: 4px 18px 26px; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1><em>DB월드</em> 홈페이지 관리</h1>
-  <p class="sub">저장하면 GitHub에 기록되고, 1~2분 안에 사이트에 자동 반영됩니다. 날짜 기준으로 자동 정렬되므로 중간 날짜로 저장하면 목록 중간에 들어갑니다.</p>
+  <div class="head">
+    <div>
+    <h1><em>DB월드</em> 홈페이지 관리</h1>
+    <p class="sub">저장하면 GitHub에 기록되고, 1~2분 안에 사이트에 자동 반영됩니다. 날짜 기준으로 자동 정렬되므로 중간 날짜로 저장하면 목록 중간에 들어갑니다.</p>
+    </div>
+    <button type="button" class="btn line sm manbtn" onclick="openManual()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M8.5 8h7M8.5 11.5h5"/></svg>사용방법</button>
+  </div>
 
   <!-- 로그인 -->
   <!-- 토큰 쓰기 권한 없음 안내 -->
@@ -207,6 +253,7 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
       <div class="grow">
         <input type="file" id="peImg" accept="image/jpeg,image/png,image/webp,image/gif">
         <p class="hint" id="peImgHint">JPG·PNG·WEBP·GIF. 큰 사진은 자동으로 줄여서(가로 1000px) <strong>저장할 때 함께</strong> 올라갑니다.</p>
+        <p class="hint"><a href="#manPng" onclick="openManual('popup', 'manPng'); return false;">공고문을 PNG 이미지로 만드는 방법 보기 ›</a></p>
       </div>
     </div>
     <div class="row" style="align-items:flex-start;gap:10px 36px">
@@ -234,6 +281,158 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
       <button class="btn danger hidden" id="peDel" onclick="delPopup()">이 팝업 삭제</button>
     </div>
     <div class="msg" id="peMsg"></div>
+  </div>
+</div>
+
+
+<!-- 사용방법 (매뉴얼) -->
+<div class="man-ov" id="manual" hidden>
+  <div class="man" role="dialog" aria-modal="true" aria-labelledby="manTitle">
+    <div class="man-head">
+      <strong id="manTitle">사용방법</strong>
+      <div class="man-tabs" role="tablist">
+        <button type="button" role="tab" data-mtab="notice" aria-selected="true">공지사항</button>
+        <button type="button" role="tab" data-mtab="popup" aria-selected="false">팝업</button>
+      </div>
+      <button type="button" class="man-x" aria-label="닫기" onclick="closeManual()">×</button>
+    </div>
+    <div class="man-body" id="manBody" tabindex="0">
+
+<section data-mpanel="notice">
+<p class="man-lead">홈페이지 <b>홍보센터 › 공지사항 · 뉴스·보도</b>에 글을 올리고 고치는 방법입니다.</p>
+<h3><span class="n">0</span>접속하기</h3>
+<ul>
+  <li>처음 한 번만 GitHub 토큰을 넣고 [접속]하면, 이 PC에서는 다음부터 자동으로 로그인됩니다.</li>
+  <li>다른 직원에게 맡길 때는 목록 화면의 <b>[협업자 초대 링크 복사]</b>로 만든 링크를 보내면 클릭만으로 접속됩니다.
+    <span class="dim">(링크를 가진 사람은 누구나 글을 고칠 수 있으니 꼭 필요한 사람에게만 보내세요.)</span></li>
+  <li>화면 맨 위에 <b>“지금 토큰으로는 저장할 수 없습니다”</b> 안내가 보이면, 안내된 순서대로 GitHub에서 토큰 권한을 <code>Read and write</code>로 바꾼 뒤 [권한 다시 확인]을 누르세요.</li>
+</ul>
+
+<h3><span class="n">1</span>새 글 쓰기</h3>
+<ol>
+  <li>목록 화면에서 <b>[＋ 새 글 쓰기]</b>를 누릅니다.</li>
+  <li><b>날짜</b> — 게시일입니다. 목록은 날짜순으로 자동 정렬되고 번호도 자동으로 매겨집니다. 지난 날짜로 쓰면 목록 중간에 들어갑니다.</li>
+  <li><b>분류</b> — <i>공지사항</i> 또는 <i>뉴스·보도</i>.</li>
+  <li><b>목록 상단 고정</b> — 체크하면 날짜와 상관없이 맨 위에 고정됩니다. 중요한 공고에만 쓰세요.</li>
+  <li><b>제목</b> — 필수. <b>영문 제목·본문</b>은 비워 두면 영문 페이지에도 한국어가 그대로 나옵니다.</li>
+  <li><b>본문</b>을 쓰고(아래 2번 참고) 필요하면 <b>첨부파일</b>을 올린 뒤(3번) <b>[저장 및 사이트 반영]</b>을 누릅니다.</li>
+</ol>
+
+<h3><span class="n">2</span>본문 쓰는 법</h3>
+<p>일반 문장처럼 쓰면 됩니다. 아래처럼 쓰면 사이트에서 모양이 갖춰집니다.</p>
+<table>
+  <thead><tr><th style="width:46%">이렇게 입력하면</th><th>사이트에서는</th></tr></thead>
+  <tbody>
+    <tr><td>그냥 문장</td><td>한 줄이 한 문단이 됩니다</td></tr>
+    <tr><td>빈 줄</td><td>문단 사이 간격</td></tr>
+    <tr><td><code>**중요한 내용**</code></td><td><b>중요한 내용</b> (굵게)</td></tr>
+    <tr><td><code>- 항목</code></td><td>• 글머리 목록</td></tr>
+    <tr><td><code>1. 항목</code></td><td>1. 번호 목록</td></tr>
+    <tr><td><code># 소제목</code></td><td>소제목</td></tr>
+    <tr><td><code>[자세히 보기](https://www.example.com)</code></td><td><u>자세히 보기</u> 링크 (외부 주소는 새 창)</td></tr>
+    <tr><td><code>| 구분 | 내용 |</code><br><code>| 일시 | 10월 15일 |</code></td><td>표 (첫 줄이 제목 줄)</td></tr>
+  </tbody>
+</table>
+<p class="tip">한글·워드에서 복사해 붙여 넣으면 <b>글자만</b> 들어갑니다(표·서식은 빠짐). 표가 많은 공고문은 <b>PDF를 첨부</b>하고 본문에는 핵심 내용만 적는 방식을 권장합니다.</p>
+
+<h3><span class="n">3</span>첨부파일</h3>
+<ul>
+  <li><b>[파일 선택]</b>으로 고르면 바로 업로드되어 목록에 추가됩니다. 여러 개를 한 번에 골라도 됩니다.</li>
+  <li><b>“업로드 완료”</b> 메시지를 확인한 뒤 저장하세요. 업로드 중에는 저장이 되지 않습니다.</li>
+  <li>방문자가 바로 열어볼 수 있는 <b>PDF</b>를 권장합니다. 한글(HWP) 파일은 한글 프로그램이 있어야 열립니다.</li>
+  <li>파일당 <b>15MB 이하</b>로 올려 주세요.</li>
+  <li>파일 이름이 그대로 다운로드 이름이 되니, 올리기 전에 알아보기 쉬운 이름으로 바꿔 두세요. <span class="dim">예) 2026_임시주주총회_소집공고.pdf</span></li>
+  <li><b>[빼기]</b>는 글에서만 빠집니다.</li>
+</ul>
+
+<h3><span class="n">4</span>수정 · 삭제</h3>
+<ul>
+  <li>목록에서 <b>[수정]</b> → 고친 뒤 [저장 및 사이트 반영]. 날짜를 바꾸면 목록 위치도 바뀝니다.</li>
+  <li><b>[이 글 삭제]</b>는 되돌릴 수 없습니다.</li>
+</ul>
+
+<h3><span class="n">5</span>반영 확인</h3>
+<p>저장하면 <b>1~2분 뒤</b> 사이트에 반영됩니다. 목록 화면의 <b>[반영 진행상황]</b>에서 초록색 체크(✔)가 뜨면 완료입니다. 확인할 때는 해당 페이지에서 <kbd>Ctrl</kbd> + <kbd>F5</kbd>(강력 새로고침)를 누르세요.</p>
+
+<h3><span class="n">?</span>자주 묻는 질문</h3>
+<dl>
+  <dt>저장했는데 사이트에 안 보여요</dt><dd>1~2분 기다린 뒤 <kbd>Ctrl</kbd> + <kbd>F5</kbd>로 새로고침해 보세요. 그래도 안 보이면 [반영 진행상황]에 빨간 ✖가 있는지 확인하고 담당자에게 알려 주세요.</dd>
+  <dt>영문 페이지에 한국어가 나와요</dt><dd>영문 제목·본문을 비워 두면 한국어가 그대로 나옵니다. 영문이 필요하면 해당 칸을 채워 다시 저장하세요.</dd>
+  <dt>빨간 오류 메시지가 떠요</dt><dd>메시지를 캡처해 담당자에게 보내 주세요. 원인이 메시지에 적혀 있습니다.</dd>
+</dl>
+</section>
+
+<section data-mpanel="popup" hidden>
+<p class="man-lead">홈페이지에 뜨는 <b>안내 팝업</b>(공고문·행사 안내 등)을 올리는 방법입니다.</p>
+
+<h3 id="manPng"><span class="n">1</span>공고문을 팝업 이미지(PNG)로 만들기</h3>
+<p><b>방법 ① 화면 캡처</b> <span class="dim">— 가장 쉽고, 한글·워드·PDF 모두 가능</span></p>
+<ol>
+  <li>문서를 열고 <b>한 페이지가 화면에 꽉 차도록</b> 확대합니다 (보통 100~150%).</li>
+  <li>키보드 <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> → 화면이 어두워지면 <b>문서의 흰 종이 부분만</b> 사각형으로 드래그합니다.</li>
+  <li>오른쪽 아래 알림을 클릭해 캡처 도구가 열리면 <kbd>Ctrl</kbd> + <kbd>S</kbd> → <b>PNG</b>로 저장합니다.</li>
+</ol>
+<p><b>방법 ② 한글(HWP)에서 바로 저장</b></p>
+<ol>
+  <li>[파일] → [다른 이름으로 저장하기] → 파일 형식에서 <b>PNG 이미지</b>를 고릅니다.</li>
+  <li>쪽(페이지)마다 그림 파일이 하나씩 만들어집니다. 필요한 쪽을 올리세요.</li>
+</ol>
+<p class="dim">PDF는 방법 ①로 캡처하면 됩니다. Adobe Acrobat(유료)이 있다면 [파일] → [내보내기] → [이미지] → PNG도 가능합니다.</p>
+<div class="tip">
+  <b>선명하게 만드는 요령</b><br>
+  · 크게 확대해서 캡처할수록 글자가 선명합니다. 가로 1000px 이상이면 충분합니다.<br>
+  · 문서 바깥의 회색 배경·스크롤바·메뉴가 들어가지 않게 <b>종이 부분만</b> 잡아 주세요.<br>
+  · 용량은 신경 쓰지 않아도 됩니다. 올릴 때 글자가 선명한 크기로 <b>자동으로 줄여서</b> 올라갑니다.<br>
+  · JPG·PNG·WEBP·GIF를 쓸 수 있습니다. 아이폰 사진(HEIC)은 JPG로 바꿔서 올려 주세요.
+</div>
+
+<h3><span class="n">2</span>새 팝업 등록</h3>
+<ol>
+  <li><b>[팝업 관리]</b> → <b>[＋ 새 팝업]</b>을 누릅니다.</li>
+  <li><b>팝업 이미지</b>를 고릅니다. 썸네일과 크기 안내가 나오면 준비 완료입니다. <span class="dim">(이미지는 저장할 때 함께 올라갑니다)</span></li>
+  <li><b>노출 여부</b> — 체크를 끄면 저장만 되고 사이트에는 뜨지 않습니다. 미리 만들어 둘 때 쓰세요.</li>
+  <li><b>노출 기기</b> — 전체 / PC만 / 모바일만.</li>
+  <li><b>노출 페이지</b> — 기본은 <i>메인 화면</i>입니다. 검색창에 “공지”, “재무”처럼 입력하고 목록에서 눌러 추가합니다(여러 개 가능). <i>전체 페이지</i>를 고르면 사이트 모든 화면에 뜹니다. 칩의 ×로 뺍니다.</li>
+  <li><b>게시기간</b> — [항상 노출]을 끄고 시작일~종료일을 정합니다. <b>시작일 0시부터 종료일 밤 12시까지</b> 뜨고, 기간이 끝나면 자동으로 내려갑니다. 시작일이나 종료일 한쪽만 정해도 됩니다.</li>
+  <li><b>팝업 링크</b>(선택) — 팝업을 누르면 이동할 주소입니다. 외부 사이트는 <code>https://…</code>, 우리 사이트 안 페이지는 <code>/ko/news/</code>처럼 <b>경로만</b> 적으면 도메인이 바뀌어도 그대로 동작합니다.</li>
+  <li><b>[미리보기]</b>로 모양을 확인하고 <b>[저장 및 사이트 반영]</b>을 누릅니다.</li>
+</ol>
+
+<h3><span class="n">3</span>목록 보는 법</h3>
+<table>
+  <tbody>
+    <tr><th style="width:22%">게시 중</th><td>지금 사이트에 뜨고 있는 팝업</td></tr>
+    <tr><th>게시 예정</th><td>시작일이 아직 안 된 팝업 — 시작일에 자동으로 뜹니다</td></tr>
+    <tr><th>게시 중지</th><td>기간이 끝났거나 노출을 끈 팝업 — 데이터는 계속 보관되어 다시 켜서 쓸 수 있습니다</td></tr>
+  </tbody>
+</table>
+<p class="tip warn">게시만 멈추려면 <b>삭제하지 말고</b> [수정]에서 <b>노출 활성화</b>를 끄세요. 삭제는 되돌릴 수 없습니다.</p>
+
+<h3><span class="n">4</span>여러 개를 띄울 때 · 순서 바꾸기</h3>
+<ul>
+  <li>같은 페이지에 팝업이 여러 개 걸리면 <b>한 창에서 ‹ 1 / 3 › 으로 넘겨 보게</b> 됩니다. (키보드 ←/→, 휴대폰은 좌우로 밀기)</li>
+  <li>카드 왼쪽 위 <b>번호가 보이는 순서</b>입니다. <b>◀ 앞으로 / 뒤로 ▶</b> 버튼이나 카드를 <b>끌어서</b> 바꾼 뒤, 위에 나타나는 <b>[순서 저장 및 사이트 반영]</b>을 누르세요.</li>
+  <li>새로 등록한 팝업은 맨 앞(1번)에 들어갑니다.</li>
+</ul>
+
+<h3><span class="n">5</span>방문자에게 보이는 모습</h3>
+<ul>
+  <li>팝업 크기는 이미지에 맞춰 자동으로 정해집니다. A4 공고문은 <b>화면 높이에 맞춰</b> 크게 보이고, 가로는 최대 960px입니다.</li>
+  <li><b>오늘 하루 보지 않기</b> — 그 PC(휴대폰)에서는 오늘 하루 다시 뜨지 않습니다. 함께 뜬 팝업 모두에 적용됩니다.</li>
+  <li><b>×</b> — 창만 닫습니다. 새로고침하면 다시 뜹니다.</li>
+  <li>영문 페이지에도 같은 팝업이 뜨고, 버튼 글자만 영어로 바뀝니다.</li>
+</ul>
+
+<h3><span class="n">6</span>수정 · 삭제 · 확인</h3>
+<ul>
+  <li><b>[수정]</b>에서 이미지를 바꿀 수 있습니다. 쓰지 않게 된 옛 이미지는 자동으로 정리됩니다.</li>
+  <li><b>[이 팝업 삭제]</b>는 이미지까지 함께 지워지며 되돌릴 수 없습니다.</li>
+  <li>반영: 저장하면 1~2분 뒤 사이트에 반영됩니다.</li>
+  <li><b>“오늘 하루 보지 않기”를 눌렀던 PC에서는 오늘 팝업이 안 뜹니다.</b> 확인할 때는 시크릿 창(<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>)으로 열어 보세요.</li>
+</ul>
+</section>
+
+    </div>
   </div>
 </div>
 
@@ -906,6 +1105,34 @@ if (hk) { tok = hk[1]; localStorage.setItem('dbw_gh_token', tok); history.replac
 /* 자동 로그인 */
 if (tok) { $('tok').value = tok; login(); }
 $('tok').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+/* ===== 사용방법 (매뉴얼) ===== */
+let manOpener = null;
+function manTab(t) {
+  document.querySelectorAll('[data-mtab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.mtab === t)));
+  document.querySelectorAll('[data-mpanel]').forEach(s => { s.hidden = s.dataset.mpanel !== t; });
+  $('manBody').scrollTop = 0;
+}
+function openManual(tab, anchor) {
+  const onPopup = $('plist').style.display === 'block' || $('pedit').style.display === 'block';
+  manTab(tab || (onPopup ? 'popup' : 'notice'));
+  manOpener = document.activeElement;
+  $('manual').hidden = false;
+  document.body.style.overflow = 'hidden';
+  $('manBody').focus();
+  if (anchor) $('manBody').scrollTop = $(anchor).offsetTop - 12;
+}
+function closeManual() {
+  $('manual').hidden = true;
+  document.body.style.overflow = '';
+  if (manOpener && manOpener.focus) manOpener.focus();
+}
+$('manual').addEventListener('click', e => {
+  if (e.target === $('manual')) return closeManual();
+  const b = e.target.closest('[data-mtab]');
+  if (b) manTab(b.dataset.mtab);
+});
+addEventListener('keydown', e => { if (e.key === 'Escape' && !$('manual').hidden) closeManual(); });
 </script>
 </body>
 </html>
