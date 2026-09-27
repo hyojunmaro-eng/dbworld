@@ -196,7 +196,7 @@ body.menu-open { overflow: hidden; }
 }
 .hero-dots > button[data-dot]:hover { background: rgba(255, 255, 255, .5); }
 .hero-dots > button[data-dot] i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #fff; border-radius: 3px; }
-.hero-dots > button[data-dot].on i { animation: heroFill 2.5s linear forwards; }
+.hero-dots > button[data-dot].on i { animation: heroFill 3.5s linear forwards; }
 .hero.paused .hero-dots > button[data-dot].on i { animation-play-state: paused; }
 @keyframes heroFill { from { width: 0; } to { width: 100%; } }
 .hero-play { display: grid; place-items: center; width: 26px; height: 26px; margin-left: 4px; color: rgba(255, 255, 255, .8); transition: color .2s; }
