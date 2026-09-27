@@ -489,8 +489,6 @@ export const copy = {
       disclosure: {
         title: '공시사항', docTitle: '공시사항 | DB월드',
         intro: '금융감독원 전자공시시스템(DART)에 공시된 디비월드의 자료입니다.',
-        note: '본 자료는 금융감독원 전자공시시스템(DART)의 검색 결과입니다. 화면이 표시되지 않는 경우 아래 버튼으로 확인해 주세요.',
-        btn: 'DART 전자공시 바로가기',
       },
     },
     esg: {
@@ -1028,8 +1026,6 @@ export const copy = {
       disclosure: {
         title: 'Disclosures', docTitle: 'Disclosures | DB World',
         intro: 'Public filings of DB World on DART, the electronic disclosure system of the Financial Supervisory Service.',
-        note: 'The content below is provided by DART. If it does not load, please use the button below.',
-        btn: 'Open DART',
       },
     },
     esg: {

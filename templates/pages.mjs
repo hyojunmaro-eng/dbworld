@@ -841,15 +841,12 @@ export function irDisclosure(c) {
   const { L, lang } = c;
   const D = L.ir.disclosure;
   const dartEmbed = 'https://dart.fss.or.kr/html/search/SearchCompanyIR3_M.html?textCrpNm=%EB%94%94%EB%B9%84%EC%9B%94%EB%93%9C';
-  const dartLink = 'https://dart.fss.or.kr/dsab007/main.do?option=corp&textCrpNm=%EB%94%94%EB%B9%84%EC%9B%94%EB%93%9C';
   return layout(c, {
     title: D.docTitle, desc: D.intro, path: `${lang}/ir/disclosure/`,
     body: pageHero(c, { sec: 'ir', title: D.title, crumbs: [[L.nav.ir, 'ir/finance/'], [D.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead esg-intro rv">${esc(D.intro)}</p>
   <div class="dart-frame rv" data-dartfit="1080"><iframe src="${dartEmbed}" title="DART" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-  <p class="dart-note rv">${esc(D.note)}</p>
-  <a class="btn-solid rv" href="${dartLink}" target="_blank" rel="noopener">${esc(D.btn)} ${ARROW}</a>
 </div></section>`,
   });
 }
