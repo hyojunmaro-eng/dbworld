@@ -48,6 +48,9 @@ td.no { color: var(--soft); width: 40px; }
 ol.steps { margin: 10px 0 0 18px; font-size: .86rem; color: var(--soft); }
 ol.steps li { margin: 4px 0; }
 code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .84em; }
+.warnbox { border-color: #EFC46B; background: #FFF9EA; }
+.warnbox > strong { color: #9A5B00; font-size: 1rem; }
+.warnbox ol.steps { color: var(--ink); }
 /* 팝업 관리 */
 #plist, #pedit { display: none; }
 .pgrp { margin-bottom: 24px; }
@@ -98,6 +101,19 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
   <p class="sub">저장하면 GitHub에 기록되고, 1~2분 안에 사이트에 자동 반영됩니다. 날짜 기준으로 자동 정렬되므로 중간 날짜로 저장하면 목록 중간에 들어갑니다.</p>
 
   <!-- 로그인 -->
+  <!-- 토큰 쓰기 권한 없음 안내 -->
+  <div class="card warnbox hidden" id="permWarn">
+    <strong>⚠ 지금 토큰으로는 저장할 수 없습니다 (읽기 전용 토큰)</strong>
+    <p class="hint">목록은 보이지만 글·팝업 저장은 GitHub가 거부합니다. 토큰 설정만 아래처럼 바꾸면 <strong>토큰을 다시 입력할 필요 없이</strong> 바로 저장됩니다.</p>
+    <ol class="steps">
+      <li><a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener">GitHub 토큰 목록 열기</a> → 이 관리자에 쓰는 토큰 클릭 → <em>Edit</em></li>
+      <li><em>Repository access</em> → <em>Only select repositories</em> → <code>dbworld</code> 선택 <span class="opt">(기본값 "Public repositories (read-only)"면 저장 불가)</span></li>
+      <li><em>Permissions</em> → <em>Contents</em> → <code>Read and write</code> <span class="opt">(추가할 때 기본값이 Read-only)</span></li>
+      <li>맨 아래 <em>Update</em> → 이 화면에서 <button class="btn line sm" onclick="checkWrite(true)">권한 다시 확인</button></li>
+    </ol>
+    <div class="msg" id="permMsg"></div>
+  </div>
+
   <div class="card" id="login">
     <label for="tok">접속 토큰</label>
     <div class="row">
@@ -108,8 +124,8 @@ code { background: var(--bg); padding: 1px 6px; border-radius: 6px; font-size: .
     <p class="hint" style="margin-top:14px"><strong>토큰이 없다면 (관리자 1회 발급 후 협업자와 공유):</strong></p>
     <ol class="steps">
       <li>GitHub 로그인 → <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">토큰 발급 페이지 열기</a></li>
-      <li>Repository access → <em>Only select repositories</em> → <code>dbworld</code> 선택</li>
-      <li>Permissions → Repository permissions → <em>Contents</em> → <code>Read and write</code></li>
+      <li>Repository access → <em>Only select repositories</em> → <code>dbworld</code> 선택 <span class="opt">(기본값 "Public repositories"로 두면 저장 불가)</span></li>
+      <li>Permissions → <em>Contents</em> → <code>Read and write</code> <span class="opt">(추가할 때 기본값이 Read-only — 꼭 바꾸기)</span></li>
       <li>Generate token → <code>github_pat_…</code> 복사해서 위에 붙여넣기</li>
     </ol>
   </div>
@@ -234,14 +250,18 @@ async function gh(path, opt = {}) {
     throw new Error('GitHub 서버에 연결하지 못했습니다 (네트워크 오류). 인터넷 연결을 확인해 주세요. 회사 보안 프로그램이 파일 업로드를 막는 경우도 있으니, 계속되면 다른 네트워크(휴대폰 핫스팟 등)에서 시도해 주세요.');
   }
   if (!r.ok) {
-    let m = '';
-    try { m = (await r.json()).message || ''; } catch {}
+    let raw = '';
+    try { raw = (await r.json()).message || ''; } catch {}
     const write = opt.method && opt.method !== 'GET';
+    let m = raw;
     if (r.status === 401) m = '토큰이 올바르지 않거나 만료되었습니다.';
-    else if (r.status === 403 && /rate/i.test(m)) m = 'API 사용량 제한 — 잠시 후 다시 시도하세요.';
-    else if (write && (r.status === 404 || (r.status === 403 && /not accessible|permission/i.test(m)))) m = '토큰에 dbworld 저장소 쓰기 권한(Contents: Read and write)이 없습니다.';
+    else if (r.status === 403 && /rate/i.test(raw)) m = 'API 사용량 제한 — 잠시 후 다시 시도하세요.';
+    else if (write && (r.status === 404 || (r.status === 403 && /not accessible|permission/i.test(raw)))) {
+      m = '토큰에 dbworld 저장소 쓰기 권한(Contents: Read and write)이 없습니다 — 화면 맨 위 안내를 따라 토큰 설정을 바꿔 주세요.';
+      canWrite = false; $('permWarn').classList.remove('hidden');
+    }
     else if (r.status === 413) m = '파일이 너무 큽니다.';
-    throw new Error((m || 'GitHub 오류') + ' (' + r.status + ')');
+    throw new Error((m || 'GitHub 오류') + ` (${r.status}${raw && raw !== m ? ' · GitHub: ' + raw : ''})`);
   }
   return r.status === 204 ? {} : r.json();
 }
@@ -517,6 +537,7 @@ $('pePageList').addEventListener('mousedown', e => {
 });
 
 async function savePopup() {
+  if (canWrite === false && !(await checkWrite())) { scrollTo(0, 0); return show($('peMsg'), 'err', '토큰이 읽기 전용이라 저장할 수 없습니다 — 화면 맨 위 안내대로 토큰 설정을 바꿔 주세요.'); }
   if (pPrep) { show($('peMsg'), 'ok', '이미지 준비 중…'); await pPrep; }
   if (!pImg && !pNew) return show($('peMsg'), 'err', '팝업 이미지를 선택해 주세요.');
   if (!pPages.length) return show($('peMsg'), 'err', '노출 페이지를 1개 이상 추가해 주세요. (메인에 띄우려면 "메인 화면"을 검색해 추가)');
@@ -590,6 +611,21 @@ function copyInvite() {
     () => show($('listMsg'), 'err', '복사 실패 — 주소를 직접 전달하세요: ' + link));
 }
 
+let canWrite = null; // 토큰 쓰기 권한 (null = 아직 모름)
+async function checkWrite(manual) {
+  $('permMsg').className = 'msg';
+  try {
+    await gh(`/repos/${OWNER}/${REPO}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: 'dbworld-admin write check', encoding: 'utf-8' }) });
+    canWrite = true;
+  } catch (e) {
+    if (canWrite !== false) canWrite = null; // 권한 외 오류(네트워크 등)는 판단 보류
+    if (manual) show($('permMsg'), 'err', escH(e.message));
+  }
+  $('permWarn').classList.toggle('hidden', canWrite !== false);
+  if (manual && canWrite) show($('listMsg'), 'ok', '저장 권한이 확인되었습니다. 이제 저장할 수 있습니다.');
+  return canWrite;
+}
+
 async function login() {
   tok = $('tok').value.trim() || tok;
   if (!tok) return show($('loginMsg'), 'err', '토큰을 입력해 주세요.');
@@ -599,6 +635,7 @@ async function login() {
     $('login').classList.add('hidden');
     $('actLink').href = `https://github.com/${OWNER}/${REPO}/actions`;
     loadList();
+    checkWrite();
   } catch (e) { show($('loginMsg'), 'err', escH(e.message)); }
 }
 
@@ -702,6 +739,7 @@ $('peImg').addEventListener('change', e => {
 });
 
 async function save() {
+  if (canWrite === false && !(await checkWrite())) { scrollTo(0, 0); return show($('edMsg'), 'err', '토큰이 읽기 전용이라 저장할 수 없습니다 — 화면 맨 위 안내대로 토큰 설정을 바꿔 주세요.'); }
   if (upBusy) return show($('edMsg'), 'err', '첨부파일 업로드가 끝난 뒤 저장해 주세요.');
   const date = $('fDate').value, title = $('fTitle').value.trim();
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return show($('edMsg'), 'err', '날짜를 선택해 주세요.');
