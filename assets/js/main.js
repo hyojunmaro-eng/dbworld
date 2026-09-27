@@ -174,6 +174,34 @@
     $$('[data-devpanel]').forEach(p => p.classList.toggle('on', p.dataset.devpanel === t.dataset.devtab));
   }));
 
+  /* ---------- 약관 모달 (개인정보 처리방침 / 이메일 무단수집 거부) ---------- */
+  (function () {
+    let opener = null;
+    const close = () => {
+      const open = $('.emod:not([hidden])');
+      if (!open) return;
+      open.hidden = true;
+      document.body.classList.remove('pop-open');
+      if (opener) { opener.focus(); opener = null; }
+    };
+    const open = (id, btn) => {
+      const el = $('#' + id);
+      if (!el) return;
+      opener = btn || null;
+      el.hidden = false;
+      document.body.classList.add('pop-open');
+      const sc = $('.emod-scroll', el);
+      if (sc) { sc.scrollTop = 0; sc.focus(); }
+      else { const x = $('.emod-x', el); if (x) x.focus(); }
+    };
+    $$('[data-privacymodal]').forEach(b => b.addEventListener('click', () => open('privacyModal', b)));
+    $$('[data-emailmodal]').forEach(b => b.addEventListener('click', () => open('emailModal', b)));
+    $$('.emod').forEach(el => el.addEventListener('click', e => {
+      if (e.target === el || e.target.closest('[data-emodclose]')) close();
+    }));
+    addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  })();
+
   /* ---------- 홈 팝업 ---------- */
   if (isHome) (async () => {
     const base = location.pathname.replace(/\/(ko|en)\/.*$/, '');

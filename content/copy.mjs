@@ -410,6 +410,70 @@ export const copy = {
       mapSub: '핀을 선택하면 해당 프로젝트로 이동합니다',
       specLabels: { location: '위치', scale: '규모', area: '면적', status: '진행 현황', completed: '준공', category: '분류' },
     },
+    legal: {
+      privacy: {
+        title: '개인정보 처리방침',
+        lead: [
+          "주식회사 디비월드(이하 '회사')는 고객님의 개인정보를 중요시하며, 「개인정보 보호법」 및 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」을 준수하고 있습니다.",
+          '회사는 개인정보 처리방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.',
+          '회사는 개인정보 처리방침을 개정하는 경우 홈페이지 공지사항을 통하여 공지할 것입니다.',
+        ],
+        effective: '본 방침은 2026년 9월 27일부터 시행됩니다.',
+        sections: [
+          { t: '수집하는 개인정보 항목', body: [
+            '회사 홈페이지는 회원가입 절차를 운영하지 않으며, 홈페이지를 통해 개인정보를 직접 수집하지 않습니다. 전화·팩스·우편 등을 통해 문의, 제안, 채용 지원 등이 접수되는 경우에 한하여 아래 항목을 수집합니다.',
+            '- 수집항목: 이름, 연락처, 이메일 주소 등 문의 처리에 필요한 최소한의 정보',
+            '- 수집방법: 전화, 팩스, 우편 등 오프라인 경로',
+          ] },
+          { t: '개인정보의 수집 및 이용 목적', body: [
+            '회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.',
+            '- 문의 및 제안 내용의 확인과 회신',
+            '- 계약의 체결·이행 및 관련 업무 처리',
+            '- 채용 전형의 진행 및 결과 안내',
+          ] },
+          { t: '개인정보의 보유 및 이용기간', body: [
+            '회사는 개인정보의 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다. 다만 관계 법령에서 일정 기간 보존을 정하고 있는 경우에는 해당 기간 동안 보관합니다.',
+          ] },
+          { t: '개인정보의 파기절차 및 방법', body: [
+            '- 파기절차: 목적이 달성된 개인정보는 별도의 저장 공간(종이 문서의 경우 별도 서류함)으로 옮겨져 내부 방침 및 관계 법령에 따른 보존 사유에 따라 일정 기간 저장된 후 파기됩니다. 옮겨진 개인정보는 법률에 의한 경우가 아니고서는 보존 목적 외의 다른 용도로 이용되지 않습니다.',
+            '- 파기방법: 전자적 파일 형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적 방법으로 삭제하며, 종이 문서는 분쇄하거나 소각합니다.',
+          ] },
+          { t: '개인정보의 제공', body: [
+            '회사는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만, 아래의 경우에는 예외로 합니다.',
+            '- 이용자가 사전에 동의한 경우',
+            '- 법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우',
+          ] },
+          { t: '수집한 개인정보의 위탁', body: [
+            '회사는 고객님의 동의 없이 고객님의 정보를 외부 업체에 위탁하지 않습니다. 향후 그러한 필요가 생길 경우, 위탁 대상자와 위탁 업무 내용에 대해 고객님께 통지하고 필요한 경우 사전 동의를 받도록 하겠습니다.',
+          ] },
+          { t: '이용자 및 법정대리인의 권리와 그 행사방법', body: [
+            '이용자 및 법정대리인은 언제든지 자신 또는 만 14세 미만 아동의 개인정보에 대하여 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다.',
+            '권리 행사는 아래 문의처로 서면, 전화, 팩스 등을 통하여 하실 수 있으며, 회사는 이에 대해 지체 없이 조치하겠습니다.',
+          ] },
+          { t: '개인정보 자동수집 장치의 설치·운영 및 그 거부에 관한 사항', body: [
+            '회사 홈페이지는 이용자를 식별하거나 이용 행태를 추적하기 위한 쿠키를 운영하지 않습니다.',
+            "다만 팝업 공지의 '오늘 하루 보지 않기'와 같이 화면 설정을 기억하기 위한 최소한의 정보를 이용자의 브라우저에 저장합니다. 이 정보는 회사 서버로 전송되지 않고 개인을 식별하지 않으며, 브라우저 설정에서 언제든지 삭제하실 수 있습니다.",
+          ] },
+          { t: '개인정보 관련 문의처', body: [
+            '개인정보보호와 관련한 민원은 아래 담당자에게 접수해 주시기 바랍니다. 회사는 이용자들의 신고사항에 대해 신속하고 충분한 답변을 드리겠습니다.',
+            '- 개인정보 보호책임자: 이상헌 팀장',
+            '- 전화: 043-879-7916',
+          ] },
+          { t: '권익침해 구제방법', body: [
+            '개인정보 침해로 인한 구제가 필요한 경우 아래 기관에 분쟁 해결이나 상담을 신청하실 수 있습니다.',
+            '- 개인정보분쟁조정위원회: 1833-6972 (www.kopico.go.kr)',
+            '- 개인정보침해신고센터: 118 (privacy.kisa.or.kr)',
+            '- 대검찰청 사이버수사과: 1301 (www.spo.go.kr)',
+            '- 경찰청 사이버수사국: 182 (ecrm.police.go.kr)',
+          ] },
+        ],
+      },
+      email: {
+        title: '이메일주소 무단수집 거부',
+        body: '본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단으로 수집되는 것을 거부하며, 이를 위반 시 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」에 의해 형사 처벌될 수 있음을 유념하시기 바랍니다.',
+        close: '닫기',
+      },
+    },
     ir: {
       finance: {
         title: '재무정보', docTitle: '재무정보 | DB월드',
@@ -882,6 +946,70 @@ export const copy = {
       mapTitle: 'Project Map',
       mapSub: 'Select a pin to jump to the project',
       specLabels: { location: 'Location', scale: 'Scale', area: 'Area', status: 'Status', completed: 'Completed', category: 'Category' },
+    },
+    legal: {
+      privacy: {
+        title: 'Privacy Policy',
+        lead: [
+          'DB World Co., Ltd. (the "Company") values your personal data and complies with the Personal Information Protection Act and the Act on Promotion of Information and Communications Network Utilisation and Information Protection.',
+          'Through this privacy policy the Company explains how the personal data you provide is used and what measures are taken to protect it.',
+          'Should this privacy policy be revised, the Company will announce the changes through the notices section of its website.',
+        ],
+        effective: 'This policy takes effect on 27 September 2026.',
+        sections: [
+          { t: 'Personal Data Collected', body: [
+            'The Company website does not operate membership registration and does not collect personal data directly through the site. Personal data is collected only where enquiries, proposals or job applications are received by telephone, fax or post.',
+            '- Items collected: name, contact number, email address and other minimum information required to handle the enquiry',
+            '- Method of collection: offline channels such as telephone, fax and post',
+          ] },
+          { t: 'Purpose of Collection and Use', body: [
+            'The Company uses the personal data it collects for the following purposes.',
+            '- Verifying and responding to enquiries and proposals',
+            '- Concluding and performing contracts and handling related work',
+            '- Conducting recruitment and notifying applicants of the outcome',
+          ] },
+          { t: 'Retention and Use Period', body: [
+            'Once the purpose of collection and use has been achieved, the Company destroys the relevant personal data without delay and without exception. Where applicable law prescribes a retention period, the data is retained for that period.',
+          ] },
+          { t: 'Destruction Procedure and Method', body: [
+            '- Procedure: personal data whose purpose has been achieved is moved to separate storage (a separate file cabinet in the case of paper documents), retained for a set period in accordance with internal policy and statutory retention grounds, and then destroyed. Data so transferred is not used for any purpose other than retention unless required by law.',
+            '- Method: personal data stored as electronic files is deleted using technical means that make the records irrecoverable; paper documents are shredded or incinerated.',
+          ] },
+          { t: 'Provision of Personal Data', body: [
+            'As a rule the Company does not provide users\' personal data to outside parties. The following are exceptions.',
+            '- Where the user has given prior consent',
+            '- Where required by law, or where an investigative agency makes a request in accordance with statutory procedures for investigative purposes',
+          ] },
+          { t: 'Outsourcing of Collected Personal Data', body: [
+            'The Company does not entrust your information to outside companies without your consent. Should such a need arise, the Company will notify you of the trustee and the scope of the entrusted work and obtain your prior consent where necessary.',
+          ] },
+          { t: 'Rights of Users and Legal Representatives', body: [
+            'Users and legal representatives may at any time request access to, correction of, deletion of, or suspension of the processing of their own personal data or that of a child under the age of 14.',
+            'Such requests may be made in writing, by telephone or by fax using the contacts below, and the Company will act on them without delay.',
+          ] },
+          { t: 'Automatic Collection Devices and How to Refuse Them', body: [
+            'The Company website does not operate cookies that identify users or track their browsing behaviour.',
+            'It does store a minimal amount of display-preference information in your browser — for example when "Do not show again today" is selected on a pop-up notice. This information is never transmitted to the Company\'s servers, does not identify any individual, and can be deleted at any time through your browser settings.',
+          ] },
+          { t: 'Privacy Enquiries', body: [
+            'Please direct any privacy-related complaints to the officer below. The Company will respond promptly and fully.',
+            '- Privacy Officer: Lee Sang-heon, Team Leader',
+            '- Tel: +82-43-879-7916',
+          ] },
+          { t: 'Remedies for Infringement of Rights', body: [
+            'If you need redress for an infringement of your personal data rights, you may apply to the following organisations for dispute resolution or consultation.',
+            '- Personal Information Dispute Mediation Committee: 1833-6972 (www.kopico.go.kr)',
+            '- Privacy Infringement Report Centre: 118 (privacy.kisa.or.kr)',
+            '- Supreme Prosecutors\' Office Cybercrime Division: 1301 (www.spo.go.kr)',
+            '- National Police Agency Cyber Bureau: 182 (ecrm.police.go.kr)',
+          ] },
+        ],
+      },
+      email: {
+        title: 'No Unauthorised Collection of Email Addresses',
+        body: 'The Company refuses any unauthorised collection of email addresses posted on this website by means of email collection programs or other technical devices. Please note that violation may result in criminal punishment under the Act on Promotion of Information and Communications Network Utilisation and Information Protection.',
+        close: 'Close',
+      },
     },
     ir: {
       finance: {

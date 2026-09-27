@@ -140,11 +140,56 @@ ${body}
       </div>
     </div>
     <div class="foot-bottom">
-      <p class="foot-copy">Copyright © DB World. All Rights Reserved.</p>
-      <p>${esc(com.legalName)} · ${lang === 'ko' ? '대표이사' : 'CEO'} ${esc(com.ceo)} · ${lang === 'ko' ? '사업자등록번호' : 'Business Reg. No.'} ${esc(com.bizNo)}</p>
+      <nav class="foot-links" aria-label="${lang === 'ko' ? '약관' : 'Policies'}">
+        <button type="button" class="foot-privacy" data-privacymodal>${esc(L.legal.privacy.title)}</button>
+        <button type="button" data-emailmodal>${esc(L.legal.email.title)}</button>
+      </nav>
+      <div class="foot-legal">
+        <p>${esc(com.legalName)} · ${lang === 'ko' ? '대표이사' : 'CEO'} ${esc(com.ceo)} · ${lang === 'ko' ? '사업자등록번호' : 'Business Reg. No.'} ${esc(com.bizNo)}</p>
+        <p class="foot-copy">Copyright © DB World. All Rights Reserved.</p>
+      </div>
     </div>
   </div>
 </footer>
+<div class="emod emod-wide" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="pvmTitle" hidden>
+  <div class="emod-card">
+    <div class="emod-head">
+      <h2 id="pvmTitle">${esc(L.legal.privacy.title)}</h2>
+      <button type="button" class="emod-x" data-emodclose aria-label="${esc(L.legal.email.close)}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="emod-scroll" tabindex="0">
+      <div class="legal-doc">
+        ${L.legal.privacy.lead.map(p => `<p class="legal-lead">${esc(p)}</p>`).join('')}
+        <p class="legal-eff">${esc(L.legal.privacy.effective)}</p>
+        ${L.legal.privacy.sections.map(s => `<section class="legal-sec"><h3>${esc(s.t)}</h3>${legalBody(s.body)}</section>`).join('')}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="emod" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="emodTitle" hidden>
+  <div class="emod-card">
+    <div class="emod-head">
+      <h2 id="emodTitle">${esc(L.legal.email.title)}</h2>
+      <button type="button" class="emod-x" data-emodclose aria-label="${esc(L.legal.email.close)}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="emod-body">
+      <div class="emod-ico" aria-hidden="true">
+        <svg viewBox="0 0 64 56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+          <rect x="3" y="7" width="48" height="36" rx="3"/>
+          <path d="m3 11 24 17L51 11"/>
+          <rect x="40" y="31" width="20" height="16" rx="3" fill="#fff" stroke="#8DC63F"/>
+          <path d="M44 31v-4a6 6 0 0 1 12 0v4" stroke="#8DC63F"/>
+          <circle cx="50" cy="38" r="2" fill="#8DC63F" stroke="none"/>
+        </svg>
+      </div>
+      <p>${esc(L.legal.email.body)}</p>
+    </div>
+  </div>
+</div>
 <button class="totop" data-totop aria-label="${esc(L.common.backTop)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button>
 <script src="/assets/js/main.js${v ? `?v=${v}` : ''}" defer></script>
 </body>
@@ -157,6 +202,18 @@ const FLAG_KR = `<img class="lang-flag" src="/assets/img/flags/kr.png" alt="" wi
 const FLAG_US = `<img class="lang-flag" src="/assets/img/flags/us.png" alt="" width="17" height="17">`;
 
 const PHERO_IMG = { about: 'about', business: 'business', projects: 'projects', news: 'news', esg: 'esg', ir: 'ir' };
+/* 개인정보 처리방침 본문 렌더 ('- ' 로 시작하는 줄은 목록) */
+function legalBody(body) {
+  let out = '', list = [];
+  const flush = () => { if (list.length) { out += `<ul>${list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`; list = []; } };
+  for (const line of body) {
+    if (line.startsWith('- ')) list.push(line.slice(2));
+    else { flush(); out += `<p>${esc(line)}</p>`; }
+  }
+  flush();
+  return out;
+}
+
 function pageHero(c, { title, crumbs, slogan, sec }) {
   const { L, lang } = c;
   const img = PHERO_IMG[sec]
