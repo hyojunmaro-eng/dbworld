@@ -694,9 +694,10 @@ body.menu-open { overflow: hidden; }
 .is-home .foot { margin-top: 0; }
 .foot-accent { position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, #8DC63F, #009559 40%, #0061AF); opacity: .85; }
 .foot-in { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
-.foot-grid { display: grid; grid-template-columns: 1fr 1.7fr auto; gap: 30px; align-items: start; }
+.foot-grid { display: grid; grid-template-columns: 1fr 1.7fr auto; gap: 30px; align-items: stretch; }
+.foot-brand { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; }
 .foot-logo { height: 44px; width: auto; }
-.foot-brand .foot-links { margin-top: 18px; }
+.foot-brand .foot-links { margin-top: 0; }
 .foot-info div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; padding: 5px 0; }
 .foot-info dt { font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: #FFFFFF; text-transform: uppercase; padding-top: 3px; }
 .foot-info dd { color: #C9D3DA; font-size: .95rem; word-break: keep-all; }
