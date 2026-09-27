@@ -40,7 +40,6 @@
       cols.forEach(u => { u.style.minHeight = ''; });
       let h = 0;
       cols.forEach(u => { h = Math.max(h, u.offsetHeight); });
-      h += 4;
       const offset = Math.max(0, cols[0].getBoundingClientRect().top - megaBg.getBoundingClientRect().top);
       gnb.classList.remove('mega-measure');
       cols.forEach(u => { u.style.minHeight = h + 'px'; });
