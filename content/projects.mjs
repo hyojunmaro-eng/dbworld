@@ -49,20 +49,6 @@ export const projects = [
     },
   },
   {
-    slug: 'dongja-office', cats: ['development'], featured: false, img: 'dongja-office',
-    map: { x: 230.5, y: 133.8, city: { ko: '서울', en: 'Seoul' } },
-    ko: {
-      name: '동자 오피스Ⅱ', location: '서울 용산구 동자동',
-      scale: '지하 7층 · 지상 40층', area: '연면적 43,000평', completed: '인허가 진행중',
-      desc: '서울역 인근 동자동의 대규모 업무시설 개발 및 자산관리 프로젝트입니다.',
-    },
-    en: {
-      name: 'Dongja Office Ⅱ', location: 'Dongja-dong, Yongsan-gu, Seoul',
-      scale: 'B7 – 40F', area: 'GFA 142,000m²', completed: 'Permitting in progress',
-      desc: 'A large-scale office development and property management project near Seoul Station.',
-    },
-  },
-  {
     slug: 'dongja-office1', cats: ['pm'], featured: false, img: 'dongja-office1',
     map: { x: 230.5, y: 133.8, city: { ko: '서울', en: 'Seoul' } },
     ko: {
@@ -74,6 +60,20 @@ export const projects = [
       name: 'Dongja Office Ⅰ', location: 'Dongja-dong, Yongsan-gu, Seoul',
       scale: 'B6 – 24F', area: 'GFA 44,700m²', completed: 'Under management',
       desc: 'Property management of an office building in Dongja-dong, near Seoul Station.',
+    },
+  },
+  {
+    slug: 'dongja-office', cats: ['development'], featured: false, img: 'dongja-office',
+    map: { x: 230.5, y: 133.8, city: { ko: '서울', en: 'Seoul' } },
+    ko: {
+      name: '동자 오피스Ⅱ', location: '서울 용산구 동자동',
+      scale: '지하 7층 · 지상 40층', area: '연면적 43,000평', completed: '인허가 진행중',
+      desc: '서울역 인근 동자동의 대규모 업무시설 개발 및 자산관리 프로젝트입니다.',
+    },
+    en: {
+      name: 'Dongja Office Ⅱ', location: 'Dongja-dong, Yongsan-gu, Seoul',
+      scale: 'B7 – 40F', area: 'GFA 142,000m²', completed: 'Permitting in progress',
+      desc: 'A large-scale office development and property management project near Seoul Station.',
     },
   },
   {
