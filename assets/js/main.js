@@ -37,9 +37,11 @@
       cols.forEach(u => { u.style.minHeight = ''; });
       let h = 0;
       cols.forEach(u => { h = Math.max(h, u.offsetHeight); });
-      h += 10;
+      h += 4;
       cols.forEach(u => { u.style.minHeight = h + 'px'; });
-      megaBg.style.height = h + 'px';
+      /* 컬럼은 메뉴 항목 아래에서 시작하므로 헤더 하단과의 차이만큼 패널을 더 키운다 */
+      const gap = cols.length ? Math.max(0, cols[0].getBoundingClientRect().top - megaBg.getBoundingClientRect().top) : 0;
+      megaBg.style.height = (h + gap) + 'px';
     };
     const closeMega = () => {
       gnb.classList.remove('mega-on');
