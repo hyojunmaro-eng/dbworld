@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": "ppmujqxpof",
+    "img": "/files/popup-20260927-qxs8r.jpg",
+    "enabled": true,
+    "always": true,
+    "start": "",
+    "end": "",
+    "link": "",
+    "newtab": true,
+    "device": "all",
+    "pages": [
+      "/"
+    ],
+    "created": "2026-09-27T11:39:43.803Z"
+  }
+]
