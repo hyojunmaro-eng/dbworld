@@ -7,20 +7,6 @@
  */
 export const projects = [
   {
-    slug: 'rainbow-hills-cc', cats: ['golf'], featured: true, img: 'golf-rainbowhills',
-    map: { x: 298.1, y: 192.5, city: { ko: '음성', en: 'Eumseong' } },
-    ko: {
-      name: '레인보우힐스 컨트리클럽', location: '충북 음성군 생극면',
-      scale: '27홀 (파 108)', area: '부지 659,708평', completed: '2008년 개장',
-      desc: '로버트 트렌트 존스 주니어가 자연 지형을 살려 설계한 27홀 대중제 골프장. "한국의 페블비치"로 불리며, KLPGA DB 위민스 챔피언십 등 프로·아마추어 대회를 개최하는 챔피언십 코스입니다.',
-    },
-    en: {
-      name: 'Rainbow Hills Country Club', location: 'Eumseong-gun, Chungbuk',
-      scale: '27 holes (par 108)', area: '2.18M m² site', completed: 'Opened 2008',
-      desc: 'A 27-hole public championship course designed by Robert Trent Jones Jr., known as the Pebble Beach of Korea and home of the KLPGA DB Women’s Championship.',
-    },
-  },
-  {
     slug: 'db-financial-center', cats: ['development', 'pm'], featured: true, img: 'dbfc-tower',
     map: { x: 230.5, y: 133.8, city: { ko: '서울', en: 'Seoul' } },
     ko: {
@@ -46,6 +32,20 @@ export const projects = [
       name: 'DB Insurance Busan HQ', location: 'Bujeon-dong, Busanjin-gu, Busan (Seomyeon)',
       scale: 'B8 – 24F', area: 'GFA 44,700m²', completed: 'Completed 2026',
       desc: 'A new office tower in the Seomyeon CBD. DB World handles the full cycle — feasibility, construction management and post-completion property management.',
+    },
+  },
+  {
+    slug: 'rainbow-hills-cc', cats: ['golf'], featured: true, img: 'golf-rainbowhills',
+    map: { x: 298.1, y: 192.5, city: { ko: '음성', en: 'Eumseong' } },
+    ko: {
+      name: '레인보우힐스 컨트리클럽', location: '충북 음성군 생극면',
+      scale: '27홀 (파 108)', area: '부지 659,708평', completed: '2008년 개장',
+      desc: '로버트 트렌트 존스 주니어가 자연 지형을 살려 설계한 27홀 대중제 골프장. "한국의 페블비치"로 불리며, KLPGA DB 위민스 챔피언십 등 프로·아마추어 대회를 개최하는 챔피언십 코스입니다.',
+    },
+    en: {
+      name: 'Rainbow Hills Country Club', location: 'Eumseong-gun, Chungbuk',
+      scale: '27 holes (par 108)', area: '2.18M m² site', completed: 'Opened 2008',
+      desc: 'A 27-hole public championship course designed by Robert Trent Jones Jr., known as the Pebble Beach of Korea and home of the KLPGA DB Women’s Championship.',
     },
   },
   {
