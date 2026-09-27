@@ -690,7 +690,7 @@ body.menu-open { overflow: hidden; }
 .nf h1 { margin: 10px 0 12px; }
 .nf p { color: var(--ink-soft); margin-bottom: 30px; }
 
-.foot { position: relative; background: #0F1417; color: #98A5AE; padding: 44px 0 26px; margin-top: 40px; }
+.foot { position: relative; z-index: 20; background: #0F1417; color: #98A5AE; padding: 44px 0 26px; margin-top: 40px; }
 .is-home .foot { margin-top: 0; }
 .foot-accent { position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, #8DC63F, #009559 40%, #0061AF); opacity: .85; }
 .foot-in { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
@@ -703,7 +703,7 @@ body.menu-open { overflow: hidden; }
 .foot-util { display: flex; flex-direction: column; align-items: flex-end; gap: 18px; }
 
 /* 패밀리 사이트 — 위로 열리는 커스텀 드롭다운 */
-.fam { position: relative; }
+.fam { position: relative; z-index: 2; }
 .fam-btn {
   display: inline-flex; align-items: center; justify-content: space-between; gap: 30px;
   min-width: 218px; padding: 13px 22px; border: 1px solid #2E383F; border-radius: 99px;
@@ -715,10 +715,14 @@ body.menu-open { overflow: hidden; }
 .fam.on .fam-btn { border-color: #46525A; background: #1C2429; color: #fff; }
 .fam.on .fam-btn svg { transform: rotate(135deg); }
 .fam-list {
-  position: absolute; bottom: calc(100% + 10px); right: 0; min-width: 218px; max-height: 340px; overflow-y: auto;
+  position: absolute; z-index: 3; bottom: calc(100% + 10px); right: 0; min-width: 218px; max-height: 340px; overflow-y: auto;
   list-style: none; padding: 16px 8px; margin: 0; background: #2A3035; border-radius: 14px;
   box-shadow: 0 18px 44px rgba(0, 0, 0, .5); animation: famin .22s var(--ease);
+  scrollbar-width: thin; scrollbar-color: #4C565E transparent; overscroll-behavior: contain;
 }
+.fam-list::-webkit-scrollbar { width: 6px; }
+.fam-list::-webkit-scrollbar-track { background: transparent; }
+.fam-list::-webkit-scrollbar-thumb { background: #4C565E; border-radius: 99px; }
 .fam-list[hidden] { display: none; }
 .fam-list a {
   display: block; padding: 7px 16px; color: #AEB8C0; font-size: .95rem; border-radius: 8px;
