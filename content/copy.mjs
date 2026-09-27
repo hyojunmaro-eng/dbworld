@@ -279,9 +279,9 @@ export const copy = {
               fields: ['신축', '증축', '리모델링', '사업계획 컨설팅 등'],
               groups: [
                 { name: '업무시설', items: [
-                  { name: '동자 오피스Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['서울 동자동', '연면적 43,000평 (지하 7층 ~ 지상 40층)', '인허가 진행중'] },
                   { name: '대치 금융센터', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['서울 대치동', '연면적 17,248평 (지하 7층 ~ 지상 35층)', '2002년 준공'] },
                   { name: '부산 오피스', img: 'dev-busan', slug: 'busan-hq', specs: ['부산 부전동', '연면적 13,535평 (지하 8층 ~ 지상 24층)', "'26년 준공 완료"] },
+                  { name: '동자 오피스Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['서울 동자동', '연면적 43,000평 (지하 7층 ~ 지상 40층)', '인허가 진행중'] },
                 ] },
                 { name: '상업시설', items: [
                   { name: '신사 오피스 및 근생', img: 'dev-sinsa', slug: 'sinsa-office', specs: ['서울 신사동', '연면적 2,750평 (지하 3층 ~ 지상 4층)', '사업계획 중'] },
@@ -320,7 +320,7 @@ export const copy = {
               ],
               groups: [
                 { name: '산업단지', items: [
-                  { name: '상우산업단지', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['음성군 상우리', '대지면적 13.2만 평', "공사 중 ('25년 7월 준공 예정)"] },
+                  { name: '상우산업단지', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['음성군 상우리', '대지면적 13.2만 평', '준공 완료'] },
                 ] },
                 { name: '특구지정', items: [
                   { name: '음성 미래기술문화특구', img: 'dev-eumseong', slug: 'eumseong-district', specs: ['음성군 생극면', '대지면적 105만 평', '사업계획 중'] },
@@ -816,9 +816,9 @@ export const copy = {
               fields: ['New construction', 'Extension', 'Remodeling', 'Business planning consulting'],
               groups: [
                 { name: 'Office', items: [
-                  { name: 'Dongja Office Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['Dongja-dong, Seoul', 'GFA 142,000m² (B7 – 40F)', 'Permitting in progress'] },
                   { name: 'Daechi Financial Center', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['Daechi-dong, Seoul', 'GFA 57,000m² (B7 – 35F)', 'Completed 2002'] },
                   { name: 'Busan Office', img: 'dev-busan', slug: 'busan-hq', specs: ['Bujeon-dong, Busan', 'GFA 44,700m² (B8 – 24F)', 'Completed 2026'] },
+                  { name: 'Dongja Office Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['Dongja-dong, Seoul', 'GFA 142,000m² (B7 – 40F)', 'Permitting in progress'] },
                 ] },
                 { name: 'Retail', items: [
                   { name: 'Sinsa Office & Retail', img: 'dev-sinsa', slug: 'sinsa-office', specs: ['Sinsa-dong, Seoul', 'GFA 9,100m² (B3 – 4F)', 'Business planning'] },
@@ -857,7 +857,7 @@ export const copy = {
               ],
               groups: [
                 { name: 'Industrial Complex', items: [
-                  { name: 'Sangwoo Industrial Complex', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['Sangwoo-ri, Eumseong', 'Site ca. 436,000m²', 'Under construction (completion July 2025)'] },
+                  { name: 'Sangwoo Industrial Complex', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['Sangwoo-ri, Eumseong', 'Site ca. 436,000m²', 'Completed'] },
                 ] },
                 { name: 'Special District', items: [
                   { name: 'Eumseong Future Tech & Culture District', img: 'dev-eumseong', slug: 'eumseong-district', specs: ['Saenggeuk-myeon, Eumseong', 'Site ca. 3.47M m²', 'Business planning'] },
