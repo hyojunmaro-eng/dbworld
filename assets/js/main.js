@@ -320,60 +320,80 @@
       && onPage(p) && !hidden(p.id));
     if (!act.length) return;
     // 이미지를 먼저 받아 두고 표시 (깨진 이미지·높이 튐 방지) — 못 불러온 팝업은 건너뜀
-    const ok = await Promise.all(act.map(p => new Promise(res => {
+    const dim = await Promise.all(act.map(p => new Promise(res => {
       const im = new Image();
-      im.onload = () => res(true); im.onerror = () => res(false);
+      im.onload = () => res({ w: im.naturalWidth, h: im.naturalHeight }); im.onerror = () => res(null);
       im.src = src(p);
     })));
-    act = act.filter((_, i) => ok[i]);
+    act = act.map((p, i) => dim[i] && { ...p, w: dim[i].w, h: dim[i].h }).filter(Boolean);
     if (!act.length) return;
-    const T = en ? { today: "Don't show again today", close: 'Close', label: 'Notice' } : { today: '오늘 하루 보지 않기', close: '닫기', label: '안내 팝업' };
+    // 여러 개면 한 창에서 한 장씩 넘겨 봄 (문서가 읽힐 만큼 크게 보이도록 — 나란히 놓으면 글자가 작아짐)
+    const T = en
+      ? { today: "Don't show again today", close: 'Close', label: 'Notice', prev: 'Previous', next: 'Next' }
+      : { today: '오늘 하루 보지 않기', close: '닫기', label: '안내 팝업', prev: '이전', next: '다음' };
+    const many = act.length > 1;
+    const chev = d => '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="' + d + '"/></svg>';
     const ov = document.createElement('div');
     ov.className = 'pop-ov';
     ov.setAttribute('role', 'dialog');
     ov.setAttribute('aria-modal', 'true');
     ov.setAttribute('aria-label', T.label);
-    ov.innerHTML = '<div class="pop-box"><div class="pop-row">' + act.map(p => {
-      const img = '<img src="' + esc(src(p)) + '" alt="' + T.label + '">';
+    ov.innerHTML = '<div class="pop-card"><div class="pop-stage">' + act.map((p, i) => {
+      const img = '<img src="' + esc(src(p)) + '" width="' + p.w + '" height="' + p.h + '" alt="' + T.label + (many ? ' ' + (i + 1) : '') + '">';
       const url = href(p.link);
-      const body = url
-        ? '<a class="pop-img" href="' + esc(url) + '"' + (p.newtab !== false ? ' target="_blank" rel="noopener"' : '') + '>' + img + '</a>'
-        : '<div class="pop-img">' + img + '</div>';
-      return '<div class="pop-card" data-pid="' + esc(p.id) + '">' + body +
-        '<div class="pop-bar"><button type="button" class="pop-today" data-ptoday>' + T.today + '</button>' +
-        '<button type="button" class="pop-x" data-pclose aria-label="' + T.close + '"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/></svg></button></div></div>';
-    }).join('') + '</div><div class="pop-dots">' + act.map((_, i) => '<i' + (i === 0 ? ' class="on"' : '') + '></i>').join('') + '</div></div>';
+      const attrs = ' class="pop-page' + (i ? '' : ' on') + '" data-pid="' + esc(p.id) + '"' + (i ? ' aria-hidden="true"' : '');
+      return url
+        ? '<a' + attrs + ' href="' + esc(url) + '"' + (p.newtab !== false ? ' target="_blank" rel="noopener"' : '') + (i ? ' tabindex="-1"' : '') + '>' + img + '</a>'
+        : '<div' + attrs + '>' + img + '</div>';
+    }).join('') + '</div>' +
+      '<div class="pop-bar"><button type="button" class="pop-today" data-ptoday>' + T.today + '</button><div class="pop-tools">' +
+      (many ? '<div class="pop-pager"><button type="button" data-pprev aria-label="' + T.prev + '">' + chev('M12.5 4.5L7 10l5.5 5.5') + '</button>' +
+        '<span class="pop-count" aria-live="polite"><b>1</b> / ' + act.length + '</span>' +
+        '<button type="button" data-pnext aria-label="' + T.next + '">' + chev('M7.5 4.5L13 10l-5.5 5.5') + '</button></div>' : '') +
+      '<button type="button" class="pop-x" data-pclose aria-label="' + T.close + '">' + chev('M4.5 4.5l11 11M15.5 4.5l-11 11') + '</button></div></div></div>';
     document.body.appendChild(ov);
     document.body.classList.add('pop-open');
-    const row = ov.querySelector('.pop-row');
-    const onKey = e => { if (e.key === 'Escape') closeAll(); };
+    const pages = [...ov.querySelectorAll('.pop-page')];
+    let cur = 0;
+    const go = n => {
+      cur = (n + pages.length) % pages.length;
+      pages.forEach((pg, i) => {
+        const on = i === cur;
+        pg.classList.toggle('on', on);
+        pg.setAttribute('aria-hidden', String(!on));
+        if (pg.tagName === 'A') pg.tabIndex = on ? 0 : -1;
+      });
+      const b = ov.querySelector('.pop-count b');
+      if (b) b.textContent = cur + 1;
+    };
+    const onKey = e => {
+      if (e.key === 'Escape') closeAll();
+      else if (many && e.key === 'ArrowLeft') go(cur - 1);
+      else if (many && e.key === 'ArrowRight') go(cur + 1);
+    };
     const closeAll = () => { ov.remove(); document.body.classList.remove('pop-open'); removeEventListener('keydown', onKey); };
-    const syncDots = () => {
-      const cards = [...ov.querySelectorAll('.pop-card')];
-      const wrap = ov.querySelector('.pop-dots');
-      if (!wrap) return;
-      if (cards.length < 2) return wrap.remove();
-      const mid = row.scrollLeft + row.clientWidth / 2;
-      let best = 0, bd = Infinity;
-      cards.forEach((c, i) => { const cd = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (cd < bd) { bd = cd; best = i; } });
-      wrap.innerHTML = cards.map((_, i) => '<i' + (i === best ? ' class="on"' : '') + '></i>').join('');
-    };
-    const closeCard = card => {
-      card.remove();
-      if (!ov.querySelector('.pop-card')) return closeAll();
-      syncDots();
-    };
     ov.addEventListener('click', e => {
-      const card = e.target.closest('.pop-card');
-      if (e.target.closest('[data-pclose]')) return closeCard(card);
-      if (e.target.closest('[data-ptoday]')) {
-        try { localStorage.setItem('dbw_pop_' + card.dataset.pid, today); } catch {}
-        return closeCard(card);
+      if (e.target.closest('[data-pprev]')) return go(cur - 1);
+      if (e.target.closest('[data-pnext]')) return go(cur + 1);
+      if (e.target.closest('[data-pclose]')) return closeAll();
+      if (e.target.closest('[data-ptoday]')) { // 이번에 뜬 팝업 전체를 오늘 하루 숨김
+        act.forEach(p => { try { localStorage.setItem('dbw_pop_' + p.id, today); } catch {} });
+        return closeAll();
       }
       if (e.target === ov) closeAll();
     });
     addEventListener('keydown', onKey);
-    row.addEventListener('scroll', syncDots, { passive: true });
+    if (many) { // 휴대폰: 좌우로 밀어서 넘기기
+      const stage = ov.querySelector('.pop-stage');
+      let sx = null, sy = 0;
+      stage.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+      stage.addEventListener('touchend', e => {
+        if (sx === null) return;
+        const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+        sx = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+    }
   })();
 
   /* ---------- DART iframe 폭맞춤 ---------- */

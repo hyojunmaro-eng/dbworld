@@ -982,30 +982,43 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
 }
 
 /* ---------- 팝업 (관리자 등록) ---------- */
+/* 한 창에 한 장씩 크게 — A4 문서도 읽히도록 화면 높이까지, 폭은 최대 960px
+   여러 장은 같은 칸에 겹쳐 두고 넘김 → 창 크기는 가장 큰 이미지 기준으로 고정(넘길 때 흔들림 없음) */
 body.pop-open { overflow: hidden; }
-.pop-ov { position: fixed; inset: 0; z-index: 300; background: rgba(10, 14, 18, .55); display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadein .25s; }
-.pop-row { display: flex; gap: 22px; align-items: flex-start; justify-content: center; }
-.pop-card { width: min(360px, 86vw); background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 70px rgba(0, 0, 0, .4); flex: none; }
-.pop-img { display: block; }
-.pop-img img { display: block; width: 100%; max-height: calc(100vh - 130px); object-fit: contain; background: #fff; }
-.pop-bar { display: flex; align-items: center; justify-content: space-between; background: var(--db-green); }
+.pop-ov { position: fixed; inset: 0; z-index: 300; background: rgba(10, 14, 18, .6); display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadein .25s; }
+.pop-card { min-width: 320px; background: #fff; box-shadow: 0 24px 70px rgba(0, 0, 0, .4); }
+.pop-stage { display: grid; background: #fff; }
+.pop-page { grid-area: 1 / 1; place-self: center; display: block; opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s; }
+.pop-page.on { opacity: 1; visibility: visible; }
+.pop-page img {
+  display: block; width: auto; height: auto;
+  max-width: min(960px, calc(100vw - 48px));
+  max-height: calc(100vh - 100px); max-height: calc(100dvh - 100px);
+}
+.pop-bar { display: flex; align-items: center; justify-content: space-between; background: var(--db-green); color: #fff; }
 .pop-bar button { font: inherit; color: #fff; background: none; border: 0; cursor: pointer; }
-.pop-today { padding: 15px 18px; font-size: .9rem; text-align: left; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.pop-x { display: grid; place-items: center; width: 52px; height: 50px; flex: none; }
-.pop-x svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
-.pop-bar button:hover { opacity: .78; }
+.pop-today { padding: 15px 18px; font-size: .9rem; text-align: left; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; white-space: nowrap; }
+.pop-tools { display: flex; align-items: center; flex: none; }
+.pop-pager { display: flex; align-items: center; font-size: .88rem; }
+.pop-pager button { display: grid; place-items: center; width: 34px; height: 52px; }
+.pop-count { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums; opacity: .9; }
+.pop-count b { font-weight: 700; }
+.pop-x { display: grid; place-items: center; width: 52px; height: 52px; }
+.pop-bar svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.pop-pager svg { width: 17px; height: 17px; stroke-width: 2; }
+.pop-bar button:hover { opacity: .75; }
 .pop-bar button:focus-visible { outline: 2px solid #fff; outline-offset: -5px; }
-.pop-dots { display: none; }
 @media (max-width: 768px) {
   .pop-ov { padding: 18px; }
-  .pop-box { max-width: min(340px, 88vw); }
-  .pop-row { overflow-x: auto; justify-content: flex-start; gap: 12px; scroll-snap-type: x mandatory; scrollbar-width: none; }
-  .pop-row::-webkit-scrollbar { display: none; }
-  .pop-card { width: min(320px, 84vw); scroll-snap-align: center; }
-  .pop-dots { display: flex; gap: 7px; justify-content: center; margin-top: 14px; }
-  .pop-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .45); transition: background .2s; }
-  .pop-dots i.on { background: #fff; }
-  .pop-dots:has(i:only-child) { display: none; }
+  .pop-page img { max-width: calc(100vw - 36px); max-height: calc(100vh - 90px); max-height: calc(100dvh - 90px); }
+}
+@media (max-width: 380px) {
+  .pop-card { min-width: 0; }
+  .pop-today { padding: 14px 12px; font-size: .84rem; }
+  .pop-pager button { width: 28px; }
+  .pop-count { min-width: 36px; }
+  .pop-x { width: 44px; }
+}
 }
 
 .ovw-vis { margin-top: clamp(48px, 6vw, 72px); }
