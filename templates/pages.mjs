@@ -91,7 +91,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
       <ul class="nav-l1">
         <li><a href="${url('about/overview/')}">${nav.about}</a><ul class="nav-l2">${dd(nav.aboutItems, 'about')}</ul></li>
         <li><a href="${url('business/development/')}">${nav.business}</a><ul class="nav-l2">${dd(nav.businessItems, 'business')}<li><a href="${url('business/')}">${lang === 'ko' ? '사업영역 총괄' : 'Overview'}</a></li></ul></li>
-        <li><a href="${url('projects/')}">${nav.projects}</a></li>
+        <li><a href="${url('projects/')}">${nav.projects}</a><ul class="nav-l2"><li><a href="${url('projects/')}">${lang === 'ko' ? '전체 보기' : 'View All'}</a></li></ul></li>
         <li><a href="${url('ir/finance/')}">${nav.ir}</a><ul class="nav-l2">${nav.irMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
         <li><a href="${url('esg/policy/')}">${nav.esg}</a><ul class="nav-l2">${nav.esgMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
         <li><a href="${url('news/')}">${nav.news}</a><ul class="nav-l2">${nav.newsMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
@@ -104,6 +104,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
       <button class="burger" aria-label="${lang === 'ko' ? '메뉴' : 'Menu'}" aria-expanded="false" aria-controls="mnav" data-burger><span></span><span></span><span></span></button>
     </div>
   </div>
+  <div class="mega-bg" aria-hidden="true"></div>
 </header>
 <div class="mnav" id="mnav" data-mnav hidden>
   <nav aria-label="mobile">

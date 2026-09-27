@@ -24,6 +24,31 @@
 
   $('[data-totop]').addEventListener('click', () => scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
 
+  /* ---------- 메가메뉴 (데스크톱) ---------- */
+  const navRoot = $('.nav');
+  const megaBg = $('.mega-bg');
+  if (navRoot && megaBg) {
+    let forcedSolid = false;
+    const openMega = () => {
+      if (!matchMedia('(min-width: 1081px)').matches) return;
+      if (clearHdr && !gnb.classList.contains('solid')) { gnb.classList.add('solid'); forcedSolid = true; }
+      gnb.classList.add('mega-on');
+      let h = 0;
+      $$('.nav-l2', navRoot).forEach(u => { h = Math.max(h, u.offsetHeight); });
+      megaBg.style.height = (h + 8) + 'px';
+    };
+    const closeMega = () => {
+      gnb.classList.remove('mega-on');
+      if (forcedSolid && scrollY <= 8) { gnb.classList.remove('solid'); }
+      forcedSolid = false;
+    };
+    navRoot.addEventListener('mouseenter', openMega);
+    navRoot.addEventListener('mouseleave', closeMega);
+    navRoot.addEventListener('focusin', openMega);
+    navRoot.addEventListener('focusout', e => { if (!navRoot.contains(e.relatedTarget)) closeMega(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape') closeMega(); });
+  }
+
   /* ---------- 모바일 메뉴 ---------- */
   const burger = $('[data-burger]');
   const mnav = $('[data-mnav]');

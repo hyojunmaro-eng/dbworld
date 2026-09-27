@@ -68,7 +68,7 @@ p { word-break: keep-all; }
   background: rgba(255,255,255,.96); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line);
   transition: transform .35s;
 }
-.gnb-in { max-width: 1360px; margin: 0 auto; height: 100%; padding: 0 28px; display: flex; align-items: center; gap: 40px; }
+.gnb-in { position: relative; z-index: 2; max-width: 1360px; margin: 0 auto; height: 100%; padding: 0 28px; display: flex; align-items: center; gap: 40px; }
 .logo img { height: 40px; width: auto; transition: filter .3s; }
 .nav { margin-left: auto; }
 .nav-l1 { display: flex; gap: 8px; }
@@ -83,13 +83,25 @@ p { word-break: keep-all; }
 }
 .nav-l1 > li:hover > a::after, .nav-l1 > li:focus-within > a::after { transform: scaleX(1); }
 .nav-l2 {
-  position: absolute; top: 100%; left: 50%; translate: -50% 0; min-width: 190px;
-  background: #fff; border-radius: 12px; box-shadow: var(--shadow); padding: 10px;
-  opacity: 0; visibility: hidden; transform: translateY(8px);
-  transition: opacity .25s, transform .25s, visibility .25s;
+  position: absolute; top: 100%; left: 50%; translate: -50% 0; width: max-content; min-width: 104px; max-width: 140px; padding: 16px 4px 12px;
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity .22s, transform .22s, visibility .22s;
 }
-.nav-l1 > li:hover .nav-l2, .nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transform: none; }
-.nav-l2 a { display: block; padding: 9px 14px; border-radius: 8px; color: var(--ink-soft); font-size: .95rem; font-weight: 500; }
+.nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transform: none; }
+
+/* 메가메뉴: 한 메뉴에 올리면 전체 하위 메뉴가 함께 펼쳐짐 */
+.mega-bg {
+  position: absolute; z-index: 1; top: 100%; left: 0; right: 0; height: 0; pointer-events: none;
+  background: #fff; border-top: 1px solid var(--line); box-shadow: 0 18px 30px rgba(20, 30, 40, .07);
+  opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s;
+}
+@media (min-width: 1081px) {
+  .gnb.mega-on .mega-bg { opacity: 1; visibility: visible; }
+  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transform: none; }
+  .gnb.mega-on .nav-l1 > li:hover > a { color: var(--db-green); }
+  .gnb.mega-on .nav-l1 > li:hover > a::after { transform: scaleX(1); }
+}
+.nav-l2 a { display: block; padding: 9px 8px; border-radius: 8px; color: var(--ink-soft); font-size: .93rem; font-weight: 500; text-align: center; line-height: 1.45; word-break: keep-all; }
 .nav-l2 a:hover, .nav-l2 a:focus { background: var(--green-tint); color: var(--db-green); }
 
 .gnb-right { display: flex; align-items: center; gap: 14px; }
