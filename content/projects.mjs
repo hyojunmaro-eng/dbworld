@@ -39,12 +39,12 @@ export const projects = [
     map: { x: 420.7, y: 402.5, city: { ko: '부산', en: 'Busan' } },
     ko: {
       name: 'DB손해보험 부산사옥', location: '부산 부산진구 부전동 (서면)',
-      scale: '지하 8층 · 지상 24층', area: '연면적 13,535평', completed: "공사 중 ('26년 준공 예정)",
+      scale: '지하 8층 · 지상 24층', area: '연면적 13,535평', completed: "'26년 준공 완료",
       desc: '서면 중심업무지구의 신축 업무시설. DB월드가 사업계획·타당성 검토부터 시공관리(CM), 준공 후 자산관리(PM)까지 전 과정을 수행하는 대표 프로젝트입니다.',
     },
     en: {
       name: 'DB Insurance Busan HQ', location: 'Bujeon-dong, Busanjin-gu, Busan (Seomyeon)',
-      scale: 'B8 – 24F', area: 'GFA 44,700m²', completed: 'Completion 2026',
+      scale: 'B8 – 24F', area: 'GFA 44,700m²', completed: 'Completed 2026',
       desc: 'A new office tower in the Seomyeon CBD. DB World handles the full cycle — feasibility, construction management and post-completion property management.',
     },
   },
