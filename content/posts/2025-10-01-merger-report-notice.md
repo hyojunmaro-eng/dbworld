@@ -3,7 +3,13 @@
   "title": "흡수합병의 보고 총회에 갈음하는 공고",
   "title_en": "Public Notice in Lieu of the Merger Report Meeting",
   "category": "notice",
-  "body_en": "The public notice in lieu of the merger report meeting is announced as attached."
+  "body_en": "The public notice in lieu of the merger report meeting is announced as attached.",
+  "files": [
+    {
+      "name": "흡수합병의 보고총회에 갈음하는 공고(251001).pdf",
+      "src": "/files/흡수합병의 보고총회에 갈음하는 공고(251001).pdf"
+    }
+  ]
 }
 ---
 
