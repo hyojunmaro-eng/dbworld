@@ -292,36 +292,62 @@
     addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   })();
 
-  /* ---------- 홈 팝업 ---------- */
-  if (isHome) (async () => {
-    const base = location.pathname.replace(/\/(ko|en)\/.*$/, '');
+  /* ---------- 팝업 (관리자 등록 — 노출 페이지·기간·기기 조건) ---------- */
+  (async () => {
+    const pm = location.pathname.match(/^(.*?)\/(ko|en)(\/.*)?$/);
+    if (!pm) return;
+    const base = pm[1];
+    const here = (pm[3] || '/').replace(/index\.html$/, ''); // 언어 무관 페이지 키 (예: /about/ceo/)
+    const en = pm[2] === 'en';
     let pops;
     try { pops = await fetch(base + '/popups.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : []); } catch { return; }
     const d = new Date();
     const today = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     const mob = matchMedia('(max-width: 768px)').matches;
     const hidden = id => { try { return localStorage.getItem('dbw_pop_' + id) === today; } catch { return false; } };
-    const act = (Array.isArray(pops) ? pops : []).filter(p => p && p.id && p.img && p.enabled
+    const onPage = p => { const pg = Array.isArray(p.pages) && p.pages.length ? p.pages : ['/']; return pg.includes('*') || pg.includes(here); };
+    const src = p => p.img.charAt(0) === '/' ? base + p.img : p.img;
+    const href = l => {
+      l = String(l || '').trim();
+      if (/^https?:\/\//i.test(l)) return l;
+      if (l.charAt(0) === '/' && l.charAt(1) !== '/') return base + l;
+      if (/^[\w-]+(\.[\w-]+)+(\/|$)/.test(l)) return 'https://' + l;
+      return ''; // javascript: 등 그 밖의 형식은 링크 없이 표시
+    };
+    let act = (Array.isArray(pops) ? pops : []).filter(p => p && p.id && p.img && p.enabled
       && (p.always || ((!p.start || p.start <= today) && (!p.end || today <= p.end)))
       && (!p.device || p.device === 'all' || (p.device === 'mobile') === mob)
-      && !hidden(p.id));
+      && onPage(p) && !hidden(p.id));
     if (!act.length) return;
+    // 이미지를 먼저 받아 두고 표시 (깨진 이미지·높이 튐 방지) — 못 불러온 팝업은 건너뜀
+    const ok = await Promise.all(act.map(p => new Promise(res => {
+      const im = new Image();
+      im.onload = () => res(true); im.onerror = () => res(false);
+      im.src = src(p);
+    })));
+    act = act.filter((_, i) => ok[i]);
+    if (!act.length) return;
+    const T = en ? { today: "Don't show again today", close: 'Close', label: 'Notice' } : { today: '오늘 하루 보지 않기', close: '닫기', label: '안내 팝업' };
     const ov = document.createElement('div');
     ov.className = 'pop-ov';
     ov.setAttribute('role', 'dialog');
-    ov.setAttribute('aria-label', '안내 팝업');
+    ov.setAttribute('aria-modal', 'true');
+    ov.setAttribute('aria-label', T.label);
     ov.innerHTML = '<div class="pop-box"><div class="pop-row">' + act.map(p => {
-      const img = '<img src="' + esc(p.img.charAt(0) === '/' ? base + p.img : p.img) + '" alt="안내 팝업">';
-      const body = p.link
-        ? '<a class="pop-img" href="' + esc(p.link) + '"' + (p.newtab !== false ? ' target="_blank" rel="noopener"' : '') + '>' + img + '</a>'
+      const img = '<img src="' + esc(src(p)) + '" alt="' + T.label + '">';
+      const url = href(p.link);
+      const body = url
+        ? '<a class="pop-img" href="' + esc(url) + '"' + (p.newtab !== false ? ' target="_blank" rel="noopener"' : '') + '>' + img + '</a>'
         : '<div class="pop-img">' + img + '</div>';
       return '<div class="pop-card" data-pid="' + esc(p.id) + '">' + body +
-        '<div class="pop-bar"><button type="button" data-ptoday>오늘 하루 보지 않기</button><button type="button" data-pclose>닫기</button></div></div>';
+        '<div class="pop-bar"><button type="button" class="pop-today" data-ptoday>' + T.today + '</button>' +
+        '<button type="button" class="pop-x" data-pclose aria-label="' + T.close + '"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/></svg></button></div></div>';
     }).join('') + '</div><div class="pop-dots">' + act.map((_, i) => '<i' + (i === 0 ? ' class="on"' : '') + '></i>').join('') + '</div></div>';
     document.body.appendChild(ov);
     document.body.classList.add('pop-open');
     const row = ov.querySelector('.pop-row');
-    const closeAll = () => { ov.remove(); document.body.classList.remove('pop-open'); };
+    const onKey = e => { if (e.key === 'Escape') closeAll(); };
+    const closeAll = () => { ov.remove(); document.body.classList.remove('pop-open'); removeEventListener('keydown', onKey); };
     const syncDots = () => {
       const cards = [...ov.querySelectorAll('.pop-card')];
       const wrap = ov.querySelector('.pop-dots');
@@ -346,9 +372,7 @@
       }
       if (e.target === ov) closeAll();
     });
-    addEventListener('keydown', function onk(e) {
-      if (e.key === 'Escape' && ov.isConnected) { closeAll(); removeEventListener('keydown', onk); }
-    });
+    addEventListener('keydown', onKey);
     row.addEventListener('scroll', syncDots, { passive: true });
   })();
 

@@ -981,17 +981,20 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
   .fin-tablewrap::before { content: attr(data-hint); display: block; margin-bottom: 8px; color: #8A94A0; font-size: .78rem; }
 }
 
-/* ---------- 홈 팝업 ---------- */
+/* ---------- 팝업 (관리자 등록) ---------- */
 body.pop-open { overflow: hidden; }
 .pop-ov { position: fixed; inset: 0; z-index: 300; background: rgba(10, 14, 18, .55); display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadein .25s; }
 .pop-row { display: flex; gap: 22px; align-items: flex-start; justify-content: center; }
 .pop-card { width: min(360px, 86vw); background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 70px rgba(0, 0, 0, .4); flex: none; }
 .pop-img { display: block; }
-.pop-img img { display: block; width: 100%; }
-.pop-bar { display: flex; }
-.pop-bar button { padding: 13px 10px; font: inherit; font-size: .88rem; background: #23292F; color: rgba(255, 255, 255, .85); border: 0; cursor: pointer; flex: 1; text-align: center; }
-.pop-bar button:hover { background: #2E353C; color: #fff; }
-.pop-bar [data-pclose] { flex: none; padding: 13px 20px; font-weight: 700; color: #fff; border-left: 1px solid rgba(255, 255, 255, .18); }
+.pop-img img { display: block; width: 100%; max-height: calc(100vh - 130px); object-fit: contain; background: #fff; }
+.pop-bar { display: flex; align-items: center; justify-content: space-between; background: var(--db-green); }
+.pop-bar button { font: inherit; color: #fff; background: none; border: 0; cursor: pointer; }
+.pop-today { padding: 15px 18px; font-size: .9rem; text-align: left; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.pop-x { display: grid; place-items: center; width: 52px; height: 50px; flex: none; }
+.pop-x svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.pop-bar button:hover { opacity: .78; }
+.pop-bar button:focus-visible { outline: 2px solid #fff; outline-offset: -5px; }
 .pop-dots { display: none; }
 @media (max-width: 768px) {
   .pop-ov { padding: 18px; }

@@ -55,6 +55,35 @@ function writePost(file, p) {
   writeFileSync(join(POSTS, file), `---\n${JSON.stringify(head, null, 2)}\n---\n\n${(p.body || '').trim()}\n`);
 }
 
+/* ---------- 팝업 데이터 ---------- */
+const POPUPS = join(ROOT, 'content/popups.json');
+function readPopups() {
+  try { const a = JSON.parse(readFileSync(POPUPS, 'utf8')); return Array.isArray(a) ? a : []; } catch { return []; }
+}
+// 어떤 팝업도 더 이상 쓰지 않는 팝업 이미지(files/popup-*)는 함께 정리
+function savePopups(after, before) {
+  writeFileSync(POPUPS, JSON.stringify(after, null, 2) + '\n');
+  const used = new Set(after.map(p => p.img));
+  for (const old of new Set(before.map(p => p.img))) {
+    const name = String(old || '').replace(/^\/files\//, '');
+    if (old && !used.has(old) && /^popup-[\w.-]+$/.test(name) && existsSync(join(FILES, name))) unlinkSync(join(FILES, name));
+  }
+}
+// 관리 화면이 보낸 값 중 알려진 항목만 형식 확인 후 저장
+function cleanPopup(p) {
+  if (!p || typeof p.id !== 'string' || !/^[\w-]{1,40}$/.test(p.id)) return null;
+  const d = v => (DATE.test(v || '') ? v : '');
+  const pages = (Array.isArray(p.pages) ? p.pages : []).map(String).filter(x => x === '*' || /^\/[^\s]{0,200}$/.test(x)).slice(0, 100);
+  return {
+    id: p.id, img: '', enabled: !!p.enabled, always: !!p.always,
+    start: p.always ? '' : d(p.start), end: p.always ? '' : d(p.end),
+    link: /^(https?:\/\/|\/(?!\/))\S{0,500}$/i.test(p.link || '') ? p.link : '',
+    newtab: p.newtab !== false,
+    device: ['all', 'pc', 'mobile'].includes(p.device) ? p.device : 'all',
+    pages: pages.length ? pages : ['/'],
+  };
+}
+
 /* ---------- 재빌드 (직렬화) ---------- */
 let building = Promise.resolve();
 function rebuild() {
@@ -69,7 +98,7 @@ function rebuild() {
 }
 
 /* ---------- HTTP 유틸 ---------- */
-const json = (res, code, data) => { res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(data)); };
+const json = (res, code, data) => { res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(JSON.stringify(data)); };
 const readBody = (req, limit) => new Promise((res, rej) => {
   const chunks = []; let size = 0;
   req.on('data', c => { size += c.length; if (size > limit) { rej(new Error('too large')); req.destroy(); } else chunks.push(c); });
@@ -183,18 +212,43 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { ok: true, name, src: `/files/${name}` });
     }
     /* 팝업 목록 */
-    if (req.method === 'GET' && path === '/hyojunadmin/api/popups') {
-      let arr = [];
-      try { arr = JSON.parse(readFileSync(join(ROOT, 'content/popups.json'), 'utf8')); } catch {}
-      return json(res, 200, Array.isArray(arr) ? arr : []);
-    }
-    /* 팝업 전체 저장 (배열 통째로 교체) */
-    if (req.method === 'POST' && path === '/hyojunadmin/api/popups') {
-      const arr = JSON.parse((await readBody(req, 500_000)).toString() || '[]');
-      if (!Array.isArray(arr)) return json(res, 400, { error: '형식이 올바르지 않습니다.' });
-      writeFileSync(join(ROOT, 'content/popups.json'), JSON.stringify(arr, null, 2) + '\n');
+    if (req.method === 'GET' && path === '/hyojunadmin/api/popups') return json(res, 200, readPopups());
+    /* 팝업 저장 — 이미지와 항목을 한 번에 (이미지는 저장할 때 함께 전송) */
+    if (req.method === 'POST' && path === '/hyojunadmin/api/popup') {
+      const b = JSON.parse((await readBody(req, 15_000_000)).toString() || '{}');
+      const p = cleanPopup(b.popup);
+      if (!p) return json(res, 400, { error: '형식이 올바르지 않습니다.' });
+      const before = readPopups();
+      const i = before.findIndex(x => x.id === p.id);
+      if (b.image) {
+        const ext = { jpg: 'jpg', png: 'png', webp: 'webp', gif: 'gif' }[b.image.ext];
+        if (!ext) return json(res, 400, { error: 'JPG·PNG·WEBP·GIF 이미지만 사용할 수 있습니다.' });
+        const buf = Buffer.from(String(b.image.b64 || ''), 'base64');
+        if (!buf.length) return json(res, 400, { error: '빈 이미지입니다.' });
+        mkdirSync(FILES, { recursive: true });
+        const stem = 'popup-' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + '-' + Date.now().toString(36).slice(-5);
+        let name = `${stem}.${ext}`, n = 1;
+        while (existsSync(join(FILES, name))) name = `${stem}-${n++}.${ext}`;
+        writeFileSync(join(FILES, name), buf);
+        p.img = '/files/' + name;
+      } else if (i >= 0) p.img = before[i].img;
+      if (!p.img) return json(res, 400, { error: '팝업 이미지를 선택해 주세요.' });
+      p.created = (i >= 0 && before[i].created) || new Date().toISOString();
+      const after = before.map(x => ({ ...x }));
+      if (i >= 0) after[i] = p; else after.unshift(p);
+      savePopups(after, before);
       await rebuild();
-      return json(res, 200, { ok: true });
+      return json(res, 200, { ok: true, popups: after, img: p.img });
+    }
+    /* 팝업 삭제 */
+    if (req.method === 'DELETE' && path === '/hyojunadmin/api/popup') {
+      const id = url.searchParams.get('id') || '';
+      const before = readPopups();
+      const after = before.filter(x => x.id !== id);
+      if (after.length === before.length) return json(res, 404, { error: '팝업을 찾을 수 없습니다.' });
+      savePopups(after, before);
+      await rebuild();
+      return json(res, 200, { ok: true, popups: after });
     }
     /* 수동 재빌드 */
     if (req.method === 'POST' && path === '/hyojunadmin/api/rebuild') {

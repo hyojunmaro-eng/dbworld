@@ -193,6 +193,22 @@ writeFileSync(join(DIST, 'sitemap.xml'),
   urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n') + '\n</urlset>');
 writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${site.baseUrl}/sitemap.xml\n`);
 
+// 팝업 노출 페이지 목록 (관리자 '노출 페이지' 검색용) — 언어 무관 경로 키 + 브레드크럼 이름
+// 예) { p: '/about/ceo/', t: '회사소개 › CEO 인사말' }  — 팝업의 pages 배열에 p 값이 저장됨
+const unesc = s => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+const popupPages = [{ p: '/', t: '메인 화면' }];
+for (const path of pages) {
+  const m = path.match(/^ko(\/.*\/)index\.html$/);
+  if (!m || m[1] === '/' || /\/page\/\d+\/$/.test(m[1])) continue; // 홈은 위에서 추가, 목록 2페이지 이후는 제외
+  const html = readFileSync(join(DIST, path), 'utf8');
+  const nav = (html.match(/<nav class="crumbs"[^>]*>([\s\S]*?)<\/nav>/) || [])[1] || '';
+  const parts = [...nav.matchAll(/<(?:a [^>]*|span aria-current="page")>([^<]*)<\/(?:a|span)>/g)].map(x => unesc(x[1]).trim()).slice(1);
+  const title = unesc(((html.match(/<title>([^<]*)<\/title>/) || [])[1] || '').split(' | ')[0]).trim();
+  if (title && parts[parts.length - 1] !== title) parts.push(title);
+  popupPages.push({ p: m[1], t: parts.join(' › ') || m[1] });
+}
+writeFileSync(join(DIST, 'pages.json'), JSON.stringify(popupPages));
+
 // 정적 에셋
 copyDir(join(ROOT, 'assets'), join(DIST, 'assets'));
 // 웹 관리자 (GitHub Pages용 — 도커 배포에서는 nginx가 /hyojunadmin을 관리자 서버로 프록시하므로 미사용)

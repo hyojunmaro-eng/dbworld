@@ -37,5 +37,10 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add -A
           git commit -m "사이트 자동 반영 [skip ci]" || echo "no changes"
-          git push origin main
+          # 빌드 도중 관리자 저장이 끼어들면 최신 main 위로 올린 뒤 푸시 (끼어든 변경은 대기 중인 다음 실행이 다시 빌드)
+          for i in 1 2 3; do
+            git push origin main && break
+            [ "$i" = 3 ] && exit 1
+            git pull --rebase origin main || exit 1
+          done
           git push -f origin main:gh-pages

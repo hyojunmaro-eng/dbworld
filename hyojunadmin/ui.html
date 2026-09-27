@@ -25,6 +25,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--g
 .btn.line { background: #fff; color: var(--g); border: 1.5px solid var(--g); }
 .btn.danger { background: #fff; color: #C0392B; border: 1.5px solid #E7B4AD; }
 .btn.sm { padding: 6px 14px; font-size: .85rem; }
+.btn[disabled] { opacity: .55; cursor: default; }
 table { width: 100%; border-collapse: collapse; }
 th, td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); font-size: .92rem; vertical-align: middle; }
 th { color: var(--soft); font-size: .8rem; }
@@ -65,10 +66,25 @@ td.no { color: var(--soft); width: 40px; }
 #peThumb { width: 132px; aspect-ratio: 3 / 4; object-fit: cover; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
 .pv-ov { position: fixed; inset: 0; z-index: 50; background: rgba(10, 14, 18, .55); display: flex; align-items: center; justify-content: center; padding: 24px; cursor: pointer; }
 .pv-card { width: min(360px, 86vw); background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 70px rgba(0, 0, 0, .4); }
-.pv-card img { width: 100%; display: block; }
-.pv-bar { display: flex; }
-.pv-bar span { flex: 1; padding: 13px 10px; font-size: .88rem; background: #23292F; color: rgba(255, 255, 255, .85); text-align: center; }
-.pv-bar span:last-child { flex: none; padding: 13px 20px; font-weight: 700; color: #fff; border-left: 1px solid rgba(255, 255, 255, .18); }
+.pv-card img { width: 100%; display: block; max-height: calc(100vh - 130px); object-fit: contain; }
+.pv-bar { display: flex; align-items: center; justify-content: space-between; background: var(--g); color: #fff; }
+.pv-bar span { padding: 15px 18px; font-size: .9rem; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.pv-bar svg { width: 20px; height: 20px; margin: 0 16px; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; }
+/* 노출 페이지 선택 */
+.opt { font-weight: 500; color: var(--soft); }
+.pgchips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.pgchips:empty { display: none; }
+.pgchip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px 4px 12px; border-radius: 99px; background: #E7F3EC; color: #00703E; font-size: .84rem; font-weight: 600; }
+.pgchip button { width: 22px; height: 22px; border: 0; border-radius: 50%; background: none; color: inherit; font-size: 1rem; line-height: 1; cursor: pointer; }
+.pgchip button:hover { background: rgba(0, 112, 62, .14); }
+.pgsearch { position: relative; }
+.pgsearch input[type=text] { padding-right: 42px; }
+.pgsearch > svg { position: absolute; right: 13px; top: 50%; translate: 0 -50%; width: 19px; height: 19px; fill: none; stroke: var(--soft); stroke-width: 2; pointer-events: none; }
+.pgdrop { position: absolute; z-index: 5; left: 0; right: 0; top: calc(100% + 4px); max-height: 280px; overflow-y: auto; background: #fff; border: 1.5px solid var(--line); border-radius: 8px; box-shadow: 0 12px 28px rgba(20, 30, 40, .12); list-style: none; }
+.pgdrop li { padding: 9px 12px; font-size: .9rem; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; }
+.pgdrop li small { color: #8a94a0; font-size: .76rem; flex: none; }
+.pgdrop li.on, .pgdrop li:hover { background: #F0F6F2; }
+.pgdrop li.empty { color: #8a94a0; cursor: default; background: none; }
 </style>
 </head>
 <body>
@@ -135,7 +151,7 @@ td.no { color: var(--soft); width: 40px; }
         <button class="btn sm" onclick="openPopupEditor()">＋ 새 팝업</button>
       </span>
     </div>
-    <p class="hint" style="margin:-6px 0 16px">팝업은 홈페이지 <strong>메인 화면 중앙</strong>에 표시됩니다. 게시 기간은 방문자 화면에서 날짜 기준으로 자동 적용됩니다.</p>
+    <p class="hint" style="margin:-6px 0 16px">팝업은 지정한 페이지(기본: 메인 화면)의 <strong>화면 중앙</strong>에 표시됩니다. 게시 기간은 방문자 화면에서 날짜 기준으로 자동 적용됩니다.</p>
     <div id="pgroups">불러오는 중…</div>
     <div class="msg" id="plMsg"></div>
   </div>
@@ -143,25 +159,32 @@ td.no { color: var(--soft); width: 40px; }
   <!-- 팝업 편집 -->
   <div class="card" id="pedit">
     <div class="top"><strong id="peTitle">새 팝업 등록</strong><button class="btn line sm" onclick="loadPopups()">목록으로</button></div>
-    <label>팝업 이미지 <span style="color:#C0392B">*</span> <span style="font-weight:500;color:var(--soft)">— 세로형 3:4 비율 권장</span></label>
+    <label>팝업 이미지 <span style="color:#C0392B">*</span> <span class="opt">— 세로형 3:4 비율 권장</span></label>
     <div class="row" style="align-items:flex-start">
       <img id="peThumb" alt="">
       <div class="grow">
-        <input type="file" id="peImg" accept="image/*">
-        <p class="hint">이미지를 선택하면 바로 업로드됩니다.</p>
+        <input type="file" id="peImg" accept="image/jpeg,image/png,image/webp,image/gif">
+        <p class="hint" id="peImgHint">JPG·PNG·WEBP·GIF. 큰 사진은 자동으로 줄여서(가로 1000px) <strong>저장할 때 함께</strong> 올라갑니다.</p>
       </div>
     </div>
-    <div class="row">
-      <div><label>팝업 노출 여부</label><label style="font-weight:500;margin:0"><input type="checkbox" id="peOn" checked> 노출 활성화</label></div>
-      <div><label>노출 위치</label><select id="peDev"><option value="all">전체 (PC+모바일)</option><option value="pc">PC만</option><option value="mobile">모바일만</option></select></div>
+    <div class="row" style="align-items:flex-start;gap:10px 36px">
+      <div><label>팝업 노출 여부</label><label style="font-weight:500;margin:0;display:flex;align-items:center;gap:6px;min-height:44px"><input type="checkbox" id="peOn" checked> 노출 활성화</label></div>
+      <div><label>노출 기기</label><select id="peDev"><option value="all">전체 (PC+모바일)</option><option value="pc">PC만</option><option value="mobile">모바일만</option></select></div>
+    </div>
+    <label>팝업 노출 페이지 <span style="color:#C0392B">*</span> <span class="opt">— 노출시킬 페이지를 검색하여 추가합니다 (여러 개 가능)</span></label>
+    <div class="pgchips" id="pePages"></div>
+    <div class="pgsearch">
+      <input type="text" id="pePageQ" placeholder="페이지 검색 — 예: 메인, 회사소개, 공지사항" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="pePageList">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>
+      <ul class="pgdrop hidden" id="pePageList" role="listbox"></ul>
     </div>
     <label>팝업 게시기간</label>
     <label style="font-weight:500;margin:0 0 8px"><input type="checkbox" id="peAlways" checked onchange="peDates()"> 항상 노출</label>
     <div class="row" id="peRange">
       <input type="date" id="peStart"> <span>~</span> <input type="date" id="peEnd">
     </div>
-    <label>팝업 링크 <span style="font-weight:500;color:var(--soft)">— 선택, 팝업 클릭 시 이동할 주소</span></label>
-    <input type="text" id="peLink" placeholder="https://…">
+    <label>팝업 링크 <span class="opt">— 선택, 팝업 클릭 시 이동할 주소 (사이트 안 페이지는 /ko/news/ 처럼 경로만 입력)</span></label>
+    <input type="text" id="peLink" placeholder="https://…  또는  /ko/news/">
     <label style="font-weight:500"><input type="checkbox" id="peNew" checked> 새창으로 링크 열기</label>
     <div class="row" style="margin-top:20px">
       <button class="btn" id="peSave" onclick="savePopup()">저장 및 사이트 반영</button>
@@ -188,14 +211,14 @@ const api = async (method, path, body, raw) => {
   if (!r.ok) throw new Error(j.error || ('오류 (' + r.status + ')'));
   return j;
 };
-const show = (el, cls, text) => { el.className = 'msg ' + cls; el.textContent = text; };
+const show = (el, cls, text) => { el.className = 'msg ' + cls; el.innerHTML = text; }; // 넣는 값은 escH 로 이스케이프
 
 async function login() {
   try {
     await api('POST', '/hyojunadmin/api/login', { password: $('pw').value });
     $('login').classList.add('hidden');
     loadList();
-  } catch (e) { show($('loginMsg'), 'err', e.message); }
+  } catch (e) { show($('loginMsg'), 'err', escH(e.message)); }
 }
 $('pw').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
 
@@ -249,20 +272,24 @@ function renderFiles() {
     || '<li style="color:#8a94a0">첨부된 파일이 없습니다.</li>';
 }
 
+let upBusy = false; // 첨부 업로드 중 표시
 $('fUpload').addEventListener('change', async e => {
+  upBusy = true;
   for (const f of e.target.files) {
     try {
-      show($('edMsg'), 'ok', `"${f.name}" 업로드 중…`);
+      show($('edMsg'), 'ok', `"${escH(f.name)}" 업로드 중…`);
       const r = await api('POST', '/hyojunadmin/api/upload?name=' + encodeURIComponent(f.name), f, true);
       files.push({ name: r.name, src: r.src });
       renderFiles();
-      show($('edMsg'), 'ok', `"${r.name}" 업로드 완료`);
-    } catch (err) { show($('edMsg'), 'err', err.message); }
+      show($('edMsg'), 'ok', `"${escH(r.name)}" 업로드 완료`);
+    } catch (err) { show($('edMsg'), 'err', escH(err.message)); }
   }
+  upBusy = false;
   e.target.value = '';
 });
 
 async function save() {
+  if (upBusy) return show($('edMsg'), 'err', '첨부파일 업로드가 끝난 뒤 저장해 주세요.');
   $('saveBtn').disabled = true;
   try {
     show($('edMsg'), 'ok', '저장 및 사이트 재생성 중…');
@@ -273,7 +300,7 @@ async function save() {
     });
     show($('edMsg'), 'ok', '저장 완료 — 사이트에 반영되었습니다.');
     setTimeout(loadList, 700);
-  } catch (e) { show($('edMsg'), 'err', e.message); }
+  } catch (e) { show($('edMsg'), 'err', escH(e.message)); }
   $('saveBtn').disabled = false;
 }
 
@@ -282,13 +309,26 @@ async function del() {
   try {
     await api('DELETE', '/hyojunadmin/api/post?f=' + encodeURIComponent(editing));
     loadList();
-  } catch (e) { show($('edMsg'), 'err', e.message); }
+  } catch (e) { show($('edMsg'), 'err', escH(e.message)); }
 }
 
 /* ===== 팝업 관리 ===== */
-let pcache = [], pEditing = null, pImg = '', pImgLocal = null;
-const escP = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const POPUPS_PATH = 'content/popups.json';
+const POP_MAX_W = 1000;           // 팝업 이미지 최대 가로 (표시 폭 360px의 약 3배 — 레티나에서도 선명)
+const IMG_HINT = 'JPG·PNG·WEBP·GIF. 큰 사진은 자동으로 줄여서(가로 1000px) <strong>저장할 때 함께</strong> 올라갑니다.';
+const ALL_PAGES = { p: '*', t: '전체 페이지 (사이트 모든 화면)' };
+let pcache = [];                  // 팝업 목록
+let pEditing = null;              // 수정 중인 팝업 id
+let pImg = '';                    // 저장돼 있는 이미지 경로 (/files/…)
+let pNew = null;                  // 새로 고른 이미지 { blob, ext, w, h, url } — 저장할 때 업로드
+let pPrep = null;                 // 이미지 준비(축소) 진행 중
+let prepSeq = 0;                  // 편집 화면을 다시 열면 이전 준비 결과는 버림
+let pPages = ['/'];               // 노출 페이지 키 ('/' = 메인, '*' = 전체)
+let pageCat = null;               // 페이지 목록 [{ p, t }] — 사이트 빌드가 만든 pages.json
+const localThumb = {};            // 이번 접속에서 올린 이미지 → 로컬 미리보기 (GitHub 반영 지연과 무관하게 즉시 표시)
+const imgUrl = src => localThumb[src] || src;
 const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const kb = n => n >= 1048576 ? (n / 1048576).toFixed(1) + 'MB' : Math.round(n / 1024) + 'KB';
 function pstate(p) {
   const t = todayStr();
   if (!p.enabled) return 'off';
@@ -297,18 +337,76 @@ function pstate(p) {
   return 'on';
 }
 const prange = p => p.always ? '항상 노출' : `${p.start || '제한 없음'} ~ ${p.end || '제한 없음'}`;
+const pagesOf = p => Array.isArray(p.pages) && p.pages.length ? p.pages : ['/'];
+const pageName = k => k === '*' ? '전체 페이지' : ((pageCat || []).find(x => x.p === k) || { t: k === '/' ? '메인 화면' : k }).t;
+const pagesSummary = p => { const pg = pagesOf(p); return pg.includes('*') ? '전체 페이지' : pageName(pg[0]) + (pg.length > 1 ? ` 외 ${pg.length - 1}곳` : ''); };
+
+async function loadPageCat() {
+  if (pageCat) return pageCat;
+  try {
+    const a = await fetch('/pages.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null);
+    if (Array.isArray(a) && a.length) pageCat = a;
+  } catch {}
+  return pageCat || [{ p: '/', t: '메인 화면' }];
+}
+
+/* 팝업 이미지 준비 — 큰 사진은 가로 1000px JPEG로 줄임 (업로드 실패 가능성↓, 방문자 로딩↑) */
+async function optimizeImage(f) {
+  const ext0 = (f.name.split('.').pop() || '').toLowerCase();
+  const type = f.type || { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif' }[ext0] || '';
+  if (!/^image\/(jpeg|png|webp|gif)$/.test(type)) throw new Error('JPG·PNG·WEBP·GIF 이미지만 사용할 수 있습니다. (아이폰 HEIC 사진은 JPG로 변환 후 올려 주세요)');
+  const url = URL.createObjectURL(f);
+  try {
+    const img = new Image();
+    img.src = url;
+    try { await img.decode(); } catch { throw new Error('이미지를 읽을 수 없습니다. 다른 파일로 시도해 주세요.'); }
+    const w = img.naturalWidth, h = img.naturalHeight;
+    const keep = { blob: f, ext: type === 'image/jpeg' ? 'jpg' : type.slice(6), w, h };
+    if (type === 'image/gif') return keep;                      // 움직이는 GIF는 원본 유지
+    const scale = Math.min(1, POP_MAX_W / w);
+    if (scale === 1 && f.size <= 400 * 1024) return keep;        // 이미 충분히 작으면 원본 그대로
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(w * scale); cv.height = Math.round(h * scale);
+    const g = cv.getContext('2d');
+    g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height); // 투명 PNG → 흰 배경
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(img, 0, 0, cv.width, cv.height);
+    const out = await new Promise(res => cv.toBlob(res, 'image/jpeg', 0.86));
+    if (!out || out.size >= f.size) return keep;
+    return { blob: out, ext: 'jpg', w: cv.width, h: cv.height };
+  } finally { URL.revokeObjectURL(url); }
+}
+const blobB64 = async b => { const u = new Uint8Array(await b.arrayBuffer()); let out = ''; for (let i = 0; i < u.length; i += 8192) out += String.fromCharCode(...u.subarray(i, i + 8192)); return btoa(out); };
+
+/* 팝업 링크 정리 — 외부 주소는 https://, 사이트 안 페이지는 /ko/… 경로 */
+function normLink(v) {
+  v = v.trim();
+  if (!v) return '';
+  if (/^https?:\/\/\S+$/i.test(v)) return v;
+  if (/^\/(?!\/)\S*$/.test(v)) return v;
+  if (/^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(v)) return 'https://' + v; // www.… 처럼 입력한 경우
+  return null;
+}
 
 function showPosts() { $('plist').style.display = 'none'; $('pedit').style.display = 'none'; loadList(); }
-async function showPopups() { $('list').classList.add('hidden'); $('editor').style.display = 'none'; loadPopups(); }
+function showPopups() { $('list').classList.add('hidden'); $('editor').style.display = 'none'; loadPopups(); }
 
 async function loadPopups() {
   $('pedit').style.display = 'none';
   $('plist').style.display = 'block';
   $('plMsg').className = 'msg';
   try {
-    pcache = await api('GET', '/hyojunadmin/api/popups');
+    const [arr] = await Promise.all([api('GET', '/hyojunadmin/api/popups'), loadPageCat()]);
+    pcache = arr;
     renderPopupGroups();
-  } catch (e) { show($('plMsg'), 'err', e.message); }
+  } catch (e) { show($('plMsg'), 'err', escH(e.message)); }
+}
+function showPopupList(msg) {
+  $('pedit').style.display = 'none';
+  $('plist').style.display = 'block';
+  renderPopupGroups();
+  if (msg) show($('plMsg'), 'ok', msg); else $('plMsg').className = 'msg';
+  scrollTo(0, 0);
 }
 
 function renderPopupGroups() {
@@ -322,8 +420,8 @@ function renderPopupGroups() {
       : s === 'wait' ? '<span class="stchip wait">대기</span>'
       : !p.enabled ? '<span class="stchip off">비활성</span>' : '<span class="stchip off">기간종료</span>';
     return `<div class="pcardA">
-      <img class="pimg" src="${escP(p.img)}" alt="" loading="lazy" onclick="previewOf(${i})">
-      <div class="pinfo">${chip}<br>${escP(prange(p))}<br>노출: ${dev(p.device)}${p.link ? ' · 링크' : ''}</div>
+      <img class="pimg" src="${escA(imgUrl(p.img))}" alt="" loading="lazy" onclick="previewOf(${i})">
+      <div class="pinfo">${chip}<br>${escH(prange(p))}<br>페이지: ${escH(pagesSummary(p))}<br>기기: ${dev(p.device)}${p.link ? ' · 링크' : ''}</div>
       <div class="pbtns"><button onclick="previewOf(${i})">미리보기</button><button onclick="openPopupEditor(${i})">수정</button></div>
     </div>`;
   };
@@ -339,7 +437,8 @@ function openPopupEditor(idx) {
   const p = idx === undefined ? null : pcache[idx];
   pEditing = p ? p.id : null;
   pImg = p ? p.img : '';
-  pImgLocal = null;
+  pNew = null; pPrep = null; prepSeq++;
+  pPages = p ? [...pagesOf(p)] : ['/'];
   $('plist').style.display = 'none';
   $('pedit').style.display = 'block';
   $('peMsg').className = 'msg';
@@ -353,9 +452,14 @@ function openPopupEditor(idx) {
   $('peLink').value = (p && p.link) || '';
   $('peNew').checked = p ? p.newtab !== false : true;
   $('peImg').value = '';
-  $('peThumb').src = pImg || '';
+  $('peImgHint').innerHTML = IMG_HINT;
+  $('peThumb').src = pImg ? imgUrl(pImg) : '';
   $('peThumb').style.display = pImg ? 'block' : 'none';
+  $('pePageQ').value = '';
+  $('pePageList').classList.add('hidden');
   peDates();
+  renderPageChips();
+  loadPageCat().then(renderPageChips);
 }
 function peDates() {
   const off = $('peAlways').checked;
@@ -363,68 +467,132 @@ function peDates() {
   $('peStart').disabled = $('peEnd').disabled = off;
 }
 
-$('peImg').addEventListener('change', async e => {
-  const f = e.target.files[0];
-  if (!f) return;
-  try {
-    show($('peMsg'), 'ok', `"${f.name}" 업로드 중…`);
-    pImgLocal = URL.createObjectURL(f);
-    $('peThumb').src = pImgLocal;
-    $('peThumb').style.display = 'block';
-    const r = await api('POST', '/hyojunadmin/api/upload?name=' + encodeURIComponent('popup-' + f.name), f, true);
-    pImg = r.src;
-    show($('peMsg'), 'ok', '이미지 업로드 완료 — 저장을 눌러야 팝업이 등록됩니다.');
-  } catch (err) { pImg = ''; show($('peMsg'), 'err', err.message); }
-  e.target.value = '';
+/* 노출 페이지 선택 (검색 → 추가, 칩 × 로 빼기) */
+let pgHits = [], pgActive = 0;
+function renderPageChips() {
+  $('pePages').innerHTML = pPages.map((k, i) =>
+    `<span class="pgchip">${escH(pageName(k))}<button type="button" aria-label="${escA(pageName(k))} 빼기" onclick="removePage(${i})">×</button></span>`).join('');
+}
+function removePage(i) { pPages.splice(i, 1); renderPageChips(); }
+function pageSearch() {
+  const q = $('pePageQ').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  pgHits = [ALL_PAGES, ...(pageCat || [{ p: '/', t: '메인 화면' }])]
+    .filter(x => !pPages.includes(x.p) && q.every(w => (x.t + ' ' + x.p).toLowerCase().includes(w))).slice(0, 80);
+  pgActive = 0;
+  $('pePageList').innerHTML = pgHits.length
+    ? pgHits.map((x, i) => `<li role="option" data-i="${i}"${i ? '' : ' class="on"'}><span>${escH(x.t)}</span><small>${x.p === '*' ? '' : escH(x.p)}</small></li>`).join('')
+    : '<li class="empty">검색 결과가 없습니다</li>';
+  $('pePageList').classList.remove('hidden');
+  $('pePageQ').setAttribute('aria-expanded', 'true');
+}
+function pickPage(i) {
+  const x = pgHits[i];
+  if (!x) return;
+  if (x.p === '*') pPages = ['*'];
+  else { pPages = pPages.filter(k => k !== '*'); pPages.push(x.p); }
+  $('pePageQ').value = '';
+  renderPageChips();
+  pageSearch();
+}
+$('pePageQ').addEventListener('focus', () => loadPageCat().then(pageSearch));
+$('pePageQ').addEventListener('input', pageSearch);
+$('pePageQ').addEventListener('blur', () => { $('pePageList').classList.add('hidden'); $('pePageQ').setAttribute('aria-expanded', 'false'); });
+$('pePageQ').addEventListener('keydown', e => {
+  const ul = $('pePageList');
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (ul.classList.contains('hidden')) return pageSearch();
+    if (!pgHits.length) return;
+    pgActive = (pgActive + (e.key === 'ArrowDown' ? 1 : -1) + pgHits.length) % pgHits.length;
+    [...ul.children].forEach((li, i) => li.classList.toggle('on', i === pgActive));
+    ul.children[pgActive].scrollIntoView({ block: 'nearest' });
+  } else if (e.key === 'Enter') { e.preventDefault(); pickPage(pgActive); }
+  else if (e.key === 'Escape') ul.classList.add('hidden');
+});
+$('pePageList').addEventListener('mousedown', e => {
+  const li = e.target.closest('li[data-i]');
+  e.preventDefault(); // 입력칸 포커스 유지 → 여러 개 연달아 추가
+  if (li) pickPage(+li.dataset.i);
 });
 
 async function savePopup() {
-  if (!pImg) return show($('peMsg'), 'err', '팝업 이미지를 등록해 주세요.');
+  if (pPrep) { show($('peMsg'), 'ok', '이미지 준비 중…'); await pPrep; }
+  if (!pImg && !pNew) return show($('peMsg'), 'err', '팝업 이미지를 선택해 주세요.');
+  if (!pPages.length) return show($('peMsg'), 'err', '노출 페이지를 1개 이상 추가해 주세요. (메인에 띄우려면 "메인 화면"을 검색해 추가)');
   const always = $('peAlways').checked;
   const start = $('peStart').value, end = $('peEnd').value;
   if (!always && !start && !end) return show($('peMsg'), 'err', '게시 기간을 입력하거나 항상 노출을 선택해 주세요.');
   if (!always && start && end && start > end) return show($('peMsg'), 'err', '종료일이 시작일보다 빠릅니다.');
+  const link = normLink($('peLink').value);
+  if (link === null) return show($('peMsg'), 'err', '팝업 링크는 https:// 로 시작하는 주소, 또는 /ko/news/ 처럼 사이트 안 경로로 입력해 주세요.');
   $('peSave').disabled = true;
   try {
-    show($('peMsg'), 'ok', '저장 및 사이트 재생성 중…');
-    const idx = pcache.findIndex(x => x.id === pEditing);
-    const p = {
-      id: pEditing || 'pp' + Date.now().toString(36),
-      img: pImg, enabled: $('peOn').checked, always,
-      start: always ? '' : start, end: always ? '' : end,
-      link: $('peLink').value.trim(), newtab: $('peNew').checked, device: $('peDev').value,
-      created: idx >= 0 ? (pcache[idx].created || '') : new Date().toISOString(),
+    show($('peMsg'), 'ok', pNew ? '이미지 업로드 및 저장 중…' : '저장 중…');
+    const id = pEditing || 'pp' + Date.now().toString(36);
+    const fields = {
+      enabled: $('peOn').checked, always, start: always ? '' : start, end: always ? '' : end,
+      link, newtab: $('peNew').checked, device: $('peDev').value, pages: [...pPages],
     };
-    if (idx >= 0) pcache[idx] = p; else pcache.unshift(p);
-    await api('POST', '/hyojunadmin/api/popups', pcache);
-    show($('peMsg'), 'ok', '저장 완료 — 사이트에 반영되었습니다. 메인 화면을 새로고침해 확인하세요.');
-    setTimeout(loadPopups, 700);
-  } catch (e) { show($('peMsg'), 'err', e.message); }
+    const chosen = pNew; // 새로 고른 이미지 (없으면 기존 이미지 유지)
+    const upload = chosen ? { b64: await blobB64(chosen.blob), ext: chosen.ext } : null;
+    const r = await api('POST', '/hyojunadmin/api/popup', { popup: { id, ...fields }, image: upload });
+    if (upload && r.img) localThumb[r.img] = chosen.url;
+    pcache = r.popups;
+    showPopupList('저장 완료 — 사이트에 반영되었습니다. 해당 페이지를 새로고침해 확인하세요.');
+  } catch (e) { show($('peMsg'), 'err', '저장하지 못했습니다 — ' + escH(e.message)); }
   $('peSave').disabled = false;
 }
 
 async function delPopup() {
   if (!pEditing || !confirm('이 팝업을 삭제할까요? 되돌릴 수 없습니다.\n(게시만 멈추려면 삭제 대신 "노출 활성화"를 꺼 두세요 — 게시 중지 목록에 보관됩니다)')) return;
+  $('peDel').disabled = true;
   try {
-    pcache = pcache.filter(x => x.id !== pEditing);
-    await api('POST', '/hyojunadmin/api/popups', pcache);
-    loadPopups();
-  } catch (e) { show($('peMsg'), 'err', e.message); }
+    show($('peMsg'), 'ok', '삭제 중…');
+    const id = pEditing;
+    const r = await api('DELETE', '/hyojunadmin/api/popup?id=' + encodeURIComponent(id));
+    pcache = r.popups;
+    showPopupList('삭제했습니다 — 사이트에서도 내려갔습니다.');
+  } catch (e) { show($('peMsg'), 'err', '삭제하지 못했습니다 — ' + escH(e.message)); }
+  $('peDel').disabled = false;
 }
 
 function pvShow(src) {
   const ov = document.createElement('div');
   ov.className = 'pv-ov';
   ov.title = '클릭하면 닫힙니다';
-  ov.innerHTML = `<div class="pv-card"><img src="${src}" alt="팝업 미리보기"><div class="pv-bar"><span>오늘 하루 보지 않기</span><span>닫기</span></div></div>`;
+  ov.innerHTML = `<div class="pv-card"><img src="${escA(src)}" alt="팝업 미리보기"><div class="pv-bar"><span>오늘 하루 보지 않기</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 4.5l11 11M15.5 4.5l-11 11"/></svg></div></div>`;
   ov.onclick = () => ov.remove();
   document.body.appendChild(ov);
 }
-function previewOf(i) { pvShow(escP(pcache[i].img)); }
-function previewPopup() {
-  if (!pImg && !pImgLocal) return show($('peMsg'), 'err', '먼저 이미지를 등록해 주세요.');
-  pvShow(pImgLocal || escP(pImg));
+function previewOf(i) { pvShow(imgUrl(pcache[i].img)); }
+async function previewPopup() {
+  if (pPrep) await pPrep;
+  if (!pImg && !pNew) return show($('peMsg'), 'err', '먼저 이미지를 선택해 주세요.');
+  pvShow(pNew ? pNew.url : imgUrl(pImg));
 }
+
+$('peImg').addEventListener('change', e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  $('peMsg').className = 'msg';
+  $('peImgHint').textContent = '이미지 준비 중…';
+  const my = ++prepSeq;
+  pPrep = optimizeImage(f).then(r => {
+    if (my !== prepSeq) return;
+    pNew = { ...r, url: URL.createObjectURL(r.blob) };
+    $('peThumb').src = pNew.url;
+    $('peThumb').style.display = 'block';
+    $('peImgHint').innerHTML = `${escH(f.name)} → ${r.w}×${r.h}px · ${kb(r.blob.size)}${r.blob === f ? '' : ` (원본 ${kb(f.size)}에서 축소)`}<br><strong>저장 및 사이트 반영</strong>을 누르면 함께 업로드됩니다.`;
+  }).catch(err => {
+    if (my !== prepSeq) return;
+    e.target.value = '';
+    $('peImgHint').innerHTML = IMG_HINT;
+    show($('peMsg'), 'err', escH(err.message));
+  }).finally(() => { pPrep = null; });
+});
+
+const escH = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const escA = s => escH(s).replace(/"/g, '&quot;');
 </script>
 </body>
 </html>
