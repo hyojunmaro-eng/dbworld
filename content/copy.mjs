@@ -403,7 +403,7 @@ export const copy = {
     },
     projects: {
       title: '사업실적', docTitle: '사업실적 | DB월드',
-      intro: '전국 곳곳에서 DB월드가 만들어 온 공간들입니다.',
+      intro: 'DB월드가 만들어 온 공간들입니다.',
       filterAll: '전체',
       filters: [['development', '개발'], ['pm', 'PM'], ['consulting', '컨설팅'], ['golf', '골프장']],
       mapTitle: '프로젝트 맵',
@@ -940,7 +940,7 @@ export const copy = {
     },
     projects: {
       title: 'Projects', docTitle: 'Projects | DB World',
-      intro: 'Spaces DB World has created across Korea.',
+      intro: 'Spaces created by DB World.',
       filterAll: 'All',
       filters: [['development', 'Development'], ['pm', 'PM'], ['consulting', 'Consulting'], ['golf', 'Golf']],
       mapTitle: 'Project Map',
