@@ -33,16 +33,52 @@
       if (!matchMedia('(min-width: 1081px)').matches) return;
       if (clearHdr && !gnb.classList.contains('solid')) { gnb.classList.add('solid'); forcedSolid = true; }
       gnb.classList.add('mega-on');
+      const cols = $$('.nav-l2', navRoot);
+      cols.forEach(u => { u.style.minHeight = ''; });
       let h = 0;
-      $$('.nav-l2', navRoot).forEach(u => { h = Math.max(h, u.offsetHeight); });
-      megaBg.style.height = (h + 8) + 'px';
+      cols.forEach(u => { h = Math.max(h, u.offsetHeight); });
+      h += 10;
+      cols.forEach(u => { u.style.minHeight = h + 'px'; });
+      megaBg.style.height = h + 'px';
     };
     const closeMega = () => {
       gnb.classList.remove('mega-on');
+      releaseLock();
+      lis.forEach(x => x.classList.remove('on'));
       if (forcedSolid && scrollY <= 8) { gnb.classList.remove('solid'); }
       forcedSolid = false;
     };
-    navRoot.addEventListener('mouseenter', openMega);
+    const lis = $$('.nav-l1 > li', navRoot);
+    const setActive = li => lis.forEach(x => x.classList.toggle('on', x === li));
+    /* 패널이 열리며 메뉴 간격이 벌어지는 동안에는 커서가 옆 항목으로 밀려도
+       처음 가리킨 메뉴를 유지한다. 전환이 끝난 뒤 실제로 마우스를 움직이면 해제. */
+    let locked = false, unlockTimer = null, onMove = null;
+    const releaseLock = () => {
+      clearTimeout(unlockTimer);
+      if (onMove) { navRoot.removeEventListener('mousemove', onMove); onMove = null; }
+      locked = false;
+    };
+    lis.forEach(li => {
+      const pick = () => {
+        if (locked) return;
+        const first = !gnb.classList.contains('mega-on');
+        setActive(li);
+        openMega();
+        if (first && matchMedia('(min-width: 1081px)').matches) {
+          locked = true;
+          unlockTimer = setTimeout(() => {
+            onMove = e => {
+              releaseLock();
+              const over = e.target.closest && e.target.closest('.nav-l1 > li');
+              if (over) setActive(over);
+            };
+            navRoot.addEventListener('mousemove', onMove);
+          }, 380);
+        }
+      };
+      li.addEventListener('mouseenter', pick);
+      li.addEventListener('focusin', pick);
+    });
     navRoot.addEventListener('mouseleave', closeMega);
     navRoot.addEventListener('focusin', openMega);
     navRoot.addEventListener('focusout', e => { if (!navRoot.contains(e.relatedTarget)) closeMega(); });
@@ -96,22 +132,26 @@
   if (hero) {
     const slides = $$('[data-slide]', hero);
     const dots = $$('[data-dot]', hero);
-    let cur = 0, timer;
+    const playBtn = $('[data-heroplay]', hero);
+    let cur = 0;
     function go(i) {
       slides[cur].classList.remove('on'); dots[cur].classList.remove('on');
       cur = (i + slides.length) % slides.length;
       slides[cur].classList.add('on'); dots[cur].classList.add('on');
     }
-    function auto() { timer = setInterval(() => go(cur + 1), 2500); }
-    dots.forEach((d, i) => d.addEventListener('click', () => { clearInterval(timer); go(i); auto(); }));
-    if (!reduced && slides.length > 1) {
-      auto();
-      // 마우스오버/키보드 포커스 중에는 자동 전환 일시정지 (WCAG 2.2.2)
-      hero.addEventListener('mouseenter', () => clearInterval(timer));
-      hero.addEventListener('mouseleave', () => { clearInterval(timer); auto(); });
-      hero.addEventListener('focusin', () => clearInterval(timer));
-      hero.addEventListener('focusout', () => { clearInterval(timer); auto(); });
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+    /* 진행바 애니메이션이 끝나면 다음 슬라이드로 — 진행바와 전환 시점이 항상 일치 */
+    hero.addEventListener('animationend', e => {
+      if (e.animationName === 'heroFill' && !reduced && slides.length > 1) go(cur + 1);
+    });
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        const paused = hero.classList.toggle('paused');
+        playBtn.setAttribute('aria-label', playBtn.dataset[paused ? 'labelPlay' : 'labelPause'] || '');
+        playBtn.setAttribute('aria-pressed', String(paused));
+      });
     }
+    if (reduced || slides.length < 2) hero.classList.add('paused');
   }
 
   /* ---------- 카운트업 ---------- */

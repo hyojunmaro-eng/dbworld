@@ -90,7 +90,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
     <nav class="nav" aria-label="main">
       <ul class="nav-l1">
         <li><a href="${url('about/overview/')}">${nav.about}</a><ul class="nav-l2">${dd(nav.aboutItems, 'about')}</ul></li>
-        <li><a href="${url('business/development/')}">${nav.business}</a><ul class="nav-l2">${dd(nav.businessItems, 'business')}<li><a href="${url('business/')}">${lang === 'ko' ? '사업영역 총괄' : 'Overview'}</a></li></ul></li>
+        <li><a href="${url('business/development/')}">${nav.business}</a><ul class="nav-l2">${dd(nav.businessItems, 'business')}</ul></li>
         <li><a href="${url('projects/')}">${nav.projects}</a><ul class="nav-l2"><li><a href="${url('projects/')}">${lang === 'ko' ? '전체 보기' : 'View All'}</a></li></ul></li>
         <li><a href="${url('ir/finance/')}">${nav.ir}</a><ul class="nav-l2">${nav.irMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
         <li><a href="${url('esg/policy/')}">${nav.esg}</a><ul class="nav-l2">${nav.esgMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></li>
@@ -109,7 +109,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
 <div class="mnav" id="mnav" data-mnav hidden>
   <nav aria-label="mobile">
     <details open><summary>${nav.about}</summary><ul>${dd(nav.aboutItems, 'about')}</ul></details>
-    <details><summary>${nav.business}</summary><ul><li><a href="${url('business/')}">${lang === 'ko' ? '사업영역 총괄' : 'Overview'}</a></li>${dd(nav.businessItems, 'business')}</ul></details>
+    <details><summary>${nav.business}</summary><ul>${dd(nav.businessItems, 'business')}</ul></details>
     <a class="mnav-link" href="${url('projects/')}">${nav.projects}</a>
     <details><summary>${nav.ir}</summary><ul>${nav.irMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></details>
     <details><summary>${nav.esg}</summary><ul>${nav.esgMenu.map(([path, label]) => `<li><a href="${url(path)}">${esc(label)}</a></li>`).join('')}</ul></details>
@@ -324,8 +324,16 @@ export function home(c) {
 <section class="hero" data-hero>
   ${slides}
   <div class="hero-ui">
-    <div class="hero-dots">${H.hero.map((_, i) => `<button data-dot="${i}" ${i === 0 ? 'class="on"' : ''} aria-label="slide ${i + 1}"></button>`).join('')}</div>
-
+    <div class="hero-dots">
+      ${H.hero.map((_, i) => `<button data-dot="${i}"${i === 0 ? ' class="on"' : ''} aria-label="${lang === 'ko' ? `${i + 1}번째 배너` : `Slide ${i + 1}`}"><i></i></button>`).join('')}
+      <button class="hero-play" data-heroplay aria-pressed="false"
+        data-label-pause="${lang === 'ko' ? '배너 자동전환 일시정지' : 'Pause banner'}"
+        data-label-play="${lang === 'ko' ? '배너 자동전환 재생' : 'Play banner'}"
+        aria-label="${lang === 'ko' ? '배너 자동전환 일시정지' : 'Pause banner'}">
+        <svg class="ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.4" height="14" rx="1"/><rect x="13.6" y="5" width="3.4" height="14" rx="1"/></svg>
+        <svg class="ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -532,13 +540,12 @@ export function aboutLocation(c) {
 }
 
 /* ---------- 사업영역 ---------- */
-export function businessIndex(c) {
+/* 부동산 Life Cycle 섹션 (부동산 개발 페이지 하단에 배치) */
+function businessCycle(c) {
   const { L, lang } = c;
   const B = L.business;
-  return layout(c, {
-    title: B.docTitle, desc: B.introSub, path: `${lang}/business/`,
-    body: pageHero(c, { sec: 'business', title: B.pageTitle, crumbs: [[B.pageTitle]] }) + `
-<section class="sec"><div class="wrap">
+  return `
+<section class="sec sec-cycle"><div class="wrap">
   <div class="biz-intro rv"><h2>${nl2br(B.introTitle)}</h2><p>${esc(B.introSub)}</p></div>
   <div class="cycle rv" aria-label="${esc(B.cycleTitle)}">
     <div class="cycle-center"><span>Real Estate</span><strong>Life Cycle</strong></div>
@@ -548,8 +555,7 @@ export function businessIndex(c) {
     </a>`).join('')}
     <svg class="cycle-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" pathLength="100"/></svg>
   </div>
-</div></section>`,
-  });
+</div></section>`;
 }
 
 /* 부동산 개발: 도심개발/지역개발/도시계획 탭 페이지 (기존 사이트 구성 계승) */
@@ -607,7 +613,7 @@ export function businessDetail(c, key) {
 
   return layout(c, {
     title: `${a.name} | ${c.site.company[lang].name}`, desc: a.desc, path: `${lang}/business/${key}/`,
-    body: pageHero(c, { sec: 'business', title: a.name, slogan: a.slogan, crumbs: [[L.business.pageTitle, 'business/'], [a.name]] }) + `
+    body: pageHero(c, { sec: 'business', title: a.name, slogan: a.slogan, crumbs: [[L.business.pageTitle, 'business/development/'], [a.name]] }) + `
 <section class="sec"><div class="wrap">
   ${a.tabs
     ? `<div class="biz-head biz-head-tabs rv"><em>${esc(a.en)}</em><p class="lead">${esc(a.desc)}</p></div>`
@@ -619,7 +625,7 @@ export function businessDetail(c, key) {
   ${tour}
   ${golfBtn}${matBtn}
   ${a.tabs ? '' : relatedHtml}
-</div></section>`,
+</div></section>` + (key === 'development' ? businessCycle(c) : ''),
   });
 }
 

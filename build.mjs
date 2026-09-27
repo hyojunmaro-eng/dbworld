@@ -147,7 +147,6 @@ for (const lang of ['ko', 'en']) {
   write(`${lang}/about/ci/index.html`, templates.aboutCi(c));
   write(`${lang}/about/group/index.html`, templates.aboutGroup(c));
   write(`${lang}/about/location/index.html`, templates.aboutLocation(c));
-  write(`${lang}/business/index.html`, templates.businessIndex(c));
   for (const b of ['development', 'pm', 'consulting', 'golf'])
     write(`${lang}/business/${b}/index.html`, templates.businessDetail(c, b));
   write(`${lang}/projects/index.html`, templates.projectsIndex(c));
