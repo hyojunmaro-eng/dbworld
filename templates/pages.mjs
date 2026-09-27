@@ -347,7 +347,7 @@ export function aboutCeo(c) {
 <section class="sec"><div class="wrap ceo">
   <div class="ceo-head rv"><h2>${nl2br(A.headline)}</h2></div>
   <div class="ceo-body">
-    ${A.body.map(p => `<p class="rv">${esc(p)}</p>`).join('')}
+    ${A.body.map(p => `<p class="rv${/^(존경하는|To our)/.test(p) ? ' ceo-call' : ''}">${esc(p)}</p>`).join('')}
     <p class="ceo-sign rv">${esc(A.sign)} <strong>${esc(A.signName)}</strong></p>
   </div>
 </div></section>`,

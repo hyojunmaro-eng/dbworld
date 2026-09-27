@@ -339,6 +339,7 @@ body.menu-open { overflow: hidden; }
    회사소개 페이지들
    ========================================================================== */
 .ceo { display: grid; grid-template-columns: 1fr 1.35fr; gap: clamp(36px, 6vw, 90px); }
+.ceo-body .ceo-call { margin-top: 10px; font-weight: 700; color: var(--ink); }
 .ceo-head h2 { font-size: clamp(1.6rem, 2.7vw, 2.3rem); font-weight: 800; position: sticky; top: calc(var(--gnb-h) + 30px); }
 .ceo-body p { color: var(--ink-soft); margin-bottom: 22px; }
 .ceo-body p:first-child { font-size: 1.15rem; color: var(--ink); font-weight: 500; }
@@ -698,6 +699,9 @@ body.menu-open { overflow: hidden; }
 .foot-brand { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; }
 .foot-logo { height: 44px; width: auto; }
 .foot-brand .foot-links { margin-top: 0; }
+/* 영문 라벨이 길어 줄바꿈될 때 구분선이 줄 앞에 남지 않도록 세로 배치 */
+body[data-lang="en"] .foot-brand .foot-links { flex-direction: column; align-items: flex-start; gap: 7px; }
+body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
 .foot-info div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; padding: 5px 0; }
 .foot-info dt { font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: #FFFFFF; text-transform: uppercase; padding-top: 3px; }
 .foot-info dd { color: #C9D3DA; font-size: .95rem; word-break: keep-all; }
