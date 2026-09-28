@@ -864,7 +864,7 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
 .phero-img .phero-deco { display: none; }
 .biz-head-tabs .lead { margin-top: 4px; }
 .dev-head.solo { padding-top: 6px; }
-.dev-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin: 44px 0 0; }
+.dev-tabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin: 44px 0 0; }
 .dev-tabs button { padding: 17px 10px; font-weight: 700; font-size: 1.02rem; color: var(--ink-soft); background: #fff; transition: .25s; }
 .dev-tabs button + button { border-left: 1px solid var(--line); }
 .dev-tabs button:hover { color: var(--db-green); background: var(--green-tint); }
