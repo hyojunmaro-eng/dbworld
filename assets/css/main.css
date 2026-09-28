@@ -70,7 +70,7 @@ p { word-break: keep-all; }
 }
 .gnb-in { position: relative; z-index: 2; max-width: 1360px; margin: 0 auto; height: 100%; padding: 0 28px; display: flex; align-items: center; gap: 40px; }
 .logo { position: relative; display: block; }
-.logo img { height: 40px; width: auto; transition: opacity .2s; }
+.logo img { height: 40px; width: auto; transition: opacity .15s; }
 .nav { margin-left: auto; }
 .nav-l1 { display: flex; gap: 8px; }
 .nav-l1 > li { position: relative; }
@@ -86,9 +86,9 @@ p { word-break: keep-all; }
 .nav-l2 {
   position: absolute; top: 100%; left: 50%; translate: -50% 0; width: calc(100% + 8px); padding: 14px 6px 10px;
   opacity: 0; visibility: hidden;
-  transition: opacity .15s, visibility 0s linear .15s;
+  transition: opacity .12s, visibility 0s linear .12s;
 }
-.nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transition: opacity .3s ease .12s, visibility 0s; }
+.nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transition: opacity .2s ease .05s, visibility 0s; }
 
 /* 메가메뉴: 한 메뉴에 올리면 전체 하위 메뉴가 함께 펼쳐짐
    헤더 바 + 하위 메뉴 영역을 한 장의 흰 판으로 위에서 아래로 내림 (clip-path), 글자는 판이 지나가며 나타남 */
@@ -96,7 +96,7 @@ p { word-break: keep-all; }
   position: absolute; z-index: 1; top: 0; left: 0; right: 0; height: 0; pointer-events: none;
   background: #fff; box-shadow: 0 18px 30px rgba(20, 30, 40, .07);
   clip-path: inset(0 0 100% 0); visibility: hidden;
-  transition: clip-path .28s cubic-bezier(.4, 0, .6, 1), visibility 0s linear .28s;
+  transition: clip-path .2s cubic-bezier(.4, 0, .7, .4), visibility 0s linear .2s;
 }
 .mega-bg::before { content: ""; position: absolute; left: 0; right: 0; top: var(--gnb-h); height: 1px; background: var(--line); }
 @media (prefers-reduced-motion: reduce) { .mega-bg, .nav-l1, .nav-l2 { transition: none !important; } }
@@ -106,8 +106,8 @@ p { word-break: keep-all; }
   .nav-l1 { gap: 40px; }
   .nav-l2 { width: calc(100% + 40px); }
   .nav-l1 > li > a { white-space: nowrap; }
-  .gnb.mega-on .mega-bg { clip-path: inset(0 0 -60px 0); visibility: visible; transition: clip-path .45s var(--ease), visibility 0s; }
-  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transition: opacity .3s ease .12s, visibility 0s; border-left: 1px solid var(--line); }
+  .gnb.mega-on .mega-bg { clip-path: inset(0 0 -60px 0); visibility: visible; transition: clip-path .25s cubic-bezier(.2, .7, .3, 1), visibility 0s; }
+  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transition: opacity .2s ease .05s, visibility 0s; border-left: 1px solid var(--line); }
   .gnb.mega-on .nav-l1 > li:last-child .nav-l2 { border-right: 1px solid var(--line); }
   .gnb.mega-on .nav-l1 > li.on .nav-l2 { background: #F7F9F8; }
   .gnb.mega-on .nav-l1 > li.on > a { color: var(--db-green); }
@@ -143,8 +143,8 @@ body.gnb-clear .gnb:not(.solid):not(.mega-on) .nav-l1 > li > a { color: #fff; te
 body.gnb-clear .gnb:not(.solid):not(.mega-on) .nav-l1 > li > a::after { background: #fff; }
 body.gnb-clear .gnb:not(.solid) .burger span { background: #fff; }
 /* 메가메뉴가 닫힐 때는 흰 판이 걷힌 뒤 흰 글자로 돌아가도록 살짝 늦춤 */
-body.gnb-clear .gnb:not(.solid):not(.mega-on) .nav-l1 > li > a { transition: color .2s .14s; }
-body.gnb-clear .gnb:not(.solid):not(.mega-on) .logo img { transition: opacity .2s .14s; }
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .nav-l1 > li > a { transition: color .15s .1s; }
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .logo img { transition: opacity .15s .1s; }
 body.gnb-clear .phero-img { min-height: clamp(360px, 34vw, 500px); }
 body.gnb-clear .phero-img::before { content: ''; position: absolute; inset: 0 0 auto; height: 150px; background: linear-gradient(rgba(10, 20, 14, .42), transparent); pointer-events: none; }
 
