@@ -383,7 +383,8 @@ body.menu-open { overflow: hidden; }
 .vis-block h2 { font-size: clamp(1.7rem, 3.4vw, 2.8rem); font-weight: 800; margin-bottom: 14px; }
 .vis-block p { color: var(--ink-soft); }
 .vis-vision { background: var(--bg-soft); border-radius: 24px; }
-.vis-values { margin-top: clamp(40px, 6vw, 70px); text-align: center; }
+.vis-values { text-align: center; }
+.vis-values + .vis-vision { margin-top: clamp(48px, 6vw, 80px); } /* 비전은 핵심가치 아래, 페이지 맨 끝 */
 .vis-values > em { display: inline-block; font-style: normal; font-weight: 700; letter-spacing: .2em; color: var(--db-green); font-size: .85rem; margin-bottom: 28px; }
 .vgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; text-align: left; }
 .vcard { border: 1px solid var(--line); border-radius: var(--r); padding: 30px 26px; transition: .35s var(--ease); }
@@ -1017,7 +1018,6 @@ body.pop-open { overflow: hidden; }
   .pop-pager button { width: 28px; }
   .pop-count { min-width: 36px; }
   .pop-x { width: 44px; }
-}
 }
 
 .ovw-vis { margin-top: clamp(48px, 6vw, 72px); }

@@ -88,7 +88,7 @@ export const copy = {
         headAccent: '종합부동산서비스 전문기업,',
         headName: 'DB월드',
         paras: [
-          'DB월드는 부동산 개발, 부동산 자산관리(임대, 운영, 매매), 컨설팅, 골프장 운영 등 부동산 전 영역을 아우르는 다양한 사업을 전개하고 있습니다.',
+          'DB월드는 부동산 개발, 부동산 자산관리(임대, 운영, 매매), 반도체 공장 건설 및 유지 보수, 컨설팅, 골프장 운영 등 부동산 전 영역을 아우르는 다양한 사업을 전개하고 있습니다.',
           '특히, 부동산부문은 1969년 미륭건설(1989년 이후 동부건설)부터, DB Inc 부동산 부문을 거쳐오면서 최고의 부동산 전문가 집단으로 자리매김하고 있습니다.',
           'DB월드는 부동산 분야의 신성장 비즈니스 모델을 개발하여 세계적인 부동산기업으로 도약하고 있습니다.',
         ],
@@ -97,8 +97,8 @@ export const copy = {
           ['회사명', '㈜디비월드'],
           ['설립일', '1989년 7월 14일'],
           ['대표이사', '윤순균 사장'],
-          ['임직원 수', '40명'],
-          ['자본금', '2,554억원 (2024년 기준)'],
+          ['인원', '104명 (2026년 8월 말 기준)'],
+          ['자본금', '311,990백만원'],
         ],
         bizTitle: '주요사업',
         bizNodes: [
@@ -109,10 +109,8 @@ export const copy = {
         ],
       },
       vision: {
-        title: '미션·비전', docTitle: '미션·비전 | DB월드',
-        missionLabel: 'Mission', mission: '부동산의 가치와 고객의 자산을\n새롭게 창조합니다',
-        missionSub: 'We create new value for real estate and customer assets.',
-        visionLabel: 'Vision', vision: '부동산 전 생애주기를 아우르는\n종합부동산서비스 리더',
+        title: '비전', docTitle: '비전 | DB월드',
+        visionLabel: 'Vision', vision: '최고의 경쟁력을 갖춘\n선진형 종합부동산 회사',
         visionSub: 'Total Real Estate Service Leader — Development · CM · PM · Operation',
         valuesLabel: 'Core Values',
         values: [
@@ -624,7 +622,7 @@ export const copy = {
         headAccent: 'A total real estate service company,',
         headName: 'DB World',
         paras: [
-          'DB World conducts business across the entire spectrum of real estate \u2014 development, asset management (leasing, operation and sales), consulting and golf course operation.',
+          'DB World conducts business across the entire spectrum of real estate, including development, asset management (leasing, operation and sales), semiconductor plant construction and maintenance, consulting and golf course operation.',
           'Our real estate expertise traces back to Miryung Construction in 1969 (Dongbu Corporation from 1989) and the real estate division of DB Inc., establishing us as a team of top real estate professionals.',
           'DB World is developing new growth business models in real estate and advancing toward becoming a world-class real estate company.',
         ],
@@ -633,8 +631,8 @@ export const copy = {
           ['Company', 'DB World Co., Ltd.'],
           ['Founded', 'July 14, 1989'],
           ['CEO', 'President Yoon Soon-kyun'],
-          ['Employees', '40'],
-          ['Capital', 'KRW 255.4 billion (as of 2024)'],
+          ['Employees', '104 (as of end of August 2026)'],
+          ['Capital', 'KRW 311,990 million'],
         ],
         bizTitle: 'Our Business',
         bizNodes: [
@@ -645,10 +643,8 @@ export const copy = {
         ],
       },
       vision: {
-        title: 'Mission & Vision', docTitle: 'Mission & Vision | DB World',
-        missionLabel: 'Mission', mission: 'We create new value for\nreal estate and customer assets',
-        missionSub: '부동산의 가치와 고객의 자산을 새롭게 창조합니다',
-        visionLabel: 'Vision', vision: 'Total real estate service leader\nacross the full life cycle',
+        title: 'Vision', docTitle: 'Vision | DB World',
+        visionLabel: 'Vision', vision: 'An advanced total real estate company\nwith top-tier competitiveness',
         visionSub: 'Development · CM · PM · Operation',
         valuesLabel: 'Core Values',
         values: [

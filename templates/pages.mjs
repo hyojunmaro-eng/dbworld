@@ -385,14 +385,13 @@ export function aboutOverview(c) {
   </dl>
 
   <div class="ovw-vis">
-    <div class="vis-block rv"><em>${esc(V.missionLabel)}</em><h2>${nl2br(V.mission)}</h2><p>${esc(V.missionSub)}</p></div>
-    <div class="vis-block vis-vision rv"><em>${esc(V.visionLabel)}</em><h2>${nl2br(V.vision)}</h2><p>${esc(V.visionSub)}</p></div>
     <div class="vis-values">
       <em class="rv">${esc(V.valuesLabel)}</em>
       <div class="vgrid">
         ${V.values.map(([tt, ss, dd]) => `<div class="vcard rv"><strong>${esc(tt)}</strong><em>${esc(ss)}</em><p>${esc(dd)}</p></div>`).join('')}
       </div>
     </div>
+    <div class="vis-block vis-vision rv"><em>${esc(V.visionLabel)}</em><h2>${nl2br(V.vision)}</h2><p>${esc(V.visionSub)}</p></div>
   </div>
 </div></section>`,
   });
