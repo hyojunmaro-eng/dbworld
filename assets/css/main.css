@@ -1092,10 +1092,9 @@ body.pop-open { overflow: hidden; }
 .ai-page { --ai-ink: #08111A; --ai-accent: #8DC63F; }
 .ai-page .foot { margin-top: 0; }
 .ai-eyebrow {
-  display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  display: block; margin-bottom: 20px;
   font-size: .8rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--db-green);
 }
-.ai-eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
 .ai-btn {
   display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; border-radius: 99px; white-space: nowrap;
   background: #fff; color: var(--ai-ink); font-weight: 700; font-size: .98rem; transition: gap .3s var(--ease), background .3s, color .3s;
