@@ -69,9 +69,10 @@ p { word-break: keep-all; }
   transition: transform .35s;
 }
 .gnb-in { position: relative; z-index: 2; max-width: 1360px; margin: 0 auto; height: 100%; padding: 0 28px; display: flex; align-items: center; gap: 40px; }
-.logo img { height: 40px; width: auto; transition: filter .3s; }
+.logo { position: relative; display: block; }
+.logo img { height: 40px; width: auto; transition: opacity .2s; }
 .nav { margin-left: auto; }
-.nav-l1 { display: flex; gap: 8px; transition: gap .3s var(--ease); }
+.nav-l1 { display: flex; gap: 8px; }
 .nav-l1 > li { position: relative; }
 .nav-l1 > li > a {
   display: block; padding: 26px 18px; font-weight: 600; font-size: 1.02rem; color: var(--ink);
@@ -84,25 +85,29 @@ p { word-break: keep-all; }
 .nav-l1 > li:hover > a::after, .nav-l1 > li:focus-within > a::after { transform: scaleX(1); }
 .nav-l2 {
   position: absolute; top: 100%; left: 50%; translate: -50% 0; width: calc(100% + 8px); padding: 14px 6px 10px;
-  transition: opacity .22s, transform .22s, visibility .22s, width .3s var(--ease);
-  opacity: 0; visibility: hidden; transform: translateY(6px);
-  transition: opacity .22s, transform .22s, visibility .22s;
+  opacity: 0; visibility: hidden;
+  transition: opacity .15s, visibility 0s linear .15s;
 }
-.nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transform: none; }
+.nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transition: opacity .3s ease .12s, visibility 0s; }
 
-/* 메가메뉴: 한 메뉴에 올리면 전체 하위 메뉴가 함께 펼쳐짐 */
+/* 메가메뉴: 한 메뉴에 올리면 전체 하위 메뉴가 함께 펼쳐짐
+   헤더 바 + 하위 메뉴 영역을 한 장의 흰 판으로 위에서 아래로 내림 (clip-path), 글자는 판이 지나가며 나타남 */
 .mega-bg {
-  position: absolute; z-index: 1; top: 100%; left: 0; right: 0; height: 0; pointer-events: none;
-  background: #fff; border-top: 1px solid var(--line); box-shadow: 0 18px 30px rgba(20, 30, 40, .07);
-  opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s;
+  position: absolute; z-index: 1; top: 0; left: 0; right: 0; height: 0; pointer-events: none;
+  background: #fff; box-shadow: 0 18px 30px rgba(20, 30, 40, .07);
+  clip-path: inset(0 0 100% 0); visibility: hidden;
+  transition: clip-path .28s cubic-bezier(.4, 0, .6, 1), visibility 0s linear .28s;
 }
+.mega-bg::before { content: ""; position: absolute; left: 0; right: 0; top: var(--gnb-h); height: 1px; background: var(--line); }
+@media (prefers-reduced-motion: reduce) { .mega-bg, .nav-l1, .nav-l2 { transition: none !important; } }
 @media (min-width: 1081px) {
   /* 높이 측정 전용 상태: 최종 간격·폭을 전환 없이 즉시 적용 */
-  .gnb.mega-measure .nav-l1 { gap: 40px; transition: none; }
-  .gnb.mega-measure .nav-l2 { width: calc(100% + 40px); transition: none; }
-  .gnb.mega-on .mega-bg { opacity: 1; visibility: visible; }
-  .gnb.mega-on .nav-l1 { gap: 40px; }
-  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transform: none; width: calc(100% + 40px); border-left: 1px solid var(--line); }
+  /* 메뉴 간격·하위 칸 폭은 열림 여부와 무관하게 고정 → 열릴 때 위에서 아래로만 움직임 */
+  .nav-l1 { gap: 40px; }
+  .nav-l2 { width: calc(100% + 40px); }
+  .nav-l1 > li > a { white-space: nowrap; }
+  .gnb.mega-on .mega-bg { clip-path: inset(0 0 -60px 0); visibility: visible; transition: clip-path .45s var(--ease), visibility 0s; }
+  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transition: opacity .3s ease .12s, visibility 0s; border-left: 1px solid var(--line); }
   .gnb.mega-on .nav-l1 > li:last-child .nav-l2 { border-right: 1px solid var(--line); }
   .gnb.mega-on .nav-l1 > li.on .nav-l2 { background: #F7F9F8; }
   .gnb.mega-on .nav-l1 > li.on > a { color: var(--db-green); }
@@ -131,12 +136,15 @@ p { word-break: keep-all; }
 /* 투명 헤더 페이지(지속가능경영): 밴드 사진이 메뉴 뒤까지 차오름. 스크롤하면 .solid로 복귀 */
 .gnb { transition: transform .35s, background .3s, box-shadow .3s; }
 body.gnb-clear .gnb:not(.solid) { background: transparent; backdrop-filter: none; box-shadow: none; }
-.logo .logo-w { display: none; }
-body.gnb-clear .gnb:not(.solid) .logo .logo-c { display: none; }
-body.gnb-clear .gnb:not(.solid) .logo .logo-w { display: block; }
-body.gnb-clear .gnb:not(.solid) .nav-l1 > li > a { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.3); }
-body.gnb-clear .gnb:not(.solid) .nav-l1 > li > a::after { background: #fff; }
+.logo .logo-w { position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; }
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .logo .logo-c { opacity: 0; }
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .logo .logo-w { opacity: 1; }
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .nav-l1 > li > a { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.3); }
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .nav-l1 > li > a::after { background: #fff; }
 body.gnb-clear .gnb:not(.solid) .burger span { background: #fff; }
+/* 메가메뉴가 닫힐 때는 흰 판이 걷힌 뒤 흰 글자로 돌아가도록 살짝 늦춤 */
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .nav-l1 > li > a { transition: color .2s .14s; }
+body.gnb-clear .gnb:not(.solid):not(.mega-on) .logo img { transition: opacity .2s .14s; }
 body.gnb-clear .phero-img { min-height: clamp(360px, 34vw, 500px); }
 body.gnb-clear .phero-img::before { content: ''; position: absolute; inset: 0 0 auto; height: 150px; background: linear-gradient(rgba(10, 20, 14, .42), transparent); pointer-events: none; }
 
@@ -810,6 +818,13 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
 /* ==========================================================================
    반응형
    ========================================================================== */
+@media (min-width: 1081px) and (max-width: 1279px) {
+  .gnb-in { gap: 24px; }
+  .nav-l1 { gap: 14px; }
+  .nav-l1 > li > a { padding-left: 14px; padding-right: 14px; }
+  .nav-l1 > li > a::after { left: 14px; right: 14px; }
+  .nav-l2 { width: calc(100% + 14px); }
+}
 @media (max-width: 1080px) {
   .nav { display: none; }
   .burger { display: flex; }

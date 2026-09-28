@@ -28,7 +28,6 @@
   const navRoot = $('.nav');
   const megaBg = $('.mega-bg');
   if (navRoot && megaBg) {
-    let forcedSolid = false;
     /* 패널 높이는 '메뉴가 다 벌어진 최종 상태' 기준으로 미리 잰다.
        열리는 순간 재면 컬럼이 아직 좁아 글자가 더 접히고, 나중에 다시 재면 높이가 줄어 화면이 튄다. */
     let panelH = 0;
@@ -50,7 +49,6 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { panelH = 0; measurePanel(); });
     const openMega = () => {
       if (!matchMedia('(min-width: 1081px)').matches) return;
-      if (clearHdr && !gnb.classList.contains('solid')) { gnb.classList.add('solid'); forcedSolid = true; }
       gnb.classList.add('mega-on');
       if (!panelH) measurePanel();
       megaBg.style.height = panelH + 'px';
@@ -59,8 +57,6 @@
       gnb.classList.remove('mega-on');
       releaseLock();
       lis.forEach(x => x.classList.remove('on'));
-      if (forcedSolid && scrollY <= 8) { gnb.classList.remove('solid'); }
-      forcedSolid = false;
     };
     const lis = $$('.nav-l1 > li', navRoot);
     const setActive = li => lis.forEach(x => x.classList.toggle('on', x === li));
