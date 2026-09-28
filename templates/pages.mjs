@@ -274,6 +274,13 @@ const MAP_LABELS = {
   '광주(경기)': [17, 8, 'start'], '음성': [-16, 12, 'end'], '양양': [16, 1, 'start'],
   '동해안': [16, 8, 'start'], '삼척': [16, 24, 'start'], '부산': [17, 8, 'start'],
 };
+/* 첨부파일 이름: 영문 페이지는 한글 파일명 대신 영문 안내 (name_en 이 있으면 그것) */
+const fileLabel = (f, i, n, lang) => {
+  if (lang === 'ko') return f.name;
+  if (f.name_en) return f.name_en;
+  const ext = ((String(f.name).match(/\.([a-z0-9]+)$/i) || [])[1] || 'file').toUpperCase();
+  return `${n > 1 ? `Attachment ${i + 1}` : 'Attachment'} (${ext}, in Korean)`;
+};
 /* 영문 지도용 시·도 이름 */
 const PROV_EN = {
   '서울특별시': 'Seoul', '부산광역시': 'Busan', '대구광역시': 'Daegu', '인천광역시': 'Incheon', '광주광역시': 'Gwangju',
@@ -505,7 +512,7 @@ export function aboutGroup(c) {
     title: G.docTitle, desc: G.sections[0].paras[0], path: `${lang}/about/group/`,
     body: pageHero(c, { sec: 'about', title: G.title, crumbs: [[L.nav.about, 'about/overview/'], [G.title]] }) + `
 <section class="sec"><div class="wrap">
-  <figure class="grp-banner"><img src="/assets/img/group/banner.webp" alt="${esc(G.heroAlt)}"></figure>
+  <figure class="grp-banner"><img src="/assets/img/group/banner-bg.webp" alt="" width="1200" height="520"><figcaption class="grp-banner-copy"><strong>${nl2br(G.bannerTitle)}</strong><span>${esc(G.bannerSub)}</span></figcaption></figure>
 
   ${G.sections.map(sec => `
   <div class="grp-sec">
@@ -920,7 +927,7 @@ export function newsPost(c, p) {
     <h2>${esc(lang === 'ko' ? p.title : p.title_en)}</h2>
     <time datetime="${p.date}">${L.common.date} ${p.date.replace(/-/g, '.')}</time>
   </header>
-  ${p.files && p.files.length ? `<ul class="post-files rv">${p.files.map(f => `<li><a href="${esc(f.src)}" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m21.4 11.05-8.84 8.84a5.5 5.5 0 0 1-7.78-7.78l8.84-8.84a3.67 3.67 0 0 1 5.19 5.19l-8.85 8.84a1.83 1.83 0 0 1-2.59-2.59l8.49-8.49"/></svg>${esc(f.name)}</a></li>`).join('')}</ul>` : ''}
+  ${p.files && p.files.length ? `<ul class="post-files rv">${p.files.map((f, fi) => `<li><a href="${esc(f.src)}" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m21.4 11.05-8.84 8.84a5.5 5.5 0 0 1-7.78-7.78l8.84-8.84a3.67 3.67 0 0 1 5.19 5.19l-8.85 8.84a1.83 1.83 0 0 1-2.59-2.59l8.49-8.49"/></svg>${esc(fileLabel(f, fi, p.files.length, lang))}</a></li>`).join('')}</ul>` : ''}
   <div class="post-body rv">${md(body)}</div>
   <div class="post-foot rv"><a class="btn-line" href="/${lang}/news/">${esc(L.common.list)}</a></div>
 </div></div></section>`,

@@ -188,6 +188,7 @@ export const copy = {
       group: {
         title: 'DB그룹 소개', docTitle: 'DB그룹 소개 | DB월드',
         heroAlt: '글로벌 전문기업으로 큰 꿈을 향한 DB그룹의 도전 — Dream Big DB',
+        bannerTitle: '글로벌 전문기업으로\n큰 꿈을 향한 DB그룹의 도전', bannerSub: 'Dream Big DB',
         sections: [
           {
             label: '1969', sublabel: 'DB의 시작',
@@ -833,6 +834,7 @@ export const copy = {
       group: {
         title: 'DB Group', docTitle: 'DB Group | DB World',
         heroAlt: "DB Group's challenge toward a big dream as a global specialist \u2014 Dream Big DB",
+        bannerTitle: "DB Group's challenge\ntoward a big dream\nas a global specialist", bannerSub: 'Dream Big DB',
         sections: [
           {
             label: '1969', sublabel: 'The Beginning of DB',

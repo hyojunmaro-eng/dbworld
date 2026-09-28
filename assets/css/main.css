@@ -522,7 +522,18 @@ body.menu-open { overflow: hidden; }
 
 /* DB그룹 소개 */
 .grp-banner { border-radius: 24px; overflow: hidden; margin-bottom: clamp(44px, 6vw, 80px); }
-.grp-banner img { width: 100%; display: block; }
+.grp-banner img { width: 100%; height: auto; display: block; }
+/* 배너 문구는 이미지가 아닌 글자로 (국문·영문 각각 표시) */
+.grp-banner { position: relative; container-type: inline-size; }
+.grp-banner-copy { position: absolute; top: 0; bottom: 0; left: 54.8%; right: 3%; display: flex; flex-direction: column; justify-content: center; color: #fff; text-shadow: 0 1px 10px rgba(10, 40, 90, .18); }
+.grp-banner-copy strong { font-size: 2.85cqw; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; word-break: keep-all; }
+.grp-banner-copy span { margin-top: 4.4cqw; font-size: 1.3cqw; font-weight: 500; opacity: .92; }
+@media (max-width: 680px) {
+  .grp-banner img { aspect-ratio: 16 / 11; object-fit: cover; object-position: 46% 50%; }
+  .grp-banner-copy { left: 50%; right: 5%; }
+  .grp-banner-copy strong { font-size: 4.5cqw; line-height: 1.42; }
+  .grp-banner-copy span { margin-top: 5cqw; font-size: 3.1cqw; }
+}
 .grp-sec { display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: clamp(32px, 5vw, 56px) 0; border-top: 1px solid var(--line); }
 .grp-sec:first-of-type { border-top: 0; padding-top: 0; }
 .grp-label strong { display: block; font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 800; line-height: 1.2; }
