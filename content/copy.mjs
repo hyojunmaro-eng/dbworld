@@ -627,7 +627,6 @@ export const copy = {
         title: '국내 AI 인프라 사업 기회를\n찾고 계십니까?',
         sub: '함께 개발할 수 있는 기회를 논의하고자 합니다.',
         team: 'AI & 데이터센터 개발팀 문의',
-        org: 'DB월드', unit: 'AI & 데이터센터 개발', loc: '대한민국 서울',
         // 담당 이메일·LinkedIn 주소가 정해지면 입력 (비워 두면 표시하지 않음)
         email: 'joanne.cho@dbgroup.co.kr', linkedin: '',
         emailSubject: 'AI & 데이터센터 개발 문의',
@@ -1274,7 +1273,6 @@ export const copy = {
         title: 'Exploring AI Infrastructure\nOpportunities in Korea?',
         sub: "Let's Discuss What We Can Develop Together.",
         team: 'Contact Our AI & Data Center Development Team',
-        org: 'DB World', unit: 'AI & Data Center Development', loc: 'Seoul, Korea',
         // Team e-mail / LinkedIn URL — shown only when filled in
         email: 'joanne.cho@dbgroup.co.kr', linkedin: '',
         emailSubject: 'Inquiry: AI & Data Center Development in Korea',

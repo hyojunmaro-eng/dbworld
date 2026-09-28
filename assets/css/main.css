@@ -1279,14 +1279,11 @@ body[data-lang="ko"] .ai-flow-core span { letter-spacing: .04em; font-size: .9re
   padding: clamp(28px, 3vw, 40px); border-radius: 20px; background: rgba(255, 255, 255, .07);
   border: 1px solid rgba(255, 255, 255, .16); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
 }
-.ai-contact-card h3 { margin: 0 0 18px; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ai-accent); }
+.ai-contact-card h3 { margin: 0 0 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, .14); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ai-accent); }
 body[data-lang="ko"] .ai-contact-card h3 { letter-spacing: .04em; font-size: .92rem; }
-.ai-contact-org { display: flex; flex-direction: column; margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid rgba(255, 255, 255, .14); }
-.ai-contact-org strong { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
-.ai-contact-org span { color: rgba(255, 255, 255, .78); font-size: .98rem; }
 .ai-contact-card dl div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 6px 0; }
 .ai-contact-card dt { font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .56); padding-top: 3px; }
-.ai-contact-card dd { color: #fff; font-size: .96rem; word-break: keep-all; overflow-wrap: anywhere; }
+.ai-contact-card dd { color: #fff; font-size: 1.05rem; word-break: keep-all; overflow-wrap: anywhere; }
 .ai-contact-card dd a:hover { color: var(--ai-accent); }
 .ai-contact-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .ai-contact-btns:empty { display: none; }
@@ -1349,5 +1346,6 @@ body[data-lang="ko"] .ai-contact-card h3 { letter-spacing: .04em; font-size: .92
   .ai-partners li:nth-child(n) { border-left: 0; border-bottom: 1px solid var(--line); }
   .ai-partners li:nth-child(2n) { border-left: 1px solid var(--line); }
   .ai-partners li:last-child { grid-column: 1 / -1; border-bottom: 0; }
-  .ai-contact-card dl div { grid-template-columns: 78px 1fr; }
+  .ai-contact-card dl div { grid-template-columns: 1fr; gap: 4px; }
+  .ai-contact-card dd { overflow-wrap: normal; }
 }

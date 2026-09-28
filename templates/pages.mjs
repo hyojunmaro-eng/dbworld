@@ -812,7 +812,6 @@ export function businessAiDc(c) {
     </div>
     <div class="ai-contact-card">
       <h3>${esc(T.team)}</h3>
-      <p class="ai-contact-org"><strong>${esc(T.org)}</strong><span>${esc(T.unit)}</span><span>${esc(T.loc)}</span></p>
       <dl>${contactRows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>
       <div class="ai-contact-btns">
         ${T.email ? `<a class="ai-btn" href="${esc(mailto)}">${esc(T.emailBtn)} ${ARROW}</a>` : ''}
