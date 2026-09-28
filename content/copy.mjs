@@ -632,7 +632,7 @@ export const copy = {
         email: 'joanne.cho@dbgroup.co.kr', linkedin: '',
         emailSubject: 'AI & 데이터센터 개발 문의',
         labels: { email: '이메일', linkedin: 'LinkedIn', tel: '대표전화', address: '주소' },
-        emailBtn: '이메일 보내기',
+        emailBtn: '사업 협력 문의', linkedinBtn: 'LinkedIn', linkedinSoon: '준비 중',
       },
     },
     contact: {
@@ -1279,7 +1279,7 @@ export const copy = {
         email: 'joanne.cho@dbgroup.co.kr', linkedin: '',
         emailSubject: 'Inquiry: AI & Data Center Development in Korea',
         labels: { email: 'E-mail', linkedin: 'LinkedIn', tel: 'Tel', address: 'Address' },
-        emailBtn: 'Email Our Team',
+        emailBtn: 'Email Our Team', linkedinBtn: 'LinkedIn', linkedinSoon: 'Coming soon',
       },
     },
     contact: {

@@ -1288,7 +1288,13 @@ body[data-lang="ko"] .ai-contact-card h3 { letter-spacing: .04em; font-size: .92
 .ai-contact-card dt { font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .56); padding-top: 3px; }
 .ai-contact-card dd { color: #fff; font-size: .96rem; word-break: keep-all; overflow-wrap: anywhere; }
 .ai-contact-card dd a:hover { color: var(--ai-accent); }
-.ai-contact-card .ai-btn { margin-top: 24px; }
+.ai-contact-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.ai-contact-btns:empty { display: none; }
+.ai-btn-line { background: transparent; color: #fff; border: 1.5px solid rgba(255, 255, 255, .42); padding: 14.5px 24px; }
+.ai-btn-line:hover { background: rgba(255, 255, 255, .12); border-color: #fff; color: #fff; gap: 12px; }
+.ai-btn-line.is-soon { cursor: default; }
+.ai-btn-line.is-soon:hover { background: transparent; border-color: rgba(255, 255, 255, .42); }
+.ai-li { width: 17px; height: 17px; flex: none; }
 
 /* 반응형 */
 @media (max-width: 1080px) {

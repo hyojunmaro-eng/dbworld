@@ -58,6 +58,8 @@ const AI_ICONS = {
   investor: '<path d="M3 21h18M4.5 21V10.5M9.5 21V10.5M14.5 21V10.5M19.5 21V10.5M2.5 8.5 12 3l9.5 5.5z"/>',
   network: '<circle cx="12" cy="5" r="2.6"/><circle cx="5" cy="19" r="2.6"/><circle cx="19" cy="19" r="2.6"/><path d="M10.8 7.4 6.2 16.6M13.2 7.4l4.6 9.2M7.6 19h8.8"/>',
 };
+/* LinkedIn 로고 (주소가 비어 있으면 버튼은 보이되 이동하지 않음 — copy.mjs aidc.contact.linkedin 에 입력) */
+const LINKEDIN = '<svg class="ai-li" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>';
 const aiIcon = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${AI_ICONS[k] || ''}</svg>`;
 /* 페이지 전용 사진 (없으면 null → CSS 그라데이션으로 대체) */
 const aiImg = name => existsSync(join(ROOT, 'assets/img/ai', name + '.jpg')) ? `/assets/img/ai/${name}.jpg` : null;
@@ -812,7 +814,12 @@ export function businessAiDc(c) {
       <h3>${esc(T.team)}</h3>
       <p class="ai-contact-org"><strong>${esc(T.org)}</strong><span>${esc(T.unit)}</span><span>${esc(T.loc)}</span></p>
       <dl>${contactRows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>
-      ${T.email ? `<a class="ai-btn" href="${esc(mailto)}">${esc(T.emailBtn)} ${ARROW}</a>` : ''}
+      <div class="ai-contact-btns">
+        ${T.email ? `<a class="ai-btn" href="${esc(mailto)}">${esc(T.emailBtn)} ${ARROW}</a>` : ''}
+        ${T.linkedin
+          ? `<a class="ai-btn ai-btn-line" href="${esc(T.linkedin)}" target="_blank" rel="noopener">${LINKEDIN}${esc(T.linkedinBtn)}</a>`
+          : `<span class="ai-btn ai-btn-line is-soon" role="link" aria-disabled="true" title="${esc(T.linkedinSoon)}">${LINKEDIN}${esc(T.linkedinBtn)}</span>`}
+      </div>
     </div>
   </div>
 </section>`,
