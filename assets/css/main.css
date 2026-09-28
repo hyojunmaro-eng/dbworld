@@ -400,6 +400,7 @@ body.menu-open { overflow: hidden; }
 .vcard:hover { border-color: var(--db-green); box-shadow: var(--shadow); transform: translateY(-4px); }
 .vcard strong { font-size: 1.25rem; display: block; }
 .vcard em { font-style: normal; color: var(--db-green); font-size: .82rem; font-weight: 700; letter-spacing: .08em; display: block; margin: 2px 0 12px; }
+.vcard strong + p { margin-top: 10px; }
 .vcard p { color: var(--ink-soft); font-size: .93rem; }
 
 /* 연혁 */

@@ -274,6 +274,20 @@ const MAP_LABELS = {
   '광주(경기)': [17, 8, 'start'], '음성': [-16, 12, 'end'], '양양': [16, 1, 'start'],
   '동해안': [16, 8, 'start'], '삼척': [16, 24, 'start'], '부산': [17, 8, 'start'],
 };
+/* 영문 지도용 시·도 이름 */
+const PROV_EN = {
+  '서울특별시': 'Seoul', '부산광역시': 'Busan', '대구광역시': 'Daegu', '인천광역시': 'Incheon', '광주광역시': 'Gwangju',
+  '대전광역시': 'Daejeon', '울산광역시': 'Ulsan', '세종특별자치시': 'Sejong', '경기도': 'Gyeonggi-do', '강원도': 'Gangwon-do',
+  '충청북도': 'Chungcheongbuk-do', '충청남도': 'Chungcheongnam-do', '전라북도': 'Jeollabuk-do', '전라남도': 'Jeollanam-do',
+  '경상북도': 'Gyeongsangbuk-do', '경상남도': 'Gyeongsangnam-do', '제주특별자치도': 'Jeju',
+};
+/* 재무정보 기수: '제 37 기' → 영문 '37th FY' */
+const periodLabel = (label, lang) => {
+  const n = lang === 'en' && (String(label).match(/(\d+)/) || [])[1];
+  if (!n) return label;
+  const k = +n % 100, suf = k >= 11 && k <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[+n % 10] || 'th');
+  return `${n}${suf} FY`;
+};
 function koreaMap(c) {
   const { projects, lang } = c;
   const byCity = new Map();
@@ -302,7 +316,7 @@ function koreaMap(c) {
     </filter>
   </defs>
   <g class="kmap-geo" filter="url(#kmap-sh)">
-    ${kmap.provinces.map(p => `<path class="kmap-prov" d="${p.d}"><title>${esc(p.name)}</title></path>`).join('\n    ')}
+    ${kmap.provinces.map(p => `<path class="kmap-prov" d="${p.d}"><title>${esc(lang === 'ko' ? p.name : PROV_EN[p.name] || p.name)}</title></path>`).join('\n    ')}
     <g class="kmap-dokdo"><circle cx="${dkx - 2.4}" cy="${dky}" r="1.6"/><circle cx="${dkx + 2.4}" cy="${dky - 1}" r="1.3"/></g>
   </g>
   ${pins}
@@ -399,7 +413,7 @@ export function aboutOverview(c) {
       <h2>${nl2br(O.headTop)}<br><em>${esc(O.headAccent)}</em><br><strong>${esc(O.headName)}</strong></h2>
       ${O.paras.map(t => `<p>${esc(t)}</p>`).join('')}
     </div>
-    <figure class="ovw-photo"><img src="/assets/img/photos/overview-tower.jpg" alt="DB금융센터" loading="lazy"></figure>
+    <figure class="ovw-photo"><img src="/assets/img/photos/overview-tower.jpg" alt="${lang === 'ko' ? 'DB금융센터' : 'DB Financial Center'}" loading="lazy"></figure>
   </div>
 
   <h3 class="ovw-h3">${esc(O.factsTitle)}</h3>
@@ -411,7 +425,7 @@ export function aboutOverview(c) {
     <div class="vis-values">
       <em class="rv">${esc(V.valuesLabel)}</em>
       <div class="vgrid">
-        ${V.values.map(([tt, ss, dd]) => `<div class="vcard rv"><strong>${esc(tt)}</strong><em>${esc(ss)}</em><p>${esc(dd)}</p></div>`).join('')}
+        ${V.values.map(([tt, ss, dd]) => `<div class="vcard rv"><strong>${esc(tt)}</strong>${ss ? `<em>${esc(ss)}</em>` : ''}<p>${esc(dd)}</p></div>`).join('')}
       </div>
     </div>
     <div class="vis-block vis-vision rv"><em>${esc(V.visionLabel)}</em><h2>${nl2br(V.vision)}</h2><p>${esc(V.visionSub)}</p></div>
@@ -458,7 +472,7 @@ export function aboutCi(c) {
       <h4>${nl2br(CI.symbolHeadline)}</h4>
       ${CI.symbolBody.map(t => `<p>${esc(t)}</p>`).join('')}
       <div class="ci-meanings">
-        ${CI.symbolMeanings.map(([n, sub, hex, d]) => `<div class="ci-meaning"><i style="background:${hex}"></i><div><strong>${esc(n)} <em>${esc(sub)}</em></strong><span>${esc(d)}</span></div></div>`).join('')}
+        ${CI.symbolMeanings.map(([n, sub, hex, d]) => `<div class="ci-meaning"><i style="background:${hex}"></i><div><strong>${esc(n)}${sub ? ` <em>${esc(sub)}</em>` : ''}</strong><span>${esc(d)}</span></div></div>`).join('')}
       </div>
       <p class="ci-symbol-note">${esc(CI.symbolNote)}</p>
     </div>
@@ -964,7 +978,7 @@ export function irFinance(c) {
     body = `<div class="fin-empty rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/></svg><p>${esc(F.empty)}</p></div>`;
   } else {
     const unit = esc(finance.unit[lang]);
-    const yearTh = finance.years.map(y => `<th scope="col">${esc(y.label)}<em>${esc(y.year)}</em></th>`).join('');
+    const yearTh = finance.years.map(y => `<th scope="col">${esc(periodLabel(y.label, lang))}<em>${esc(y.year)}</em></th>`).join('');
     const table = (rows, title, catSpan) => `
     <div class="fin-tablewrap rv" data-hint="${esc(F.swipe)}">
       <div class="fin-thead"><h3>${esc(title)}</h3><span>(${unit})</span></div>
