@@ -13,7 +13,7 @@ export const copy = {
         ['ceo', 'CEO 인사말'], ['location', '오시는 길'],
       ],
       businessItems: [
-        ['development', '부동산 개발'], ['pm', '부동산 Total Service'], ['consulting', '부동산 컨설팅'],
+        ['development', '부동산 개발'], ['construction', '건축/플랜트 건설'], ['pm', '부동산 Total Service'],
         ['golf', '골프장 운영'],
       ],
       ir: '투자정보',
@@ -277,19 +277,19 @@ export const copy = {
               groups: [
                 { name: '업무시설', items: [
                   { name: '대치 금융센터', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['서울 대치동', '연면적 17,248평 (지하 7층 ~ 지상 35층)', '2002년 준공'] },
-                  { name: '부산 오피스', img: 'dev-busan', slug: 'busan-hq', specs: ['부산 부전동', '연면적 13,535평 (지하 8층 ~ 지상 24층)', "'26년 준공 완료"] },
-                  { name: '동자 오피스Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['서울 동자동', '연면적 43,000평 (지하 7층 ~ 지상 40층)', '인허가 진행중'] },
+                  { name: '부산 오피스', img: 'dev-busan', slug: 'busan-hq', specs: ['부산 부전동', '연면적 13,475평 (지하 8층 ~ 지상 24층)', "'26년 준공 완료"] },
+                  { name: '동자 오피스Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['서울 동자동', '연면적 43,569평 (지하 7층 ~ 지상 37층)', '인허가 진행중'] },
                 ] },
                 { name: '상업시설', items: [
                   { name: '신사 오피스 및 근생', img: 'dev-sinsa', slug: 'sinsa-office', specs: ['서울 신사동', '연면적 2,750평 (지하 3층 ~ 지상 4층)', '사업계획 중'] },
                 ] },
                 { name: '연수원', items: [
-                  { name: '곤지암 연수원', img: 'dev-gonjiam', slug: 'gonjiam-center', specs: ['경기도 광주시', '연면적 4,600평 (지하 1층 ~ 지상 5층)', '1992년 준공 · 리모델링 사업계획 중'] },
+                  { name: '곤지암 연수원', img: 'dev-gonjiam', slug: 'gonjiam-center', specs: ['경기도 광주시', '연면적 8,137평 (지하 1층 ~ 지상 11층)', '리모델링·증축 사업계획 중'] },
                 ] },
               ],
             },
             {
-              name: '지역개발',
+              name: '지역개발', landscape: true,
               head: ['양양 지역을 중심으로 리조트, 공원, 근생, 숙박시설 등 ', '부동산 개발대행(Project Management)', ' 또는 직접개발'],
               note: '※ 개발대행 : 발주처를 대신해 기획, 설계, 시공 및 유지관리 등 일체의 개발행위 대행을 통해 성공적 사업 수행',
               fields: ['공원개발', '대형 복합개발', '호텔 리모델링', '사업계획 컨설팅 등'],
@@ -307,7 +307,7 @@ export const copy = {
               ],
             },
             {
-              name: '도시계획',
+              name: '도시계획', landscape: true,
               head: ['발주처를 대신해 ', '부동산 개발 도시계획 인허가 솔루션 서비스', '를 제공합니다'],
               note: '',
               fields: ['도시계획컨설팅', '도시정비사업', '개발행위허가', '지구단위계획수립 등'],
@@ -327,15 +327,54 @@ export const copy = {
           ],
           projectFilter: 'development',
         },
+        construction: {
+          name: '건축/플랜트 건설', en: 'Building & Plant Construction',
+          slogan: '토목건축 · 플랜트',
+          headline: '토목건축 · 플랜트 종합건설',
+          desc: '21년부터 DB그룹 내 유일한 건설회사로서 안정된 수주 기반을 가지고 토목건축공사, 반도체공장 건설·보수, 공동주택 건설을 수행해온 종합건설회사',
+          groupRows: true,
+          tabs: [
+            {
+              id: 'building', name: '건축',
+              groups: [
+                { name: '실적', items: [
+                  { name: '인재개발원 체육관', img: 'bld-gym', specs: [['용도', '운동시설'], ['구조', 'RC조 + 철골조'], ['규모', '지상 3층, 1개동'], ['연면적', '2,589㎡']] },
+                  { name: '디비손해보험 문서고', img: 'bld-archive', specs: [['용도', '창고시설'], ['구조', 'RC조'], ['규모', '지상 2층, 1개동'], ['연면적', '4,745㎡']] },
+                  { name: '신경주역세권 2BL 공동주택 신축공사', img: 'bld-gyeongju', specs: [['용도', '공동주택'], ['구조', 'RC조'], ['규모', '지하 2층 ~ 지상 29층, 8개동, 945세대'], ['연면적', '150,396㎡']] },
+                  { name: '디비손해보험 부산사옥 인테리어공사', img: 'bld-busan', slug: 'busan-hq', specs: [['용도', '업무시설'], ['구조', '철골조'], ['규모', '지하 8층 ~ 지상 24층'], ['연면적', '44,544㎡']] },
+                ] },
+                { name: '계획', items: [
+                  { name: '동해학술관', img: 'bld-donghae', specs: [['위치', '강원도 동해시'], ['용도', '업무시설'], ['구조', 'RC조'], ['규모', '지상 5층, 1개동'], ['연면적', '1,138㎡'], ['진행', '착공 예정']] },
+                  { name: '디비하이텍 기숙사', img: 'bld-dorm', specs: [['위치', '충북 음성'], ['용도', '기숙사'], ['구조', 'RC조'], ['규모', '지하 1층 ~ 지상 11층'], ['연면적', '19,024㎡'], ['진행', '인허가 진행중']] },
+                  { name: '인재개발원 리모델링 및 증축', img: 'bld-hrd', specs: [['위치', '경기도 광주시'], ['용도', '교육연구시설'], ['구조', 'RC조'], ['규모', '지하 1층 ~ 지상 11층'], ['연면적', '26,900㎡'], ['진행', '사업계획 중']] },
+                  { name: '동자2구역 오피스 신축공사', img: 'bld-dongja', slug: 'dongja-office', specs: [['위치', '서울 용산'], ['용도', '업무시설'], ['구조', '철골조'], ['규모', '지하 7층 ~ 지상 37층'], ['연면적', '144,029㎡'], ['진행', '인허가 진행중']] },
+                ] },
+              ],
+            },
+            {
+              id: 'plant', name: '플랜트',
+              groups: [
+                { name: '실적', items: [
+                  { name: 'DB하이텍 부천캠퍼스 HOOK-UP 공사', img: 'plt-bucheon', specs: [] },
+                  { name: 'DB하이텍 상우캠퍼스 HOOK-UP 공사', img: 'plt-sangwoo', specs: [] },
+                  { name: 'DB하이텍 상우캠퍼스 S/F 증축공사', img: 'plt-sangwoo-sf', specs: [['공사기간', '24.11 ~ 28.06']] },
+                ] },
+                { name: '계획', items: [
+                  { name: 'DB하이텍 12인치 사업', img: 'plt-12inch', specs: [['제품군', 'BCD, DDI 등'], ['진행 단계', '사업계획 수립']] },
+                ] },
+              ],
+            },
+          ],
+        },
         pm: {
           name: '부동산 Total Service', en: 'Real Estate Total Service',
           headline: '부동산에 대한 종합적인 서비스를 제공합니다',
-          desc: '자산관리(PM), 임대차컨설팅(LM), 시설관리(FM)를 아우르는 통합 운영 체계로 자산의 가치를 높입니다.',
+          desc: '자산관리(PM), 임대차컨설팅(LM), 시설관리(FM)를 아우르는 통합 운영 체계와 분야별 전문가의 맞춤형 컨설팅으로 자산의 가치를 높입니다.',
           fieldsLabel: '분야', worksLabel: '실적',
           specLabels: ['위치', '면적', '진행'],
           tabs: [
             {
-              name: '부동산 Total Service',
+              id: 'asset', name: '자산관리',
               head: ['고객의 부동산 특성에 맞춰 ', '부동산에 대한 종합적인 서비스', '를 제공합니다'],
               note: '',
               fields: ['부동산 자산관리(PM)', '부동산 임대차컨설팅(LM)', '부동산 시설관리(FM)'],
@@ -360,23 +399,14 @@ export const copy = {
                 ] },
               ],
             },
-          ],
-        },
-        consulting: {
-          name: '부동산 컨설팅', en: 'Real Estate Consulting',
-          headline: '분야별 전문가의 맞춤형 솔루션',
-          desc: '부동산과 관련된 다양한 문제에 대하여 각 분야의 전문가가 맞춤형 솔루션을 제공합니다.',
-          fieldsLabel: '분야', worksLabel: '실적',
-          specLabels: ['위치', '면적', '진행'],
-          tabs: [
             {
-              name: '부동산 컨설팅',
+              id: 'consulting', name: '부동산 컨설팅',
               head: ['입지선정, 사업기획, 인허가, 설계, 시공, 엔지니어링 등 ', '분야별 자문과 매수, 매도, 운영', ''],
               note: '',
               fields: ['부동산 컨설팅', '사업계획 컨설팅'],
               groups: [
                 { name: '업무시설', items: [
-                  { name: '업무시설 사업계획 및 사업타당성 검토', img: 'con-busan', slug: 'busan-hq', specs: ['부산 서면', '연면적 13,535평 (지하 8층 ~ 지상 24층)', '완료'] },
+                  { name: '업무시설 사업계획 및 사업타당성 검토', img: 'con-busan', slug: 'busan-hq', specs: ['부산 서면', '연면적 13,475평 (지하 8층 ~ 지상 24층)', '완료'] },
                 ] },
                 { name: '복합개발사업', items: [
                   { name: '복합시설 사업계획 및 마스터플랜 수립', img: 'con-samcheok', slug: 'samcheok-complex', specs: ['강원도 삼척', '대지면적 약 270,000평 (지하 5층 ~ 지상 35층)', '진행중'] },
@@ -547,7 +577,7 @@ export const copy = {
         ['ceo', 'CEO Message'], ['location', 'Location'],
       ],
       businessItems: [
-        ['development', 'Development'], ['pm', 'Total Service'], ['consulting', 'Consulting'],
+        ['development', 'Development'], ['construction', 'Construction'], ['pm', 'Total Service'],
         ['golf', 'Golf Course'],
       ],
       ir: 'Investors',
@@ -811,19 +841,19 @@ export const copy = {
               groups: [
                 { name: 'Office', items: [
                   { name: 'Daechi Financial Center', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['Daechi-dong, Seoul', 'GFA 57,000m² (B7 – 35F)', 'Completed 2002'] },
-                  { name: 'Busan Office', img: 'dev-busan', slug: 'busan-hq', specs: ['Bujeon-dong, Busan', 'GFA 44,700m² (B8 – 24F)', 'Completed 2026'] },
-                  { name: 'Dongja Office Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['Dongja-dong, Seoul', 'GFA 142,000m² (B7 – 40F)', 'Permitting in progress'] },
+                  { name: 'Busan Office', img: 'dev-busan', slug: 'busan-hq', specs: ['Bujeon-dong, Busan', 'GFA 44,544m² (B8 – 24F)', 'Completed 2026'] },
+                  { name: 'Dongja Office Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['Dongja-dong, Seoul', 'GFA 144,029m² (B7 – 37F)', 'Permitting in progress'] },
                 ] },
                 { name: 'Retail', items: [
                   { name: 'Sinsa Office & Retail', img: 'dev-sinsa', slug: 'sinsa-office', specs: ['Sinsa-dong, Seoul', 'GFA 9,100m² (B3 – 4F)', 'Business planning'] },
                 ] },
                 { name: 'Training Center', items: [
-                  { name: 'Gonjiam Training Center', img: 'dev-gonjiam', slug: 'gonjiam-center', specs: ['Gwangju, Gyeonggi', 'GFA 15,200m² (B1 – 5F)', 'Completed 1992 · remodeling planned'] },
+                  { name: 'Gonjiam Training Center', img: 'dev-gonjiam', slug: 'gonjiam-center', specs: ['Gwangju, Gyeonggi', 'GFA 26,900m² (B1 – 11F)', 'Remodeling & extension planned'] },
                 ] },
               ],
             },
             {
-              name: 'Regional Development',
+              name: 'Regional Development', landscape: true,
               head: ['Resorts, parks, retail and lodging centered on the Yangyang area — as ', 'development agency (Project Management)', ' or direct development'],
               note: '※ Development agency: performing the full development process — planning, design, construction and maintenance — on behalf of the client.',
               fields: ['Park development', 'Large mixed-use', 'Hotel remodeling', 'Business planning consulting'],
@@ -841,7 +871,7 @@ export const copy = {
               ],
             },
             {
-              name: 'Urban Planning',
+              name: 'Urban Planning', landscape: true,
               head: ['On behalf of clients, we provide ', 'permitting solution services for real estate development and urban planning', ''],
               note: '',
               fields: ['Urban planning consulting', 'Urban regeneration', 'Development permits', 'District unit planning'],
@@ -861,15 +891,54 @@ export const copy = {
           ],
           projectFilter: 'development',
         },
+        construction: {
+          name: 'Building & Plant Construction', en: 'Building & Plant Construction',
+          slogan: 'Civil & Building · Plant',
+          headline: 'Civil, building and plant construction',
+          desc: 'Since 2021, the only construction company within DB Group: a general contractor with a stable order base, delivering civil and building works, semiconductor plant construction and maintenance, and residential construction.',
+          groupRows: true,
+          tabs: [
+            {
+              id: 'building', name: 'Building',
+              groups: [
+                { name: 'Track record', items: [
+                  { name: 'HRD Center Gymnasium', img: 'bld-gym', specs: [['Use', 'Sports facility'], ['Structure', 'RC + steel frame'], ['Scale', '3F, 1 building'], ['GFA', '2,589m²']] },
+                  { name: 'DB Insurance Archive', img: 'bld-archive', specs: [['Use', 'Warehouse'], ['Structure', 'RC'], ['Scale', '2F, 1 building'], ['GFA', '4,745m²']] },
+                  { name: 'New Gyeongju Station Area 2BL Apartments', img: 'bld-gyeongju', specs: [['Use', 'Apartment complex'], ['Structure', 'RC'], ['Scale', 'B2 – 29F, 8 buildings, 945 units'], ['GFA', '150,396m²']] },
+                  { name: 'DB Insurance Busan HQ Interior Works', img: 'bld-busan', slug: 'busan-hq', specs: [['Use', 'Office'], ['Structure', 'Steel frame'], ['Scale', 'B8 – 24F'], ['GFA', '44,544m²']] },
+                ] },
+                { name: 'Pipeline', items: [
+                  { name: 'Donghae Academic Hall', img: 'bld-donghae', specs: [['Location', 'Donghae, Gangwon'], ['Use', 'Office'], ['Structure', 'RC'], ['Scale', '5F, 1 building'], ['GFA', '1,138m²'], ['Status', 'Construction to start']] },
+                  { name: 'DB HiTek Dormitory', img: 'bld-dorm', specs: [['Location', 'Eumseong, Chungbuk'], ['Use', 'Dormitory'], ['Structure', 'RC'], ['Scale', 'B1 – 11F'], ['GFA', '19,024m²'], ['Status', 'Permitting in progress']] },
+                  { name: 'HRD Center Remodeling & Extension', img: 'bld-hrd', specs: [['Location', 'Gwangju, Gyeonggi'], ['Use', 'Education & research'], ['Structure', 'RC'], ['Scale', 'B1 – 11F'], ['GFA', '26,900m²'], ['Status', 'Business planning']] },
+                  { name: 'Dongja District 2 Office', img: 'bld-dongja', slug: 'dongja-office', specs: [['Location', 'Yongsan, Seoul'], ['Use', 'Office'], ['Structure', 'Steel frame'], ['Scale', 'B7 – 37F'], ['GFA', '144,029m²'], ['Status', 'Permitting in progress']] },
+                ] },
+              ],
+            },
+            {
+              id: 'plant', name: 'Plant',
+              groups: [
+                { name: 'Track record', items: [
+                  { name: 'DB HiTek Bucheon Campus Hook-up Works', img: 'plt-bucheon', specs: [] },
+                  { name: 'DB HiTek Sangwoo Campus Hook-up Works', img: 'plt-sangwoo', specs: [] },
+                  { name: 'DB HiTek Sangwoo Campus S/F Extension', img: 'plt-sangwoo-sf', specs: [['Period', '24.11 – 28.06']] },
+                ] },
+                { name: 'Pipeline', items: [
+                  { name: 'DB HiTek 12-inch Project', img: 'plt-12inch', specs: [['Products', 'BCD, DDI, etc.'], ['Stage', 'Business planning']] },
+                ] },
+              ],
+            },
+          ],
+        },
         pm: {
           name: 'Real Estate Total Service', en: 'Real Estate Total Service',
           headline: 'Comprehensive real estate services',
-          desc: 'An integrated framework of property management (PM), leasing management (LM) and facility management (FM) that elevates the value of your assets.',
+          desc: 'An integrated framework of property management (PM), leasing management (LM) and facility management (FM), together with tailored advice from specialists in each field, that elevates the value of your assets.',
           fieldsLabel: 'Fields', worksLabel: 'Track Record',
           specLabels: ['Location', 'Area', 'Status'],
           tabs: [
             {
-              name: 'Real Estate Total Service',
+              id: 'asset', name: 'Asset Management',
               head: ['Comprehensive real estate services ', 'tailored to the characteristics of each property', ''],
               note: '',
               fields: ['Property Management (PM)', 'Leasing Management (LM)', 'Facility Management (FM)'],
@@ -894,23 +963,14 @@ export const copy = {
                 ] },
               ],
             },
-          ],
-        },
-        consulting: {
-          name: 'Real Estate Consulting', en: 'Real Estate Consulting',
-          headline: 'Tailored solutions by specialists',
-          desc: 'Specialists in each field provide tailored solutions for a wide range of real estate challenges.',
-          fieldsLabel: 'Fields', worksLabel: 'Track Record',
-          specLabels: ['Location', 'Area', 'Status'],
-          tabs: [
             {
-              name: 'Real Estate Consulting',
+              id: 'consulting', name: 'Consulting',
               head: ['Advisory across site selection, planning, permits, design, construction and engineering — plus ', 'acquisition, disposition and operation', ''],
               note: '',
               fields: ['Real estate consulting', 'Business planning consulting'],
               groups: [
                 { name: 'Office', items: [
-                  { name: 'Office Business Plan & Feasibility Study', img: 'con-busan', slug: 'busan-hq', specs: ['Seomyeon, Busan', 'GFA 44,700m² (B8 – 24F)', 'Completed'] },
+                  { name: 'Office Business Plan & Feasibility Study', img: 'con-busan', slug: 'busan-hq', specs: ['Seomyeon, Busan', 'GFA 44,544m² (B8 – 24F)', 'Completed'] },
                 ] },
                 { name: 'Mixed-use Development', items: [
                   { name: 'Mixed-use Business Plan & Master Plan', img: 'con-samcheok', slug: 'samcheok-complex', specs: ['Samcheok, Gangwon', 'Site ca. 890,000m² (B5 – 35F)', 'In progress'] },

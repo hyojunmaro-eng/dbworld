@@ -25,12 +25,12 @@ export const projects = [
     map: { x: 420.7, y: 402.5, city: { ko: '부산', en: 'Busan' } },
     ko: {
       name: 'DB손해보험 부산사옥', location: '부산 부산진구 부전동 (서면)',
-      scale: '지하 8층 · 지상 24층', area: '연면적 13,535평', completed: "'26년 준공 완료",
+      scale: '지하 8층 · 지상 24층', area: '연면적 13,475평', completed: "'26년 준공 완료",
       desc: '서면 중심업무지구의 신축 업무시설. DB월드가 사업계획·타당성 검토부터 시공관리(CM), 준공 후 자산관리(PM)까지 전 과정을 수행하는 대표 프로젝트입니다.',
     },
     en: {
       name: 'DB Insurance Busan HQ', location: 'Bujeon-dong, Busanjin-gu, Busan (Seomyeon)',
-      scale: 'B8 – 24F', area: 'GFA 44,700m²', completed: 'Completed 2026',
+      scale: 'B8 – 24F', area: 'GFA 44,544m²', completed: 'Completed 2026',
       desc: 'A new office tower in the Seomyeon CBD. DB World handles the full cycle — feasibility, construction management and post-completion property management.',
     },
   },
@@ -67,12 +67,12 @@ export const projects = [
     map: { x: 230.5, y: 133.8, city: { ko: '서울', en: 'Seoul' } },
     ko: {
       name: '동자 오피스Ⅱ', location: '서울 용산구 동자동',
-      scale: '지하 7층 · 지상 40층', area: '연면적 43,000평', completed: '인허가 진행중',
+      scale: '지하 7층 · 지상 37층', area: '연면적 43,569평', completed: '인허가 진행중',
       desc: '서울역 인근 동자동의 대규모 업무시설 개발 및 자산관리 프로젝트입니다.',
     },
     en: {
       name: 'Dongja Office Ⅱ', location: 'Dongja-dong, Yongsan-gu, Seoul',
-      scale: 'B7 – 40F', area: 'GFA 142,000m²', completed: 'Permitting in progress',
+      scale: 'B7 – 37F', area: 'GFA 144,029m²', completed: 'Permitting in progress',
       desc: 'A large-scale office development and property management project near Seoul Station.',
     },
   },
@@ -95,13 +95,13 @@ export const projects = [
     map: { x: 257.9, y: 155.2, city: { ko: '광주(경기)', en: 'Gwangju' } },
     ko: {
       name: '곤지암 연수원', location: '경기 광주시 곤지암',
-      scale: '지하 1층 · 지상 5층', area: '연면적 4,600평', completed: '1992년 준공 · 리모델링 사업계획 중',
-      desc: '1992년 준공한 곤지암 연수원의 리모델링 사업계획을 수립하고 있습니다.',
+      scale: '지하 1층 · 지상 11층', area: '연면적 8,137평', completed: '리모델링·증축 사업계획 중',
+      desc: '1992년 준공한 곤지암 연수원의 리모델링 및 증축 사업계획을 수립하고 있습니다.',
     },
     en: {
       name: 'Gonjiam Training Center', location: 'Gonjiam, Gwangju, Gyeonggi',
-      scale: 'B1 – 5F', area: 'GFA 15,200m²', completed: 'Completed 1992 · remodeling planned',
-      desc: 'Remodeling business planning for the Gonjiam Training Center, completed in 1992.',
+      scale: 'B1 – 11F', area: 'GFA 26,900m²', completed: 'Remodeling & extension planned',
+      desc: 'Remodeling and extension planning for the Gonjiam Training Center, completed in 1992.',
     },
   },
   {

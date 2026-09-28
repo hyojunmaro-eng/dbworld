@@ -34,6 +34,7 @@ const initials = name => /[가-힣]/.test(name)
 
 /* 사업영역 아이콘 (인라인 SVG) */
 const ICONS = {
+  construction: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M5 42h38"/><path d="M8 42V24l9 6v-6l9 6v-6l9 6V9h6v33"/><path d="M14 36h3M22 36h3M30 36h3"/></svg>',
   development: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M8 42V20l10-7 10 7v22M28 42V14l12-6v34M14 26h4m-4 7h4m16-16h2m-2 7h2m-2 7h2M4 42h40"/></svg>',
   pm: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="10" y="6" width="28" height="36" rx="2"/><path d="M17 14h6m-6 8h6m-6 8h6m8-16h6m-6 8h6m-6 8h6M4 42h40"/></svg>',
   cm: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 42l6-24h24l6 24M12 30h24M24 18V8m-6 4V8h12v4M4 42h40"/></svg>',
@@ -558,41 +559,49 @@ function businessCycle(c) {
 }
 
 /* 부동산 개발: 도심개발/지역개발/도시계획 탭 페이지 (기존 사이트 구성 계승) */
+/* 사업영역 사진 카드 — 사업실적 상세가 있으면 링크, 없으면 카드만 (제원: 값 배열 또는 [항목, 값] 쌍) */
+function devCard(c, a, it) {
+  const { lang, v } = c;
+  const tag = it.slug ? `a class="devcard2" href="/${lang}/projects/${it.slug}/"` : 'div class="devcard2"';
+  const specs = it.specs.map((s, si) => Array.isArray(s) ? s : [a.specLabels[si], s]);
+  return `
+          <${tag}>
+            ${bizImg(it.img) ? `<img src="${bizImg(it.img)}?v=${v}" alt="" loading="lazy">` : `<span class="ph-pattern" aria-hidden="true"><span>${esc(initials(it.name))}</span></span>`}
+            <span class="devcard2-info">
+              <strong>${esc(it.name)}</strong>
+              ${specs.length ? `<span class="devcard2-specs">${specs.map(([k, s]) => `<span><b>${esc(k)}</b>${esc(s)}</span>`).join('')}</span>` : ''}
+            </span>
+          </${it.slug ? 'a' : 'div'}>`;
+}
+
 function businessDevTabs(c, a) {
   const { lang, v } = c;
   const multi = a.tabs.length > 1;
   return `
   ${multi ? `<div class="dev-tabs" role="tablist" aria-label="${esc(a.name)}">
-    ${a.tabs.map((t, i) => `<button role="tab" id="devtab-${i}" aria-controls="devpanel-${i}" aria-selected="${i === 0}" data-devtab="${i}" ${i === 0 ? 'class="on"' : ''}>${esc(t.name)}</button>`).join('')}
+    ${a.tabs.map((t, i) => `<button role="tab" id="devtab-${i}" aria-controls="devpanel-${i}" aria-selected="${i === 0}" data-devtab="${i}"${t.id ? ` data-tabid="${esc(t.id)}"` : ''} ${i === 0 ? 'class="on"' : ''}>${esc(t.name)}</button>`).join('')}
   </div>` : ''}
   ${a.tabs.map((t, i) => `
-  <div class="dev-panel${i === 0 ? ' on' : ''}" id="devpanel-${i}" ${multi ? `role="tabpanel" aria-labelledby="devtab-${i}"` : ''} data-devpanel="${i}">
+  <div class="dev-panel${i === 0 ? ' on' : ''}${t.landscape ? ' landscape' : ''}${a.groupRows ? ' grouped' : ''}" id="devpanel-${i}" ${multi ? `role="tabpanel" aria-labelledby="devtab-${i}"` : ''} data-devpanel="${i}">
     ${t.head ? `<div class="dev-head${multi ? '' : ' solo'}">
       <h3>${esc(t.head[0])}<em>${esc(t.head[1])}</em>${esc(t.head[2])}</h3>
       ${t.note ? `<p class="dev-note">${esc(t.note)}</p>` : ''}
     </div>` : ''}
-    <div class="dev-row">
+    ${t.fields ? `<div class="dev-row">
       <h4 class="dev-lb">${esc(a.fieldsLabel)}</h4>
       <div class="dev-body">
         <ul class="dev-fields" role="list">${t.fields.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
         ${t.fieldNotes ? `<dl class="dev-fnotes">${t.fieldNotes.map(([k, d]) => `<div><dt>${esc(k)}</dt><dd>${esc(d)}</dd></div>`).join('')}</dl>` : ''}
       </div>
-    </div>
+    </div>` : ''}
+    ${(a.groupRows ? t.groups.map(g => [g.name, g.items]) : [[a.worksLabel, t.groups.flatMap(g => g.items)]]).map(([label, items]) => `
     <div class="dev-row">
-      <h4 class="dev-lb">${esc(a.worksLabel)}</h4>
+      <h4 class="dev-lb">${esc(label)}</h4>
       <div class="dev-body">
-        <div class="devgrid2">
-          ${t.groups.map(g => g.items.map(it => `
-          <a class="devcard2" href="/${lang}/projects/${it.slug}/">
-            ${bizImg(it.img) ? `<img src="${bizImg(it.img)}?v=${v}" alt="" loading="lazy">` : `<span class="ph-pattern" aria-hidden="true"><span>${esc(initials(it.name))}</span></span>`}
-            <span class="devcard2-info">
-              <strong>${esc(it.name)}</strong>
-              <span class="devcard2-specs">${it.specs.map((s, si) => `<span><b>${esc(a.specLabels[si])}</b>${esc(s)}</span>`).join('')}</span>
-            </span>
-          </a>`).join('')).join('')}
+        <div class="devgrid2">${items.map(it => devCard(c, a, it)).join('')}
         </div>
       </div>
-    </div>
+    </div>`).join('')}
   </div>`).join('')}`;
 }
 

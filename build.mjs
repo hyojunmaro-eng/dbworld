@@ -147,8 +147,18 @@ for (const lang of ['ko', 'en']) {
   write(`${lang}/about/ci/index.html`, templates.aboutCi(c));
   write(`${lang}/about/group/index.html`, templates.aboutGroup(c));
   write(`${lang}/about/location/index.html`, templates.aboutLocation(c));
-  for (const b of ['development', 'pm', 'consulting', 'golf'])
+  for (const b of ['development', 'construction', 'pm', 'golf'])
     write(`${lang}/business/${b}/index.html`, templates.businessDetail(c, b));
+  // 부동산 컨설팅은 부동산 Total Service 의 탭으로 통합 — 예전 주소는 해당 탭으로 이동
+  {
+    const to = `/${lang}/business/pm/#consulting`;
+    const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    mkdirSync(join(DIST, `${lang}/business/consulting`), { recursive: true });
+    writeFileSync(join(DIST, `${lang}/business/consulting/index.html`),
+      `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>${esc(copy[lang].business.areas.pm.name)}</title>` +
+      `<link rel="canonical" href="${to}"><meta http-equiv="refresh" content="0; url=${to}"></head>` +
+      `<body><a href="${to}">${esc(copy[lang].business.areas.pm.name)}</a></body></html>`);
+  }
   write(`${lang}/projects/index.html`, templates.projectsIndex(c));
   for (const p of projects)
     write(`${lang}/projects/${p.slug}/index.html`, templates.projectDetail(c, p));

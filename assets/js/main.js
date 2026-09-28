@@ -257,12 +257,21 @@
     wrap.querySelectorAll('[data-devgroup]').forEach(card => { card.hidden = f !== 'all' && card.dataset.devgroup !== f; });
   }));
 
-  /* ---------- 사업영역: 부동산 개발 탭 ---------- */
-  $$('[data-devtab]').forEach(t => t.addEventListener('click', () => {
+  /* ---------- 사업영역 탭 (주소 #id 로 바로 열기: 예 /business/pm/#consulting) ---------- */
+  const showTab = (t, push) => {
     $$('[data-devtab]').forEach(x => { x.classList.remove('on'); x.setAttribute('aria-selected', 'false'); });
     t.classList.add('on'); t.setAttribute('aria-selected', 'true');
     $$('[data-devpanel]').forEach(p => p.classList.toggle('on', p.dataset.devpanel === t.dataset.devtab));
-  }));
+    if (push && t.dataset.tabid) history.replaceState(null, '', '#' + t.dataset.tabid);
+  };
+  $$('[data-devtab]').forEach(t => t.addEventListener('click', () => showTab(t, true)));
+  const tabFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const t = id && $$('[data-tabid]').find(x => x.dataset.tabid === id);
+    if (t) showTab(t, false);
+  };
+  tabFromHash();
+  addEventListener('hashchange', tabFromHash);
 
   /* ---------- 약관 모달 (개인정보 처리방침 / 이메일 무단수집 거부) ---------- */
   (function () {

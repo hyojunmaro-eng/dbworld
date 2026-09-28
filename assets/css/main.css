@@ -893,8 +893,11 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
 .devcard dl div { display: grid; grid-template-columns: 64px 1fr; gap: 8px; font-size: .88rem; }
 .devcard dt { color: #98A2AE; font-weight: 700; }
 .devcard dd { color: var(--ink-soft); margin: 0; word-break: keep-all; }
-#devpanel-1 .devcard2, #devpanel-2 .devcard2 { aspect-ratio: 4 / 3; }
-#devpanel-1 .devgrid2, #devpanel-2 .devgrid2 { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
+/* 가로 사진 탭 (부동산 개발 › 지역개발·도시계획) */
+.dev-panel.landscape .devcard2 { aspect-ratio: 4 / 3; }
+.dev-panel.landscape .devgrid2 { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
+/* 실적·계획을 줄로 나눈 페이지 (건축/플랜트) — 한 줄 4장 */
+.dev-panel.grouped .devgrid2 { grid-template-columns: repeat(4, 1fr); }
 @media (max-width: 720px) {
   .dev-tabs button { padding: 13px 6px; font-size: .92rem; }
   .dev-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
@@ -940,14 +943,15 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
 .devcard2-info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 18px; color: #fff; display: flex; flex-direction: column; gap: 9px; }
 .devcard2-info strong { font-size: 1.05rem; line-height: 1.4; word-break: keep-all; text-shadow: 0 2px 8px rgba(0, 0, 0, .35); }
 .devcard2-specs { display: grid; gap: 4px; font-size: .84rem; color: rgba(255, 255, 255, .93); text-shadow: 0 1px 6px rgba(0, 0, 0, .45); max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s var(--ease), opacity .3s; }
-.devcard2:hover .devcard2-specs, .devcard2:focus-visible .devcard2-specs { max-height: 150px; opacity: 1; }
+.devcard2:hover .devcard2-specs, .devcard2:focus-visible .devcard2-specs { max-height: 240px; opacity: 1; }
+div.devcard2 { cursor: default; }
 .devcard2-specs span { display: flex; gap: 8px; word-break: keep-all; }
 .devcard2-specs b { flex: none; font-weight: 700; font-size: .78rem; color: #A5E859; padding-top: 1px; }
 @media (hover: none) {
   .devcard2-specs { max-height: none; opacity: 1; }
 }
 @media (max-width: 720px) {
-  .devgrid2 { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
+  .devgrid2, .dev-panel.grouped .devgrid2 { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
   .devcard2-info { padding: 13px; gap: 6px; }
   .devcard2-info strong { font-size: .93rem; }
   .devcard2-specs { font-size: .78rem; }
