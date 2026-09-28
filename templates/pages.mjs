@@ -357,7 +357,7 @@ export function aboutCeo(c) {
 <section class="sec"><div class="wrap ceo">
   <div class="ceo-head rv">
     <h2>${nl2br(A.headline)}</h2>
-    <figure class="ceo-photo"><img src="/assets/img/photos/ceo.jpg?v=${c.v}" width="800" height="1000" alt="${esc(A.sign)} ${esc(A.signName.replace(/ /g, ''))}"></figure>
+    <figure class="ceo-photo"><img src="/assets/img/photos/ceo.webp?v=${c.v}" width="800" height="1000" alt="${esc(A.sign)} ${esc(A.signName.replace(/ /g, ''))}"></figure>
   </div>
   <div class="ceo-body">
     ${A.body.map(p => `<p class="rv">${esc(p)}</p>`).join('')}
