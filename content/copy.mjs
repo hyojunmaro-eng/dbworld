@@ -320,7 +320,7 @@ export const copy = {
               ],
               groups: [
                 { name: '산업단지', items: [
-                  { name: '상우산업단지', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['음성군 상우리', '대지면적 13.2만 평', '준공 완료'] },
+                  { name: '상우산업단지', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['음성군 상우리', '대지면적 13.2만 평', '산업단지 조성 중'] },
                 ] },
                 { name: '특구지정', items: [
                   { name: '음성 미래기술문화특구', img: 'dev-eumseong', slug: 'eumseong-district', specs: ['음성군 생극면', '대지면적 105만 평', '사업계획 중'] },
@@ -857,7 +857,7 @@ export const copy = {
               ],
               groups: [
                 { name: 'Industrial Complex', items: [
-                  { name: 'Sangwoo Industrial Complex', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['Sangwoo-ri, Eumseong', 'Site ca. 436,000m²', 'Completed'] },
+                  { name: 'Sangwoo Industrial Complex', img: 'dev-sangwoo', slug: 'sangwoo-complex', specs: ['Sangwoo-ri, Eumseong', 'Site ca. 436,000m²', 'Under development'] },
                 ] },
                 { name: 'Special District', items: [
                   { name: 'Eumseong Future Tech & Culture District', img: 'dev-eumseong', slug: 'eumseong-district', specs: ['Saenggeuk-myeon, Eumseong', 'Site ca. 3.47M m²', 'Business planning'] },

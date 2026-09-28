@@ -207,13 +207,13 @@ export const projects = [
     map: { x: 298.1, y: 192.5, city: { ko: '음성', en: 'Eumseong' } },
     ko: {
       name: '상우 산업단지', location: '충북 음성군 상우리',
-      scale: '산업단지 조성', area: '대지 약 13.2만 평', completed: '준공 완료',
-      desc: '음성 상우리 일원에 조성한 산업단지로, 첨단 제조·물류 기반의 산업 거점입니다.',
+      scale: '산업단지 조성', area: '대지 약 13.2만 평', completed: '산업단지 조성 중',
+      desc: '음성 상우리 일원에 조성 중인 산업단지로, 첨단 제조·물류 기반의 산업 거점을 만들어 가고 있습니다.',
     },
     en: {
       name: 'Sangwoo Industrial Complex', location: 'Sangwoo-ri, Eumseong-gun, Chungbuk',
-      scale: 'Industrial complex', area: 'Site ca. 436,000m²', completed: 'Completed',
-      desc: 'An industrial complex developed in Eumseong as a hub for advanced manufacturing and logistics.',
+      scale: 'Industrial complex', area: 'Site ca. 436,000m²', completed: 'Under development',
+      desc: 'An industrial complex under development in Eumseong as a hub for advanced manufacturing and logistics.',
     },
   },
   {
