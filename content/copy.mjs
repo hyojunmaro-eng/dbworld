@@ -629,7 +629,8 @@ export const copy = {
         team: 'AI & 데이터센터 개발팀 문의',
         org: 'DB월드', unit: 'AI & 데이터센터 개발', loc: '대한민국 서울',
         // 담당 이메일·LinkedIn 주소가 정해지면 입력 (비워 두면 표시하지 않음)
-        email: '', linkedin: '',
+        email: 'joanne.cho@dbgroup.co.kr', linkedin: '',
+        emailSubject: 'AI & 데이터센터 개발 문의',
         labels: { email: '이메일', linkedin: 'LinkedIn', tel: '대표전화', address: '주소' },
         emailBtn: '이메일 보내기',
       },
@@ -1275,7 +1276,8 @@ export const copy = {
         team: 'Contact Our AI & Data Center Development Team',
         org: 'DB World', unit: 'AI & Data Center Development', loc: 'Seoul, Korea',
         // Team e-mail / LinkedIn URL — shown only when filled in
-        email: '', linkedin: '',
+        email: 'joanne.cho@dbgroup.co.kr', linkedin: '',
+        emailSubject: 'Inquiry: AI & Data Center Development in Korea',
         labels: { email: 'E-mail', linkedin: 'LinkedIn', tel: 'Tel', address: 'Address' },
         emailBtn: 'Email Our Team',
       },

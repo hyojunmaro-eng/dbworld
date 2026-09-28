@@ -690,11 +690,13 @@ export function businessAiDc(c) {
   const lines = s => s.split('\n').map(esc).join('<br>');
   const bg = (img, cls) => img ? `<img class="${cls}" src="${img}" alt="" decoding="async"${cls === 'ai-hero-img' ? ' fetchpriority="high"' : ' loading="lazy"'}>` : '';
   const flowChips = (items, cls) => `<ul class="ai-chips ${cls}">${items.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`;
+  const mailto = T.email ? `mailto:${T.email}${T.emailSubject ? `?subject=${encodeURIComponent(T.emailSubject)}` : ''}` : '';
+  // 담당 이메일이 있으면 이메일(+LinkedIn), 없을 때만 대표전화·주소로 대체
   const contactRows = [
-    T.email && [T.labels.email, `<a href="mailto:${esc(T.email)}">${esc(T.email)}</a>`],
+    T.email && [T.labels.email, `<a href="${esc(mailto)}">${esc(T.email)}</a>`],
     T.linkedin && [T.labels.linkedin, `<a href="${esc(T.linkedin)}" target="_blank" rel="noopener">${esc(T.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>`],
-    [T.labels.tel, `<a href="tel:${esc(com.tel.replace(/[^+\d]/g, ''))}">${esc(com.tel)}</a>`],
-    [T.labels.address, esc(com.address)],
+    !T.email && [T.labels.tel, `<a href="tel:${esc(com.tel.replace(/[^+\d]/g, ''))}">${esc(com.tel)}</a>`],
+    !T.email && [T.labels.address, esc(com.address)],
   ].filter(Boolean);
 
   return layout(c, {
@@ -810,7 +812,7 @@ export function businessAiDc(c) {
       <h3>${esc(T.team)}</h3>
       <p class="ai-contact-org"><strong>${esc(T.org)}</strong><span>${esc(T.unit)}</span><span>${esc(T.loc)}</span></p>
       <dl>${contactRows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>
-      ${T.email ? `<a class="ai-btn" href="mailto:${esc(T.email)}">${esc(T.emailBtn)} ${ARROW}</a>` : ''}
+      ${T.email ? `<a class="ai-btn" href="${esc(mailto)}">${esc(T.emailBtn)} ${ARROW}</a>` : ''}
     </div>
   </div>
 </section>`,
