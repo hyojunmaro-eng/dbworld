@@ -355,7 +355,10 @@ export function aboutCeo(c) {
     title: A.docTitle, desc: A.headline.replace(/\n/g, ' '), path: `${lang}/about/ceo/`,
     body: pageHero(c, { sec: 'about', title: A.title, crumbs: [[L.nav.about, 'about/overview/'], [A.title]] }) + `
 <section class="sec"><div class="wrap ceo">
-  <div class="ceo-head rv"><h2>${nl2br(A.headline)}</h2></div>
+  <div class="ceo-head rv">
+    <h2>${nl2br(A.headline)}</h2>
+    <figure class="ceo-photo"><img src="/assets/img/photos/ceo.jpg?v=${c.v}" width="800" height="1000" alt="${esc(A.sign)} ${esc(A.signName.replace(/ /g, ''))}"></figure>
+  </div>
   <div class="ceo-body">
     ${A.body.map(p => `<p class="rv">${esc(p)}</p>`).join('')}
     <p class="ceo-sign rv">${esc(A.sign)} <strong>${esc(A.signName)}</strong></p>

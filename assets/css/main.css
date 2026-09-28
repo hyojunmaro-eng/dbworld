@@ -372,7 +372,11 @@ body.menu-open { overflow: hidden; }
    회사소개 페이지들
    ========================================================================== */
 .ceo { display: grid; grid-template-columns: 1fr 1.35fr; gap: clamp(36px, 6vw, 90px); }
-.ceo-head h2 { font-size: clamp(1.6rem, 2.7vw, 2.3rem); font-weight: 800; position: sticky; top: calc(var(--gnb-h) + 30px); }
+.ceo-head { position: sticky; top: calc(var(--gnb-h) + 30px); align-self: start; }
+.ceo-head h2 { font-size: clamp(1.6rem, 2.7vw, 2.3rem); font-weight: 800; }
+/* 대표이사 사진 — 흰 배경을 카드색에 녹여(곱하기) 인물이 카드 바닥에 자연스럽게 앉도록 */
+.ceo-photo { margin: 34px 0 0; max-width: 360px; background: var(--bg-soft); border-radius: var(--r); overflow: hidden; }
+.ceo-photo img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
 .ceo-body p { color: var(--ink-soft); margin-bottom: 22px; }
 .ceo-body p:first-child { font-size: 1.15rem; color: var(--ink); font-weight: 500; }
 .ceo-sign { margin-top: 40px; color: var(--ink-soft); }
@@ -814,7 +818,8 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
   .proj-map { position: static; max-width: 480px; }
   .news2col { grid-template-columns: 1fr; gap: 30px; }
   .ceo { grid-template-columns: 1fr; }
-  .ceo-head h2 { position: static; }
+  .ceo-head { position: static; }
+  .ceo-photo { max-width: 300px; margin-top: 24px; }
   .tl-era { grid-template-columns: 1fr; gap: 14px; padding: 30px 0; }
 }
 @media (max-width: 680px) {
