@@ -149,6 +149,7 @@ for (const lang of ['ko', 'en']) {
   write(`${lang}/about/location/index.html`, templates.aboutLocation(c));
   for (const b of ['development', 'construction', 'pm', 'golf'])
     write(`${lang}/business/${b}/index.html`, templates.businessDetail(c, b));
+  write(`${lang}/business/ai-data-center/index.html`, templates.businessAiDc(c));
   // 부동산 컨설팅은 부동산 Total Service 의 탭으로 통합 — 예전 주소는 해당 탭으로 이동
   {
     const to = `/${lang}/business/pm/#consulting`;

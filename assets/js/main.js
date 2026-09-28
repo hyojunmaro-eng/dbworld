@@ -457,4 +457,31 @@
       }, 200);
     });
   }
+
+  /* ---------- AI & 데이터센터: 섹션 내 이동 메뉴에 현재 위치 표시 ---------- */
+  const aiNav = $('[data-ailnav]');
+  if (aiNav) {
+    const bar = aiNav.firstElementChild;
+    const links = $$('a', aiNav);
+    const secs = links.map(a => document.getElementById(a.hash.slice(1)));
+    let cur = null;
+    const pick = () => {
+      const y = scrollY + innerHeight * 0.4;
+      let on = null;
+      secs.forEach((s, i) => { if (s && s.offsetTop <= y) on = links[i]; });
+      // 페이지 맨 아래면 마지막 섹션(문의)
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) on = links[links.length - 1];
+      if (on === cur) return;
+      cur = on;
+      links.forEach(a => {
+        a.classList.toggle('on', a === on);
+        if (a === on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+      // 모바일: 가로로 넘치는 메뉴에서 현재 항목이 보이도록
+      if (on && bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: on.offsetLeft - 12, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    addEventListener('scroll', pick, { passive: true });
+    addEventListener('resize', pick, { passive: true });
+    pick();
+  }
 })();

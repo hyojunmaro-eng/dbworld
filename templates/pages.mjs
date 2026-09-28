@@ -41,12 +41,31 @@ const ICONS = {
   consulting: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="21" cy="21" r="12"/><path d="M30 30l12 12M16 21h10m-5-5v10"/></svg>',
   golf: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 42V8l16 6-16 6M12 42c0-3 5-5 11-5s11 2 11 5"/></svg>',
   materials: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M24 6l16 9v18l-16 9-16-9V15z"/><path d="M24 24l16-9M24 24v18M24 24L8 15"/></svg>',
+  'ai-data-center': '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><rect x="9" y="5" width="30" height="38" rx="2"/><path d="M9 17.5h30M9 30h30M15 11.5h9M15 24h9M15 36.5h9"/><circle cx="32" cy="11.5" r="1.6" fill="currentColor" stroke="none"/><circle cx="32" cy="24" r="1.6" fill="currentColor" stroke="none"/><circle cx="32" cy="36.5" r="1.6" fill="currentColor" stroke="none"/></svg>',
 };
+
+/* AI & 데이터센터 페이지 라인 아이콘 (24 그리드, 선 굵기는 CSS) */
+const AI_ICONS = {
+  site: '<path d="M12 21.5s-7-6.1-7-11.6a7 7 0 0 1 14 0c0 5.5-7 11.6-7 11.6z"/><circle cx="12" cy="9.8" r="2.6"/>',
+  power: '<path d="M13.2 2.5 4.8 13.6h6.6l-.9 7.9 8.7-11.3h-6.7z"/>',
+  permitting: '<path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z"/><path d="M14 2.5V8h5.5"/><path d="m8.8 14.6 2.3 2.3 4.3-4.4"/>',
+  development: '<path d="M3 21h18"/><path d="M5.5 21v-7.5h4V21M10 21V8.5h4V21M14.5 21V4h4v17"/>',
+  delivery: '<circle cx="12" cy="12" r="3.1"/><path d="M12 2.8v2.4M12 18.8v2.4M21.2 12h-2.4M5.2 12H2.8M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7M18.5 18.5l-1.7-1.7M7.2 7.2 5.5 5.5"/><circle cx="12" cy="12" r="6.6"/>',
+  commercial: '<path d="m11 17.5 1.8 1.8a1.3 1.3 0 0 0 1.8-1.8"/><path d="m13.8 14.9 2.4 2.4a1.3 1.3 0 0 0 1.8-1.8l-3.9-3.9a2.8 2.8 0 0 0-4 0l-.9.9a1.3 1.3 0 0 1-1.8-1.8l2.9-2.9a5.4 5.4 0 0 1 6.6-.8l.5.3a2 2 0 0 0 1.4.2L21 5"/><path d="m21 4 1 10h-2.2M3 4 2 14l6.4 6.4a1.3 1.3 0 0 0 1.8-1.8M3 5h7.5"/>',
+  cloud: '<path d="M17.5 19H8.5a6.5 6.5 0 1 1 6.2-8.5h2.8a4.25 4.25 0 0 1 0 8.5z"/>',
+  hyperscale: '<rect x="3" y="3" width="18" height="7" rx="1.6"/><rect x="3" y="14" width="18" height="7" rx="1.6"/><path d="M7 6.5h.01M7 17.5h.01M11 6.5h6M11 17.5h6"/>',
+  globe: '<circle cx="12" cy="12" r="9.5"/><path d="M12 2.5a14 14 0 0 0 0 19 14 14 0 0 0 0-19M2.5 12h19"/>',
+  investor: '<path d="M3 21h18M4.5 21V10.5M9.5 21V10.5M14.5 21V10.5M19.5 21V10.5M2.5 8.5 12 3l9.5 5.5z"/>',
+  network: '<circle cx="12" cy="5" r="2.6"/><circle cx="5" cy="19" r="2.6"/><circle cx="19" cy="19" r="2.6"/><path d="M10.8 7.4 6.2 16.6M13.2 7.4l4.6 9.2M7.6 19h8.8"/>',
+};
+const aiIcon = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${AI_ICONS[k] || ''}</svg>`;
+/* 페이지 전용 사진 (없으면 null → CSS 그라데이션으로 대체) */
+const aiImg = name => existsSync(join(ROOT, 'assets/img/ai', name + '.jpg')) ? `/assets/img/ai/${name}.jpg` : null;
 
 const ARROW = '<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
 
 /* ---------- 공통 레이아웃 ---------- */
-function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
+function layout(c, { title, desc, path, body, cls = '', ogType = 'website', ogImage = '/assets/img/og.jpg' }) {
   const { L, lang, other, site, v = '' } = c;
   const com = site.company[lang];
   const nav = L.nav;
@@ -71,7 +90,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website' }) {
 <meta property="og:type" content="${ogType}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:locale" content="${lang === 'ko' ? 'ko_KR' : 'en_US'}">
-<meta property="og:image" content="${site.baseUrl}/assets/img/og.jpg">
+<meta property="og:image" content="${site.baseUrl}${ogImage}">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -637,6 +656,143 @@ export function businessDetail(c, key) {
   ${golfBtn}${matBtn}
   ${a.tabs ? '' : relatedHtml}
 </div></section>` + (key === 'development' ? businessCycle(c) : ''),
+  });
+}
+
+/* ---------- 사업영역: AI & 데이터센터 (단일 스크롤 페이지, 투명 헤더) ---------- */
+export function businessAiDc(c) {
+  const { L, lang, site } = c;
+  const A = L.aidc;
+  const name = L.business.areas['ai-data-center'].name;
+  const com = site.company[lang];
+  const T = A.contact;
+  const lines = s => s.split('\n').map(esc).join('<br>');
+  const bg = (img, cls) => img ? `<img class="${cls}" src="${img}" alt="" decoding="async"${cls === 'ai-hero-img' ? ' fetchpriority="high"' : ' loading="lazy"'}>` : '';
+  const flowChips = (items, cls) => `<ul class="ai-chips ${cls}">${items.map(t => `<li>${esc(t)}</li>`).join('')}</ul>`;
+  const contactRows = [
+    T.email && [T.labels.email, `<a href="mailto:${esc(T.email)}">${esc(T.email)}</a>`],
+    T.linkedin && [T.labels.linkedin, `<a href="${esc(T.linkedin)}" target="_blank" rel="noopener">${esc(T.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>`],
+    [T.labels.tel, `<a href="tel:${esc(com.tel.replace(/[^+\d]/g, ''))}">${esc(com.tel)}</a>`],
+    [T.labels.address, esc(com.address)],
+  ].filter(Boolean);
+
+  return layout(c, {
+    title: A.docTitle, desc: A.desc, path: `${lang}/business/ai-data-center/`, cls: 'gnb-clear ai-page',
+    ogImage: aiImg('og') || undefined,
+    body: `
+<section class="ai-hero">
+  ${bg(aiImg('hero'), 'ai-hero-img')}
+  <div class="ai-hero-shade" aria-hidden="true"></div>
+  <div class="ai-hero-in">
+    <nav class="crumbs" aria-label="breadcrumb"><a href="/${lang}/">${L.common.breadcrumbHome}</a> <span>/</span> <a href="/${lang}/business/development/">${esc(L.business.pageTitle)}</a> <span>/</span> <span aria-current="page">${esc(name)}</span></nav>
+    <p class="ai-eyebrow">${esc(A.hero.eyebrow)}</p>
+    <h1>${lines(A.hero.title)}</h1>
+    <p class="ai-hero-sub">${esc(A.hero.sub)}</p>
+    <a class="ai-btn" href="#contact">${esc(A.hero.cta)} ${ARROW}</a>
+  </div>
+  <ol class="ai-pillars" aria-label="${esc(A.what.eyebrow)}">
+    ${A.how.caps.map((t, i) => `<li><em>${String(i + 1).padStart(2, '0')}</em>${esc(t)}</li>`).join('')}
+  </ol>
+</section>
+
+<nav class="ai-lnav" aria-label="${esc(A.lnavLabel)}" data-ailnav>
+  <div class="ai-lnav-in">${A.lnav.map(([id, t]) => `<a href="#${id}">${esc(t)}</a>`).join('')}</div>
+</nav>
+
+<section class="ai-sec ai-why" id="why">
+  <div class="wrap">
+    <div class="ai-why-top">
+      <div>
+        <p class="ai-eyebrow">${esc(A.why.eyebrow)}</p>
+        <h2>${lines(A.why.title)}</h2>
+      </div>
+      <div class="ai-why-body">${A.why.body.map(p => `<p>${esc(p)}</p>`).join('')}</div>
+    </div>
+    <ol class="ai-steps">
+      ${A.why.steps.map(([label, t], i) => `<li class="ai-step s${i + 1}">
+        ${aiImg(`why-${i + 1}`) ? `<img src="${aiImg(`why-${i + 1}`)}" alt="" loading="lazy">` : ''}
+        <div class="ai-step-cap"><em>${String(i + 1).padStart(2, '0')} · ${esc(label)}</em><strong>${lines(t)}</strong></div>
+      </li>`).join('')}
+    </ol>
+  </div>
+</section>
+
+<section class="ai-sec ai-what" id="what">
+  <div class="wrap">
+    <div class="ai-head">
+      <p class="ai-eyebrow">${esc(A.what.eyebrow)}</p>
+      <h2>${lines(A.what.title)}</h2>
+    </div>
+    <ol class="ai-caps">
+      ${A.what.items.map(([ic, t, d, tag], i) => `<li>
+        <div class="ai-cap-top"><span class="ai-cap-ic">${aiIcon(ic)}</span><span class="ai-cap-no">${String(i + 1).padStart(2, '0')}</span></div>
+        ${tag ? `<em class="ai-cap-tag">${esc(tag)}</em>` : ''}
+        <strong>${esc(t)}</strong>
+        <p>${esc(d)}</p>
+      </li>`).join('')}
+    </ol>
+  </div>
+</section>
+
+<section class="ai-sec ai-how" id="how">
+  ${bg(aiImg('how'), 'ai-how-img')}
+  <div class="wrap ai-how-grid">
+    <div class="ai-how-copy">
+      <p class="ai-eyebrow">${esc(A.how.eyebrow)}</p>
+      <h2>${lines(A.how.title)}</h2>
+      ${A.how.body.map(p => `<p>${esc(p)}</p>`).join('')}
+    </div>
+    <div class="ai-flow">
+      <div class="ai-flow-req">
+        ${flowChips(A.how.clients, 'ai-chips-clients')}
+        <span class="ai-flow-label">${esc(A.how.req)}</span>
+      </div>
+      <i class="ai-flow-link" aria-hidden="true"></i>
+      <div class="ai-flow-core">
+        <img src="/assets/img/logo-white${lang === 'en' ? '-en' : ''}.png" alt="${esc(com.name)}" height="34">
+        <span>${esc(A.how.core)}</span>
+      </div>
+      <i class="ai-flow-link" aria-hidden="true"></i>
+      ${flowChips(A.how.caps, 'ai-chips-caps')}
+      <i class="ai-flow-link" aria-hidden="true"></i>
+      ${flowChips(A.how.partners, 'ai-chips-partners')}
+    </div>
+    <p class="ai-how-note">${esc(A.how.note)}</p>
+  </div>
+</section>
+
+<section class="ai-sec ai-partner" id="partners">
+  <div class="wrap">
+    <div class="ai-head ai-head-split">
+      <div>
+        <p class="ai-eyebrow">${esc(A.partner.eyebrow)}</p>
+        <h2>${lines(A.partner.title)}</h2>
+      </div>
+      <p>${esc(A.partner.body)}</p>
+    </div>
+    <ul class="ai-partners">
+      ${A.partner.items.map(([ic, t]) => `<li><span class="ai-partner-ic">${aiIcon(ic)}</span><strong>${esc(t)}</strong></li>`).join('')}
+    </ul>
+  </div>
+</section>
+
+<section class="ai-contact" id="contact">
+  ${bg(aiImg('contact'), 'ai-contact-img')}
+  <div class="ai-contact-shade" aria-hidden="true"></div>
+  <div class="wrap ai-contact-grid">
+    <div class="ai-contact-copy">
+      <p class="ai-eyebrow">${esc(T.eyebrow)}</p>
+      <h2>${lines(T.title)}</h2>
+      <p class="ai-contact-sub">${esc(T.sub)}</p>
+    </div>
+    <div class="ai-contact-card">
+      <h3>${esc(T.team)}</h3>
+      <p class="ai-contact-org"><strong>${esc(T.org)}</strong><span>${esc(T.unit)}</span><span>${esc(T.loc)}</span></p>
+      <dl>${contactRows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      ${T.email ? `<a class="ai-btn" href="mailto:${esc(T.email)}">${esc(T.emailBtn)} ${ARROW}</a>` : ''}
+    </div>
+  </div>
+</section>`,
   });
 }
 

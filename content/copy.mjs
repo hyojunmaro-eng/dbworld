@@ -14,7 +14,7 @@ export const copy = {
       ],
       businessItems: [
         ['development', '부동산 개발'], ['construction', '건축/플랜트 건설'], ['pm', '부동산 Total Service'],
-        ['golf', '골프장 운영'],
+        ['golf', '골프장 운영'], ['ai-data-center', 'AI & 데이터센터'],
       ],
       ir: '투자정보',
       irMenu: [['ir/finance/', '재무정보'], ['ir/disclosure/', '공시사항']],
@@ -417,6 +417,11 @@ export const copy = {
             },
           ],
         },
+        'ai-data-center': {
+          name: 'AI & 데이터센터', en: 'AI & Data Center Development',
+          headline: '차세대 AI 인프라 개발',
+          desc: 'DB월드는 부지·전력·인허가·개발 역량을 결집하여, 글로벌 운영사와 엔드유저의 요구에 맞춘 국내 AI·데이터센터 개발 기회를 만들어 갑니다.',
+        },
         golf: {
           name: '골프장 운영', en: 'Golf Course Operation',
           headline: '한국의 페블비치, 레인보우힐스CC',
@@ -552,6 +557,82 @@ export const copy = {
         empty: '광고 영상을 준비 중입니다. 등록되는 대로 이곳에서 보실 수 있습니다.',
       },
     },
+    /* 사업영역 › AI & 데이터센터 (단일 스크롤 페이지) — 원문: 담당 부서 제공 영문 원고의 국문 번역 */
+    aidc: {
+      docTitle: 'AI & 데이터센터 | DB월드',
+      desc: 'DB월드는 부지·전력·인허가·개발 역량을 결집하여, 글로벌 운영사와 엔드유저의 요구에 맞춘 국내 AI·데이터센터 개발 기회를 만들어 갑니다.',
+      lnavLabel: '페이지 내 이동',
+      lnav: [['why', '사업 배경'], ['what', '사업 역량'], ['how', '협업 방식'], ['partners', '파트너십'], ['contact', '문의']],
+      hero: {
+        eyebrow: 'AI & Data Center Development',
+        title: '대한민국의\n차세대 AI 인프라를\n개발합니다',
+        sub: 'DB월드는 부지, 전력, 인허가, 개발 역량을 하나로 결집하여 글로벌 운영사와 엔드유저의 요구에 맞춘 국내 AI·데이터센터 개발 기회를 만들어 갑니다.',
+        cta: '사업 기회 문의하기',
+      },
+      why: {
+        eyebrow: 'Why DB World',
+        title: '산업 개발에서\nAI 인프라로',
+        body: [
+          'DB월드는 DB그룹의 부동산 개발 전문회사로, 국내에서 산업부지와 시설, 다양한 개발사업을 수행해 온 경험을 갖추고 있습니다.',
+          'AI가 전력 집약형 인프라에 대한 새로운 수요를 만들어 내면서, DB월드는 개발 역량을 AI·데이터센터 인프라 분야로 확장하고 있습니다.',
+          '또한 기존 산업·부동산 자산과 인프라가 차세대 디지털 인프라의 새로운 기회가 될 수 있도록 다양한 방안을 모색하고 있습니다.',
+        ],
+        steps: [
+          ['Our Foundation', '산업부지 · 산업시설\n개발사업'],
+          ['New Opportunity', 'AI 인프라\n수요 확대'],
+          ['Our Next Chapter', 'AI · 데이터센터\n인프라'],
+        ],
+      },
+      what: {
+        eyebrow: 'What We Do',
+        title: '사업 발굴부터\n개발 실행까지',
+        items: [
+          ['site', '부지', '부지 발굴 및 개발 타당성 검토', 'Site'],
+          ['power', '전력', '전력 확보 가능성 검토 및 인프라 계획', 'Power'],
+          ['permitting', '인허가', '개발 및 인허가 협의', 'Permitting'],
+          ['development', '개발', '개발 계획 수립 및 사업 구조화', 'Development'],
+          ['delivery', '설계 · 시공', '설계사, 기술 파트너, PM/CM, 시공사와의 협업 조율', 'Design & Delivery'],
+          ['commercial', '사업화', '운영사, 엔드유저, 투자자, 금융 파트너와의 협업 조율', 'Commercial'],
+        ],
+      },
+      how: {
+        eyebrow: 'How We Work',
+        title: '고객의 요구사항에서\n출발하는 개발',
+        body: [
+          'DB월드의 개발은 운영사와 엔드유저의 요구사항에서 출발합니다.',
+          '정해진 부지를 단순히 제안하는 데 그치지 않고, 프로젝트별 용량·일정·기술 요건에 부합하는 사업 기회를 발굴하고 개발합니다.',
+        ],
+        clients: ['AI 클라우드', '네오클라우드', '하이퍼스케일러', '운영사'],
+        req: '고객 요구사항',
+        core: '국내 개발 파트너',
+        caps: ['부지', '전력', '인허가', '개발'],
+        partners: ['운영사', '기술 · 시공 파트너', '투자 파트너'],
+        note: 'DB월드는 개발에 집중하며, 운영과 기술·시공, 자본은 경험 있는 전문 파트너와 협력합니다.',
+      },
+      partner: {
+        eyebrow: 'Partnership',
+        title: '글로벌 파트너와의\n협력을 환영합니다',
+        body: 'DB월드는 글로벌 파트너와 함께 국내 AI 인프라 개발 기회를 모색하고 있습니다.',
+        items: [
+          ['cloud', 'AI 클라우드 · 네오클라우드 기업'],
+          ['hyperscale', '하이퍼스케일러'],
+          ['globe', '글로벌 데이터센터 운영사'],
+          ['investor', '인프라 투자자'],
+          ['network', '기술 · 시공 파트너'],
+        ],
+      },
+      contact: {
+        eyebrow: 'Contact',
+        title: '국내 AI 인프라 사업 기회를\n찾고 계십니까?',
+        sub: '함께 개발할 수 있는 기회를 논의하고자 합니다.',
+        team: 'AI & 데이터센터 개발팀 문의',
+        org: 'DB월드', unit: 'AI & 데이터센터 개발', loc: '대한민국 서울',
+        // 담당 이메일·LinkedIn 주소가 정해지면 입력 (비워 두면 표시하지 않음)
+        email: '', linkedin: '',
+        labels: { email: '이메일', linkedin: 'LinkedIn', tel: '대표전화', address: '주소' },
+        emailBtn: '이메일 보내기',
+      },
+    },
     contact: {
       title: '문의', docTitle: '문의 | DB월드',
       intro: '궁금하신 사항은 아래 연락처로 문의해 주시기 바랍니다.',
@@ -578,7 +659,7 @@ export const copy = {
       ],
       businessItems: [
         ['development', 'Development'], ['construction', 'Construction'], ['pm', 'Total Service'],
-        ['golf', 'Golf Course'],
+        ['golf', 'Golf Course'], ['ai-data-center', 'AI & Data Center'],
       ],
       ir: 'Investors',
       irMenu: [['ir/finance/', 'Financial Highlights'], ['ir/disclosure/', 'Disclosures']],
@@ -981,6 +1062,11 @@ export const copy = {
             },
           ],
         },
+        'ai-data-center': {
+          name: 'AI & Data Center', en: 'AI & Data Center Development',
+          headline: 'Next generation AI infrastructure',
+          desc: 'DB World develops AI and data center opportunities in Korea, bringing together site, power, permitting and development capabilities around the requirements of global operators and end users.',
+        },
         golf: {
           name: 'Golf Course Operation', en: 'Golf Course Operation',
           headline: 'Rainbow Hills — the Pebble Beach of Korea',
@@ -1114,6 +1200,82 @@ export const copy = {
         title: 'Advertising', docTitle: 'Advertising | DB World',
         intro: 'Brand campaigns and commercials of DB Group and DB World.',
         empty: 'Advertising videos are being prepared and will appear here.',
+      },
+    },
+    /* Business › AI & Data Center (single scroll page) — copy as provided by the business team */
+    aidc: {
+      docTitle: 'AI & Data Center Development | DB World',
+      desc: 'DB World develops AI and data center opportunities in Korea, bringing together site, power, permitting and development capabilities around the requirements of global operators and end users.',
+      lnavLabel: 'On this page',
+      lnav: [['why', 'Why DB World'], ['what', 'What We Do'], ['how', 'How We Work'], ['partners', 'Partnership'], ['contact', 'Contact']],
+      hero: {
+        eyebrow: 'AI & Data Center Development',
+        title: "Developing Korea's\nNext Generation\nAI Infrastructure",
+        sub: 'DB World develops AI and data center opportunities in Korea, bringing together site, power, permitting and development capabilities around the requirements of global operators and end users.',
+        cta: 'Explore Opportunities in Korea',
+      },
+      why: {
+        eyebrow: 'Why DB World',
+        title: 'From Industrial Development\nto AI Infrastructure',
+        body: [
+          'DB World is a real estate development company within DB Group, with experience across industrial sites, facilities and development projects in Korea.',
+          'As AI creates new demand for power-intensive infrastructure, we are expanding our development capabilities into AI and data center infrastructure.',
+          'We are also exploring how existing industrial and real estate assets and infrastructure can create new opportunities for the next generation of digital infrastructure.',
+        ],
+        steps: [
+          ['Our Foundation', 'Industrial Sites · Facilities\nDevelopment Projects'],
+          ['New Opportunity', 'Growing Demand\nfor AI Infrastructure'],
+          ['Our Next Chapter', 'AI & Data Center\nInfrastructure'],
+        ],
+      },
+      what: {
+        eyebrow: 'What We Do',
+        title: 'From Opportunity Identification\nto Development Execution',
+        items: [
+          ['site', 'Site', 'Site identification and development feasibility'],
+          ['power', 'Power', 'Power availability and infrastructure planning'],
+          ['permitting', 'Permitting', 'Development and permitting coordination'],
+          ['development', 'Development', 'Development planning and project structuring'],
+          ['delivery', 'Design & Delivery', 'Coordination with designers, technical partners, PM/CM and contractors'],
+          ['commercial', 'Commercial', 'Coordination with operators, end users, investors and financing partners'],
+        ],
+      },
+      how: {
+        eyebrow: 'How We Work',
+        title: 'Developing Around\nYour Requirements',
+        body: [
+          'Our approach starts with the requirements of operators and end users.',
+          "Rather than simply offering predefined sites, we seek to identify and develop opportunities that meet each project's capacity, schedule and technical requirements.",
+        ],
+        clients: ['AI Cloud', 'Neocloud', 'Hyperscaler', 'Operator'],
+        req: 'Your Requirements',
+        core: 'Development Partner in Korea',
+        caps: ['Site', 'Power', 'Permitting', 'Development'],
+        partners: ['Operator', 'Technical & Delivery Partner', 'Capital Partner'],
+        note: 'DB World focuses on development, working with experienced partners for operations, technical delivery and capital.',
+      },
+      partner: {
+        eyebrow: 'Partnership',
+        title: 'We Welcome Discussions\nwith Global Partners',
+        body: 'We are exploring AI infrastructure development opportunities in Korea with global partners.',
+        items: [
+          ['cloud', 'AI Cloud & Neocloud Providers'],
+          ['hyperscale', 'Hyperscalers'],
+          ['globe', 'Global Data Center Operators'],
+          ['investor', 'Infrastructure Investors'],
+          ['network', 'Technology & Delivery Partners'],
+        ],
+      },
+      contact: {
+        eyebrow: 'Contact',
+        title: 'Exploring AI Infrastructure\nOpportunities in Korea?',
+        sub: "Let's Discuss What We Can Develop Together.",
+        team: 'Contact Our AI & Data Center Development Team',
+        org: 'DB World', unit: 'AI & Data Center Development', loc: 'Seoul, Korea',
+        // Team e-mail / LinkedIn URL — shown only when filled in
+        email: '', linkedin: '',
+        labels: { email: 'E-mail', linkedin: 'LinkedIn', tel: 'Tel', address: 'Address' },
+        emailBtn: 'Email Our Team',
       },
     },
     contact: {
