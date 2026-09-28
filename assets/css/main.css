@@ -1109,10 +1109,12 @@ body.pop-open { overflow: hidden; }
 }
 .ai-btn {
   display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; border-radius: 99px; white-space: nowrap;
-  background: #fff; color: var(--ai-ink); font-weight: 700; font-size: .98rem; transition: gap .3s var(--ease), background .3s, color .3s;
+  background: #fff; color: var(--ai-ink); font-weight: 700; font-size: .98rem; transition: background .3s, color .3s, border-color .3s;
 }
-.ai-btn .arr { width: 18px; height: 18px; }
-.ai-btn:hover { gap: 18px; background: var(--db-green); color: #fff; }
+/* 호버 시 버튼 크기는 그대로, 화살표만 이동 (옆 버튼이 줄바꿈되며 튀지 않도록) */
+.ai-btn .arr { width: 18px; height: 18px; transition: transform .3s var(--ease); }
+.ai-btn:hover { background: var(--db-green); color: #fff; }
+.ai-btn:hover .arr { transform: translateX(5px); }
 
 /* 히어로 */
 .ai-hero {
@@ -1286,9 +1288,10 @@ body[data-lang="ko"] .ai-contact-card h3 { letter-spacing: .04em; font-size: .92
 .ai-contact-card dd { color: #fff; font-size: 1.05rem; word-break: keep-all; overflow-wrap: anywhere; }
 .ai-contact-card dd a:hover { color: var(--ai-accent); }
 .ai-contact-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.ai-contact-btns > * { flex: 1 1 auto; justify-content: center; }
 .ai-contact-btns:empty { display: none; }
 .ai-btn-line { background: transparent; color: #fff; border: 1.5px solid rgba(255, 255, 255, .42); padding: 14.5px 24px; }
-.ai-btn-line:hover { background: rgba(255, 255, 255, .12); border-color: #fff; color: #fff; gap: 12px; }
+.ai-btn-line:hover { background: rgba(255, 255, 255, .12); border-color: #fff; color: #fff; }
 .ai-btn-line.is-soon { cursor: default; }
 .ai-btn-line.is-soon:hover { background: transparent; border-color: rgba(255, 255, 255, .42); }
 .ai-li { width: 17px; height: 17px; flex: none; }
