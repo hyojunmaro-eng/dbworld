@@ -390,6 +390,9 @@ export function home(c) {
 }
 
 /* ---------- 회사소개 ---------- */
+/* CEO 인사말 줄바꿈: 문장 끝(. ?) 뒤는 항상 줄바꿈, 문장 중간 줄바꿈은 좁은 화면에서 풀어 자연스럽게 이어지게 */
+const ceoLines = s => esc(s).split('\n').map((line, i, arr) => i === arr.length - 1 ? line : line + (/[.?!]$/.test(line) ? '<br>' : ' <br class="ceo-lb">')).join('');
+
 export function aboutCeo(c) {
   const { L, lang } = c;
   const A = L.about.ceo;
@@ -402,7 +405,7 @@ export function aboutCeo(c) {
     <figure class="ceo-photo"><img src="/assets/img/photos/ceo.webp?v=${c.v}" width="800" height="1000" alt="${esc(A.sign)} ${esc(A.signName.replace(/ /g, ''))}"></figure>
   </div>
   <div class="ceo-body">
-    ${A.body.map(p => `<p class="rv">${esc(p)}</p>`).join('')}
+    ${A.body.map(p => `<p class="rv">${ceoLines(p)}</p>`).join('')}
     <p class="ceo-sign rv">${esc(A.sign)} <strong>${esc(A.signName)}</strong></p>
   </div>
 </div></section>`,
