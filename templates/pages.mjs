@@ -2,12 +2,15 @@
  * 페이지 템플릿 — 모든 HTML은 여기서 생성됩니다.
  * 각 함수는 c(컨텍스트: {site, L, lang, other, projects, posts, md})를 받아 HTML 문자열을 반환합니다.
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { kmap } from '../content/kmap.mjs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+/* 이미지 파일 내용 해시 (같은 파일명으로 교체해도 브라우저 캐시가 새 이미지를 받도록) */
+const fileV = rel => { try { return createHash('md5').update(readFileSync(join(ROOT, rel))).digest('hex').slice(0, 8); } catch { return ''; } };
 
 /* ---------- 헬퍼 ---------- */
 const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -402,7 +405,7 @@ export function aboutCeo(c) {
 <section class="sec"><div class="wrap ceo">
   <div class="ceo-head rv">
     <h2>${nl2br(A.headline)}</h2>
-    <figure class="ceo-photo"><img src="/assets/img/photos/ceo.webp?v=${c.v}" width="800" height="1000" alt="${esc(A.sign)} ${esc(A.signName.replace(/ /g, ''))}"></figure>
+    <figure class="ceo-photo"><img src="/assets/img/photos/ceo.webp?v=${fileV('assets/img/photos/ceo.webp')}" width="800" height="1000" alt="${esc(A.sign)} ${esc(A.signName.replace(/ /g, ''))}"></figure>
   </div>
   <div class="ceo-body">
     ${A.body.map(p => `<p class="rv">${ceoLines(p)}</p>`).join('')}
