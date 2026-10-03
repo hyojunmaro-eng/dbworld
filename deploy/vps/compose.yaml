@@ -1,0 +1,73 @@
+# =============================================================================
+# DB월드 홈페이지 — VPS 운영 compose (Hostinger KVM 8, dbaa-erp와 같은 VM 동거)
+#
+# 구조: sync(1분마다 GitHub main → 빌드 → 원자 교체) + web(정적 서빙, 내부 :80)
+#       외부 포트 없음 — VM의 80/443은 중앙 정문(dbaa-prod-caddy)이 쓴다.
+#       정문이 /srv/gateway/sites/dbworld.caddy 안내판을 보고 dbworld-web:80 으로 넘긴다.
+#
+# 규약(deploy/vps/README.md): dbaa-edge에는 정문이 프록시할 서빙 컨테이너(web) 하나만 붙인다.
+#   sync는 내부 네트워크 전용. 수용 리스크: sync는 공개 레포 main의 build.mjs를 root로 실행
+#   — main 쓰기 권한자(=관리자 PAT 소지자)가 곧 이 컨테이너의 코드 실행 권한자다.
+#
+# 운용: docker compose --project-directory /srv/dbworld up -d      (기동·갱신)
+#       docker compose --project-directory /srv/dbworld logs -f sync
+# =============================================================================
+
+name: dbworld   # 프로젝트명 고정 — 실행 위치와 무관, 볼륨/컨테이너 접두사 충돌 방지
+
+x-logging: &logging
+  driver: json-file
+  options: { max-size: "10m", max-file: "3" }
+
+services:
+  # GitHub main을 주기적으로 받아 사이트를 다시 만든다 (관리자 저장·개발 반영 자동 수신)
+  sync:
+    image: node:22-alpine
+    container_name: dbworld-sync
+    restart: unless-stopped
+    logging: *logging
+    environment:
+      REPO_URL: ${REPO_URL:-https://github.com/hyojunmaro-eng/dbworld.git}
+      REPO_BRANCH: ${REPO_BRANCH:-main}
+      SYNC_INTERVAL: ${SYNC_INTERVAL:-60}   # 초
+    volumes:
+      - site:/site                 # /site/current = 서빙 중인 사이트
+      - ./:/deploy:ro              # 디렉터리 마운트 — 파일 교체(mv)가 컨테이너에도 보이게
+    entrypoint: ["/bin/sh", "/deploy/sync.sh"]
+    networks: [default]            # edge 금지(규약) — GitHub로 나가는 egress만 필요
+    healthcheck:
+      test: ["CMD", "test", "-f", "/site/current/ko/index.html"]
+      interval: 30s
+      timeout: 3s
+      retries: 20
+      start_period: 120s
+
+  # 정적 서빙 전용 (외부 포트 없음 — 정문이 dbaa-edge 내부에서 붙는다)
+  web:
+    image: caddy:2-alpine
+    container_name: dbworld-web
+    restart: unless-stopped
+    logging: *logging
+    command: ["caddy", "run", "--config", "/deploy/Caddyfile", "--adapter", "caddyfile"]
+    volumes:
+      - site:/site:ro
+      - ./:/deploy:ro
+    networks: [edge, default]
+    depends_on:
+      sync:
+        condition: service_healthy   # 첫 설치에서 빈 사이트가 노출되지 않게 (재부팅 시엔 restart 정책이 우선)
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://127.0.0.1/ko/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+networks:
+  default: {}
+  edge:
+    external: true
+    name: dbaa-edge   # 중앙 정문(dbaa-prod-caddy)이 붙어 있는 네트워크
+
+volumes:
+  site:

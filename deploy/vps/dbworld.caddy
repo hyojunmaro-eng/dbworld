@@ -1,0 +1,49 @@
+# =============================================================================
+# DB월드 홈페이지 — 공용 정문(dbaa-prod-caddy) 안내판
+# 배치: /srv/gateway/sites/dbworld.caddy  (정문 Caddyfile 맨 아래에서 import)
+# 반영: install.sh 재실행(검증 포함) 또는 docker exec dbaa-prod-caddy caddy reload -c /etc/caddy/Caddyfile
+#
+# 규약(어기면 정문 전체가 못 떠 ERP까지 영향):
+#  1) 호스트는 모든 안내판에 걸쳐 유일해야 한다 — srv1993874.hstgr.cloud 는 이 파일 소유.
+#  2) 스니펫 이름은 dbworld_ 접두사. aifanfic.com 호스트 정의 금지(ERP 소관).
+#  3) 수정은 저장소(deploy/vps/dbworld.caddy)에서 하고 install.sh로 반영한다 —
+#     서버 파일을 손으로 고치면 다음 install.sh 실행이 저장소 내용으로 되돌린다.
+#  4) 도메인 블록은 DNS가 이 서버를 가리킨 뒤에 켠다(인증서 발급 실패 누적 방지).
+# =============================================================================
+
+(dbworld_site) {
+	encode zstd gzip
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	# 관리자 화면은 검색엔진 수집 제외 (기능은 GitHub 토큰이 있어야 동작)
+	@dbworld_admin path /hyojunadmin*
+	header @dbworld_admin X-Robots-Tag "noindex, nofollow"
+	# (선택) 회사 고정 IP가 정해지면 관리자 접근을 그 IP로 제한 — 주석 해제 후 IP 기입
+	# @dbworld_admin_outside {
+	# 	path /hyojunadmin*
+	# 	not remote_ip 203.0.113.1
+	# }
+	# respond @dbworld_admin_outside 404
+
+	reverse_proxy dbworld-web:80
+}
+
+# ── 오픈 전 미리보기 (VPS 기본 호스트명 — 인증서 자동) ────────────────────
+srv1993874.hstgr.cloud {
+	import dbworld_site
+}
+
+# ── 정식 도메인 — 전환 절차: ① dbworld.co.kr·www 의 A 레코드를 이 서버 IP로
+#    ② 저장소에서 아래 주석 해제 후 main 푸시 ③ 서버에서 install.sh 재실행 ──
+# dbworld.co.kr {
+# 	redir /main /ko/ permanent
+# 	redir /main/* /ko/ permanent
+# 	import dbworld_site
+# }
+# www.dbworld.co.kr {
+# 	redir https://dbworld.co.kr{uri} permanent
+# }

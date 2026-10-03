@@ -1,0 +1,22 @@
+# DB월드 홈페이지 — 컨테이너 내부 정적 서빙 (외부 노출 없음, 중앙 정문이 프록시)
+# 보안 헤더·HTTPS·압축은 정문 안내판(dbworld.caddy)이 한 곳에서 처리한다 — 여기선 캐시만.
+:80 {
+	root * /site/current
+
+	# HTML은 매번 확인(갱신 즉시 반영), 자산은 ?v=해시로 무효화되므로 길게 캐시
+	@notassets not path /assets/*
+	header @notassets Cache-Control "no-cache"
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=604800"
+
+	file_server
+
+	# 언어별 404
+	handle_errors {
+		@ko expression {err.status_code} == 404 && !path('/en/*')
+		rewrite @ko /ko/404.html
+		@en expression {err.status_code} == 404 && path('/en/*')
+		rewrite @en /en/404.html
+		file_server
+	}
+}
