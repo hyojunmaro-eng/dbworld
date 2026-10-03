@@ -37,13 +37,12 @@ srv1993874.hstgr.cloud {
 	import dbworld_site
 }
 
-# ── 정식 도메인 — 전환 절차: ① dbworld.co.kr·www 의 A 레코드를 이 서버 IP로
-#    ② 저장소에서 아래 주석 해제 후 main 푸시 ③ 서버에서 install.sh 재실행 ──
-# dbworld.co.kr {
-# 	redir /main /ko/ permanent
-# 	redir /main/* /ko/ permanent
-# 	import dbworld_site
-# }
-# www.dbworld.co.kr {
-# 	redir https://dbworld.co.kr{uri} permanent
-# }
+# ── 정식 도메인 (2026-10-03 전환: A 레코드 → 이 서버) ─────────────────────
+dbworld.co.kr {
+	redir /main /ko/ permanent
+	redir /main/* /ko/ permanent
+	import dbworld_site
+}
+www.dbworld.co.kr {
+	redir https://dbworld.co.kr{uri} permanent
+}
