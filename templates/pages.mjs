@@ -347,7 +347,7 @@ export function home(c) {
   const slides = H.hero.map((s, i) => {
     const img = photo(s.img);
     return `<div class="hero-slide${i === 0 ? ' on' : ''}" data-slide>
-      <div class="hero-bg${img ? '' : ' hero-bg-brand'}"${img ? ` style="background-image:url('${img}')"` : ''}></div>
+      <div class="hero-bg${img ? '' : ' hero-bg-brand'}"${img ? ` style="background-image:url('${img}')${s.mpos ? `;--mpos:${s.mpos}` : ''}"` : ''}></div>
       <div class="hero-shade"></div>
       <div class="hero-copy">
         <em>${esc(s.eyebrow)}</em>
