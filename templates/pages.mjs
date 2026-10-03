@@ -96,6 +96,9 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website', ogIm
 <meta property="og:url" content="${canonical}">
 <meta property="og:locale" content="${lang === 'ko' ? 'ko_KR' : 'en_US'}">
 <meta property="og:image" content="${site.baseUrl}${ogImage}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -1135,6 +1138,16 @@ export function rootRedirect({ site }) {
 <head>
 <meta charset="utf-8">
 <title>DB WORLD</title>
+<meta name="description" content="부동산 개발·PM·CM·컨설팅과 레인보우힐스CC 운영까지, 부동산의 전 생애주기를 아우르는 DB그룹의 종합부동산서비스 전문기업 DB월드입니다.">
+<meta property="og:title" content="DB WORLD | DB그룹 종합부동산서비스">
+<meta property="og:description" content="부동산 개발·PM·CM·컨설팅과 레인보우힐스CC 운영까지, 부동산의 전 생애주기를 아우르는 종합부동산서비스 전문기업입니다.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${site.baseUrl}/">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="${site.baseUrl}/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta http-equiv="refresh" content="0; url=/ko/">
 <script>
   var l = (navigator.language || 'ko').toLowerCase();
