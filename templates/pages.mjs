@@ -564,6 +564,19 @@ export function aboutGroup(c) {
 export function aboutLocation(c) {
   const { L, lang } = c;
   const Lo = L.about.location;
+  // 본사 지도: 국문은 카카오 지도퍼가기(사용자 발급 키), 영문은 구글(카카오는 한국어 라벨만 지원)
+  const KAKAO_RM = { ts: '1790994260513', key: '2mpwamx5jdf' };
+  const kakaoScripts = lang === 'ko' ? `
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://t1.kakaocdn.net/kakaomapweb/roughmap/loader/prod/roughmapLoader.js"></script>
+<script charset="UTF-8">
+(function () {
+  var box = document.getElementById('daumRoughmapContainer${KAKAO_RM.ts}');
+  if (!box || typeof daum === 'undefined' || !daum.roughmap) return;
+  var w = Math.round(box.parentElement.clientWidth || 640);
+  var h = Math.max(320, Math.min(480, Math.round(w * 10 / 16)));
+  new daum.roughmap.Lander({ timestamp: '${KAKAO_RM.ts}', key: '${KAKAO_RM.key}', mapWidth: String(w), mapHeight: String(h) }).render();
+})();
+</script>` : '';
   return layout(c, {
     title: Lo.docTitle, desc: Lo.tabs[0].addr, path: `${lang}/about/location/`,
     body: pageHero(c, { sec: 'about', title: Lo.title, crumbs: [[L.nav.about, 'about/overview/'], [Lo.title]] }) + `
@@ -573,9 +586,11 @@ export function aboutLocation(c) {
   </div>` : ''}
   ${Lo.tabs.map((t, i) => `
   <div class="loc-panel${i === 0 ? ' on' : ''}" id="locpanel-${i}" role="tabpanel" aria-labelledby="loctab-${i}" data-locpanel="${i}">
-    <div class="loc-map">
+    ${lang === 'ko' && i === 0 ? `<div class="loc-map loc-map--kakao">
+      <div id="daumRoughmapContainer${KAKAO_RM.ts}" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+    </div>` : `<div class="loc-map">
       <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(t.mapQuery)}&z=16&hl=${lang}&output=embed" title="${esc(t.name)} map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-    </div>
+    </div>`}
     <div class="loc-info">
       <h3>${esc(t.name)}</h3>
       <p class="loc-addr">${esc(t.addr)}</p>
@@ -586,7 +601,7 @@ export function aboutLocation(c) {
       </div>
     </div>
   </div>`).join('')}
-</div></section>`,
+</div></section>${kakaoScripts}`,
   });
 }
 
