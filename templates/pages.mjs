@@ -489,7 +489,7 @@ export function aboutCi(c) {
   const CI = L.about.ci;
   return layout(c, {
     title: CI.docTitle, desc: CI.intro, path: `${lang}/about/ci/`,
-    body: pageHero(c, { sec: 'about', title: CI.title, crumbs: [[L.nav.news, 'news/'], [CI.title]] }) + `
+    body: pageHero(c, { sec: 'news', title: CI.title, crumbs: [[L.nav.news, 'news/'], [CI.title]] }) + `
 <section class="sec"><div class="wrap">
   <div class="ci-logo rv"><img src="/assets/img/logo${lang === 'en' ? '-en' : ''}.png" alt="DB WORLD" width="285"></div>
   <p class="lead rv">${esc(CI.intro)}</p>
