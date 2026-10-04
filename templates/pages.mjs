@@ -98,7 +98,11 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website', ogIm
 <meta property="og:image" content="${site.baseUrl}${ogImage}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">${(() => {
+    // 첫 화면 배경 사진(히어로/페이지 헤더)을 최우선 선로딩 — 초록 배경만 보이는 시간 최소화
+    const m = body.slice(0, 2500).match(/url\('(\/assets\/img\/[^']+)'\)/);
+    return m ? `\n<link rel="preload" as="image" href="${m[1]}" fetchpriority="high">` : '';
+  })()}
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -346,8 +350,10 @@ export function home(c) {
 
   const slides = H.hero.map((s, i) => {
     const img = photo(s.img);
+    // 첫 슬라이드만 즉시 로드, 나머지는 첫 화면 표시 후 JS가 로드(data-bg) — 첫 사진 대역폭 확보
+    const bgAttr = !img ? '' : i === 0 ? ` style="background-image:url('${img}')"` : ` data-bg="url('${img}')"`;
     return `<div class="hero-slide${i === 0 ? ' on' : ''}" data-slide>
-      <div class="hero-bg${img ? '' : ' hero-bg-brand'}"${img ? ` style="background-image:url('${img}')${s.mpos ? `;--mpos:${s.mpos}` : ''}"` : ''}></div>
+      <div class="hero-bg${img ? '' : ' hero-bg-brand'}"${bgAttr}></div>
       <div class="hero-shade"></div>
       <div class="hero-copy">
         <em>${esc(s.eyebrow)}</em>

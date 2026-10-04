@@ -148,9 +148,16 @@
     const dots = $$('[data-dot]', hero);
     const playBtn = $('[data-heroplay]', hero);
     let cur = 0;
+    /* 2번째 이후 슬라이드 배경은 첫 화면 표시 후 로드(data-bg) — 첫 사진이 대역폭을 독점하도록 */
+    const applyBg = s => {
+      const b = s && s.querySelector('.hero-bg[data-bg]');
+      if (b) { b.style.backgroundImage = b.dataset.bg; b.removeAttribute('data-bg'); }
+    };
+    addEventListener('load', () => slides.forEach(applyBg), { once: true });
     function go(i) {
       slides[cur].classList.remove('on'); dots[cur].classList.remove('on');
       cur = (i + slides.length) % slides.length;
+      applyBg(slides[cur]);
       slides[cur].classList.add('on'); dots[cur].classList.add('on');
     }
     dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
