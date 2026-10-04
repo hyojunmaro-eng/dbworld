@@ -350,8 +350,12 @@ export function home(c) {
 
   const slides = H.hero.map((s, i) => {
     const img = photo(s.img);
-    // 첫 슬라이드만 즉시 로드, 나머지는 첫 화면 표시 후 JS가 로드(data-bg) — 첫 사진 대역폭 확보
-    const bgAttr = !img ? '' : i === 0 ? ` style="background-image:url('${img}')"` : ` data-bg="url('${img}')"`;
+    // 첫 슬라이드만 즉시 로드, 나머지는 첫 화면 표시 후 JS가 로드(data-bg) — 첫 사진 대역폭 확보.
+    // 모바일 초점(--mpos)은 두 경우 모두 유지.
+    const mpos = s.mpos ? `;--mpos:${s.mpos}` : '';
+    const bgAttr = !img ? ''
+      : i === 0 ? ` style="background-image:url('${img}')${mpos}"`
+      : ` data-bg="url('${img}')"${s.mpos ? ` style="--mpos:${s.mpos}"` : ''}`;
     return `<div class="hero-slide${i === 0 ? ' on' : ''}" data-slide>
       <div class="hero-bg${img ? '' : ' hero-bg-brand'}"${bgAttr}></div>
       <div class="hero-shade"></div>

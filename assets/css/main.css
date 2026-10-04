@@ -188,7 +188,12 @@ body.menu-open { overflow: hidden; }
 .arr { width: 18px; height: 18px; }
 
 .hero-ui { position: absolute; z-index: 3; inset: auto 0 20%; max-width: 1360px; margin: 0 auto; padding: 0 28px; display: flex; align-items: flex-end; justify-content: space-between; }
-@media (max-width: 900px) { .hero-ui { inset: auto 0 44px; } }
+@media (max-width: 900px) {
+  .hero-ui { inset: auto 0 44px; }
+  .hero-bg { background-position: var(--mpos, center); } /* 슬라이드별 모바일 초점(copy.mjs mpos) — 세로 화면에서 건물 로고가 보이게 */
+  .hero-slide { align-items: flex-end; padding-bottom: 78px; } /* 문구를 아래로 내려 상단 건물 로고가 가리지 않게 */
+  .hero-copy p { margin-bottom: 0; }
+}
 .hero-dots { display: flex; align-items: center; gap: 14px; }
 .hero-dots > button[data-dot] {
   position: relative; width: 62px; height: 3px; border-radius: 3px; overflow: hidden;

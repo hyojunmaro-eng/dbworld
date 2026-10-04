@@ -38,7 +38,7 @@ export const copy = {
           eyebrow: 'REAL ESTATE TOTAL SERVICE',
           title: '부동산의 가치와\n고객의 자산을 새롭게 창조합니다',
           sub: '시행에서 설계·시공·관리·운영까지, 부동산 전 생애주기를 아우르는 종합부동산서비스 전문기업',
-          img: 'dbfc-sky', link: ['business/', '사업영역 보기'],
+          img: 'dbfc-sky', mpos: '22% 50%', link: ['business/', '사업영역 보기'],
         },
         {
           eyebrow: 'DEVELOPMENT · CM',
@@ -685,7 +685,7 @@ export const copy = {
           eyebrow: 'REAL ESTATE TOTAL SERVICE',
           title: 'Creating New Value\nfor Real Estate and Your Assets',
           sub: 'From development to design, construction, management and operation — we cover the entire life cycle of real estate.',
-          img: 'dbfc-sky', link: ['business/', 'Explore our business'],
+          img: 'dbfc-sky', mpos: '22% 50%', link: ['business/', 'Explore our business'],
         },
         {
           eyebrow: 'DEVELOPMENT · CM',
