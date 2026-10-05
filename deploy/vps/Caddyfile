@@ -9,6 +9,12 @@
 	@assets path /assets/*
 	header @assets Cache-Control "public, max-age=604800"
 
+	# 구 사이트 주소 전부 새 홈으로 — 새 사이트 체계 밖의 경로는 301 (검색엔진 갱신 가속, 방문자 404 방지)
+	@legacy {
+		not path / /ko /ko/* /en /en/* /assets/* /files/* /hyojunadmin* /sitemap.xml /robots.txt /favicon.ico /pages.json /popups.json /search-index.json
+	}
+	redir @legacy /ko/ permanent
+
 	file_server
 
 	# 언어별 404
