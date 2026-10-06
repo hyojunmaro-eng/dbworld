@@ -278,7 +278,7 @@ export const copy = {
               fields: ['신축', '증축', '리모델링', '사업계획 컨설팅 등'],
               groups: [
                 { name: '업무시설', items: [
-                  { name: '대치 금융센터', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['서울 대치동', '연면적 17,248평 (지하 7층 ~ 지상 35층)', '2002년 준공'] },
+                  { name: 'DB금융센터', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['서울 대치동', '연면적 17,248평 (지하 7층 ~ 지상 35층)', '2002년 준공'] },
                   { name: '부산 오피스', img: 'dev-busan', slug: 'busan-hq', specs: ['부산 부전동', '연면적 13,475평 (지하 8층 ~ 지상 24층)', "'26년 준공 완료"] },
                   { name: '동자 오피스Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['서울 동자동', '연면적 43,569평 (지하 7층 ~ 지상 37층)', '인허가 진행중'] },
                 ] },
@@ -387,7 +387,7 @@ export const copy = {
               ],
               groups: [
                 { name: '업무시설', items: [
-                  { name: '대치 금융센터', img: 'ts-daechi', slug: 'db-financial-center', specs: ['서울 대치동', '연면적 17,248평 (지하 7층 ~ 지상 35층)', '부동산 자산관리 (오피스 PM)'] },
+                  { name: 'DB금융센터', img: 'ts-daechi', slug: 'db-financial-center', specs: ['서울 대치동', '연면적 17,248평 (지하 7층 ~ 지상 35층)', '부동산 자산관리 (오피스 PM)'] },
                   { name: '동자 오피스Ⅰ', img: 'ts-dongja1', slug: 'dongja-office1', specs: ['서울 동자동', '연면적 13,535평 (지하 6층 ~ 지상 24층)', '부동산 자산관리 (오피스 PM)'] },
                 ] },
                 { name: '근생 외 + 주차장', items: [
