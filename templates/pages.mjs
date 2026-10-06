@@ -509,11 +509,11 @@ export function aboutCi(c) {
   <div class="ci-colors">
     ${CI.colors.map(([n, hex, d]) => `<div class="ci-swatch rv"><span style="background:${hex}"></span><strong>${esc(n)}</strong><em>${hex}</em><p>${esc(d)}</p></div>`).join('')}
   </div>
-  <h3 class="rv">${lang === 'ko' ? '그라디언트' : 'Gradations'}</h3>
+  <h3 class="rv">${lang === 'ko' ? '그라디언트' : 'Gradients'}</h3>
   <div class="ci-grads rv" aria-hidden="true">
-    <div><span style="background:linear-gradient(135deg,#F47920,#C9252C)"></span><em>DB Red Gradation</em><i>#F47920 → #C9252C</i></div>
-    <div><span style="background:linear-gradient(135deg,#8DC63F,#009559)"></span><em>DB Green Gradation</em><i>#8DC63F → #009559</i></div>
-    <div><span style="background:linear-gradient(135deg,#14B1E7,#0061AF)"></span><em>DB Blue Gradation</em><i>#14B1E7 → #0061AF</i></div>
+    <div><span style="background:linear-gradient(135deg,#F47920,#C9252C)"></span><em>DB Red Gradient</em><i>#F47920 → #C9252C</i></div>
+    <div><span style="background:linear-gradient(135deg,#8DC63F,#009559)"></span><em>DB Green Gradient</em><i>#8DC63F → #009559</i></div>
+    <div><span style="background:linear-gradient(135deg,#14B1E7,#0061AF)"></span><em>DB Blue Gradient</em><i>#14B1E7 → #0061AF</i></div>
   </div>
   <h3 class="rv">${esc(CI.usageTitle)}</h3>
   <ul class="ci-usage rv">${CI.usage.map(u => `<li>${esc(u)}</li>`).join('')}</ul>

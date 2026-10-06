@@ -3,7 +3,7 @@
   "title": "합병종료 공고",
   "title_en": "Notice of Completion of Merger",
   "category": "notice",
-  "body_en": "Notice is hereby given that the merger procedure has been completed.",
+  "body_en": "Notice is hereby given that the merger procedure has been completed. Please see the attached notice (in Korean).",
   "files": [
     {
       "name": "합병종료 공고.pdf",

@@ -723,7 +723,7 @@ export const copy = {
           'DB World is a real estate specialist that began as Miryung Construction in 1969 and continued through Dongbu Corporation and the real estate division of DB Inc., and it is the total real estate service company of DB Group.',
           'We always begin with a single question.\nWhat does this land, this space, need most?\nTo find the answer, over more than half a century we have steadily built the capabilities to create value in real estate, from real estate development, property management (PM), construction management (CM), data center development and consulting to golf course operation.',
           'What allows one company to take responsibility for the entire process of a project, from planning and construction through to operation, is our greatest asset: the technical expertise and experience built on site over many years, and the trust of our clients.',
-          'Real estate is not simply a building; it is a vessel that holds the lives of people and cities.\nWe believe that a single well-built space can change the day of those who spend time in it, and that one space can enrich the future of its community.\nWhat DB World builds is not a building, but a special space that connects people.',
+          'Real estate is not simply a building; it is a vessel that holds the lives of people and cities.\nWe believe that a single well-built space can change the day of those who spend time in it, and that one space can enrich the future of its community.\nWhat DB World builds is not a building, but a special space that connects people’s hearts.',
           'We regard managing the assets our clients entrust to us with transparency and growing their value as our greatest mission, and we will approach every project, from start to finish, with consistent standards and sincerity.',
           'As a member of DB Group, we will live up to its name with a deep sense of responsibility and a transparent management philosophy, and grow together with local communities.',
           'We ask for your continued support and encouragement. Thank you.',
@@ -744,7 +744,7 @@ export const copy = {
         facts: [
           ['Company', 'DB World Co., Ltd.'],
           ['Founded', 'July 14, 1989'],
-          ['CEO', 'President Yoon Soon-kyun'],
+          ['CEO', 'Yoon Soon-kyun, President'],
           ['Employees', '104 (as of end of August 2026)'],
           ['Capital', 'KRW 311,990 million'],
         ],
@@ -776,7 +776,7 @@ export const copy = {
             era: '2025 — Present', label: 'A Total Real Estate Company',
             items: [
               ['Apr 2026', '1st KLPGA DB Women’s Championship held at Rainbow Hills CC'],
-              ['Dec 2025', 'Senior-care MOU signed with Soonchunhyang Univ. and Gangneung-Wonju National Univ.'],
+              ['Dec 2025', 'Industry–academia MOU on senior-care business with Soonchunhyang Univ. and Gangneung-Wonju National Univ.'],
               ['Oct 2025', 'Merger of DB World E&C — completing the development-to-operation structure'],
               ['Sep 2025', 'Rainbow Hills Dream Challenge, the club’s first amateur tournament'],
               ['Jul 2025', 'Merger of DB Metal — adding the ferroalloy materials business'],
@@ -794,7 +794,7 @@ export const copy = {
             era: '1989 — 2014', label: 'Foundation and Growth',
             items: [
               ['Mar 2008', 'Rainbow Hills Country Club opened (27 holes, designed by Robert Trent Jones Jr.)'],
-              ['Sep 2007', 'Golf course business registration'],
+              ['Sep 2007', 'Rainbow Hills CC registered as a golf course business'],
               ['Jan 2002', 'Renamed Dongbu World Co., Ltd. (joined Dongbu Group)'],
               ['Jul 1989', 'Founded as Wonlim Development Co., Ltd.'],
             ],
@@ -828,7 +828,7 @@ export const copy = {
         usageTitle: 'Usage Principles',
         usage: [
           'The symbol mark and logotype must not be modified.',
-          'DB Green is the primary color; gradations are used only at specified ratios.',
+          'DB Green is the primary color; gradients are used only at specified ratios.',
           'Detailed rules follow the DB Group CI guidelines.',
         ],
         guideLink: 'DB Group CI Guidelines',
@@ -925,9 +925,9 @@ export const copy = {
               fields: ['New construction', 'Extension', 'Remodeling', 'Business planning consulting'],
               groups: [
                 { name: 'Office', items: [
-                  { name: 'Daechi Financial Center', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['Daechi-dong, Seoul', 'GFA 57,000m² (B7 – 35F)', 'Completed 2002'] },
+                  { name: 'DB Financial Center', img: 'dev-dbfc', slug: 'db-financial-center', specs: ['Daechi-dong, Seoul', 'GFA 57,000m² (B7 – 35F)', 'Completed 2002'] },
                   { name: 'Busan Office', img: 'dev-busan', slug: 'busan-hq', specs: ['Bujeon-dong, Busan', 'GFA 44,544m² (B8 – 24F)', 'Completed 2026'] },
-                  { name: 'Dongja Office Ⅱ', img: 'dev-dongja', slug: 'dongja-office', specs: ['Dongja-dong, Seoul', 'GFA 144,029m² (B7 – 37F)', 'Permitting in progress'] },
+                  { name: 'Dongja Office II', img: 'dev-dongja', slug: 'dongja-office', specs: ['Dongja-dong, Seoul', 'GFA 144,029m² (B7 – 37F)', 'Permitting in progress'] },
                 ] },
                 { name: 'Retail', items: [
                   { name: 'Sinsa Office & Retail', img: 'dev-sinsa', slug: 'sinsa-office', specs: ['Sinsa-dong, Seoul', 'GFA 9,100m² (B3 – 4F)', 'Business planning'] },
@@ -993,7 +993,7 @@ export const copy = {
                   { name: 'DB Insurance Busan HQ Interior Works', img: 'bld-busan', slug: 'busan-hq', specs: [['Use', 'Office'], ['Structure', 'Steel frame'], ['Scale', 'B8 – 24F'], ['GFA', '44,544m²']] },
                 ] },
                 { name: 'Pipeline', items: [
-                  { name: 'Donghae Academic Hall', img: 'bld-donghae', specs: [['Location', 'Donghae, Gangwon'], ['Use', 'Office'], ['Structure', 'RC'], ['Scale', '5F, 1 building'], ['GFA', '1,138m²'], ['Status', 'Construction to start']] },
+                  { name: 'Donghae Academic Hall', img: 'bld-donghae', specs: [['Location', 'Donghae, Gangwon'], ['Use', 'Office'], ['Structure', 'RC'], ['Scale', '5F, 1 building'], ['GFA', '1,138m²'], ['Status', 'Groundbreaking scheduled']] },
                   { name: 'DB HiTek Dormitory', img: 'bld-dorm', specs: [['Location', 'Eumseong, Chungbuk'], ['Use', 'Dormitory'], ['Structure', 'RC'], ['Scale', 'B1 – 11F'], ['GFA', '19,024m²'], ['Status', 'Permitting in progress']] },
                   { name: 'HRD Center Remodeling & Extension', img: 'bld-hrd', specs: [['Location', 'Gwangju, Gyeonggi'], ['Use', 'Education & research'], ['Structure', 'RC'], ['Scale', 'B1 – 11F'], ['GFA', '26,900m²'], ['Status', 'Business planning']] },
                   { name: 'Dongja District 2 Office', img: 'bld-dongja', slug: 'dongja-office', specs: [['Location', 'Yongsan, Seoul'], ['Use', 'Office'], ['Structure', 'Steel frame'], ['Scale', 'B7 – 37F'], ['GFA', '144,029m²'], ['Status', 'Permitting in progress']] },
@@ -1034,17 +1034,17 @@ export const copy = {
               ],
               groups: [
                 { name: 'Office', items: [
-                  { name: 'Daechi Financial Center', img: 'ts-daechi', slug: 'db-financial-center', specs: ['Daechi-dong, Seoul', 'GFA 57,000m² (B7 – 35F)', 'Property management (office PM)'] },
-                  { name: 'Dongja Office Ⅰ', img: 'ts-dongja1', slug: 'dongja-office1', specs: ['Dongja-dong, Seoul', 'GFA 44,700m² (B6 – 24F)', 'Property management (office PM)'] },
+                  { name: 'DB Financial Center', img: 'ts-daechi', slug: 'db-financial-center', specs: ['Daechi-dong, Seoul', 'GFA 57,000m² (B7 – 35F)', 'Property management (office PM)'] },
+                  { name: 'Dongja Office I', img: 'ts-dongja1', slug: 'dongja-office1', specs: ['Dongja-dong, Seoul', 'GFA 44,700m² (B6 – 24F)', 'Property management (office PM)'] },
                 ] },
                 { name: 'Retail & Parking', items: [
-                  { name: 'Bundang Retail Building', img: 'ts-bundang', slug: 'bundang-retail', specs: ['Seohyeon-dong, Bundang', 'GFA 10,900m² (5F)', 'Property management (office PM)'] },
+                  { name: 'Bundang Retail Facility', img: 'ts-bundang', slug: 'bundang-retail', specs: ['Seohyeon-dong, Bundang', 'GFA 10,900m² (5F)', 'Property management (office PM)'] },
                 ] },
                 { name: 'Logistics', items: [
                   { name: 'Oryu-dong Logistics Center', img: 'ts-oryu', slug: 'oryu-logistics', specs: ['Oryu-dong, Seoul', 'GFA 56,800m² (1F)', 'Property management (logistics PM)'] },
                 ] },
                 { name: 'Office Leasing', items: [
-                  { name: 'External Office', img: 'ts-samseong', slug: 'samseong-office', specs: ['Samseong-dong, Seoul', 'GFA 15,000m² (B4 – 14F)', 'Leasing consulting (office)'] },
+                  { name: 'Samseong-dong Office', img: 'ts-samseong', slug: 'samseong-office', specs: ['Samseong-dong, Seoul', 'GFA 15,000m² (B4 – 14F)', 'Leasing consulting (office)'] },
                 ] },
               ],
             },
@@ -1097,20 +1097,20 @@ export const copy = {
       privacy: {
         title: 'Privacy Policy',
         lead: [
-          'DB World Co., Ltd. (the "Company") values your personal data and complies with the Personal Information Protection Act and the Act on Promotion of Information and Communications Network Utilisation and Information Protection.',
+          'DB World Co., Ltd. (the "Company") values your personal data and complies with the Personal Information Protection Act and the Act on Promotion of Information and Communications Network Utilization and Information Protection.',
           'Through this privacy policy the Company explains how the personal data you provide is used and what measures are taken to protect it.',
           'Should this privacy policy be revised, the Company will announce the changes through the notices section of its website.',
         ],
-        effective: 'This policy takes effect on 29 March 2012.',
+        effective: 'This policy takes effect on March 29, 2012.',
         sections: [
           { t: 'Personal Data Collected', body: [
-            'The Company website does not operate membership registration and does not collect personal data directly through the site. Personal data is collected only where enquiries, proposals or job applications are received by telephone, fax or post.',
-            '- Items collected: name, contact number, email address and other minimum information required to handle the enquiry',
+            'The Company website does not operate membership registration and does not collect personal data directly through the site. Personal data is collected only where inquiries, proposals or job applications are received by telephone, fax or post.',
+            '- Items collected: name, contact number, email address and other minimum information required to handle the inquiry',
             '- Method of collection: offline channels such as telephone, fax and post',
           ] },
           { t: 'Purpose of Collection and Use', body: [
             'The Company uses the personal data it collects for the following purposes.',
-            '- Verifying and responding to enquiries and proposals',
+            '- Verifying and responding to inquiries and proposals',
             '- Concluding and performing contracts and handling related work',
             '- Conducting recruitment and notifying applicants of the outcome',
           ] },
@@ -1134,26 +1134,26 @@ export const copy = {
             'Such requests may be made in writing, by telephone or by fax using the contacts below, and the Company will act on them without delay.',
           ] },
           { t: 'Automatic Collection Devices and How to Refuse Them', body: [
-            'The Company website does not operate cookies that identify users or track their browsing behaviour.',
+            'The Company website does not operate cookies that identify users or track their browsing behavior.',
             'It does store a minimal amount of display-preference information in your browser — for example when "Do not show again today" is selected on a pop-up notice. This information is never transmitted to the Company\'s servers, does not identify any individual, and can be deleted at any time through your browser settings.',
           ] },
-          { t: 'Privacy Enquiries', body: [
+          { t: 'Privacy Inquiries', body: [
             'Please direct any privacy-related complaints to the officer below. The Company will respond promptly and fully.',
             '- Privacy Officer: Lee Sang-heon, Team Leader',
             '- Tel: +82-43-879-7916',
           ] },
           { t: 'Remedies for Infringement of Rights', body: [
-            'If you need redress for an infringement of your personal data rights, you may apply to the following organisations for dispute resolution or consultation.',
+            'If you need redress for an infringement of your personal data rights, you may apply to the following organizations for dispute resolution or consultation.',
             '- Personal Information Dispute Mediation Committee: 1833-6972 (www.kopico.go.kr)',
-            '- Privacy Infringement Report Centre: 118 (privacy.kisa.or.kr)',
+            '- Privacy Infringement Report Center: 118 (privacy.kisa.or.kr)',
             '- Supreme Prosecutors\' Office Cybercrime Division: 1301 (www.spo.go.kr)',
             '- National Police Agency Cyber Bureau: 182 (ecrm.police.go.kr)',
           ] },
         ],
       },
       email: {
-        title: 'No Unauthorised Collection of Email Addresses',
-        body: 'The Company refuses any unauthorised collection of email addresses posted on this website by means of email collection programs or other technical devices. Please note that violation may result in criminal punishment under the Act on Promotion of Information and Communications Network Utilisation and Information Protection.',
+        title: 'No Unauthorized Collection of Email Addresses',
+        body: 'The Company refuses any unauthorized collection of email addresses posted on this website by means of email collection programs or other technical devices. Please note that violation may result in criminal punishment under the Act on Promotion of Information and Communications Network Utilization and Information Protection.',
         close: 'Close',
       },
     },

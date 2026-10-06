@@ -3,7 +3,7 @@
   "title": "임시주주총회를 위한 주주확정 기준일 설정공고",
   "title_en": "Notice of Record Date for the Extraordinary General Meeting",
   "category": "notice",
-  "body_en": "Notice of the record date for determining shareholders entitled to attend the Extraordinary General Meeting.",
+  "body_en": "Notice of the record date for determining the shareholders entitled to attend the Extraordinary General Meeting. Please see the attached notice (in Korean).",
   "files": [
     {
       "name": "DB월드 임시주주총회를 위한 주주확정 기준일 설정공고.pdf",

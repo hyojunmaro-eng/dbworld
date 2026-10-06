@@ -3,7 +3,7 @@
   "title": "소규모 합병공고 안내",
   "title_en": "Notice of Small-Scale Merger",
   "category": "notice",
-  "body_en": "Notice regarding the small-scale merger is announced as follows.",
+  "body_en": "Notice of matters concerning the small-scale merger. Please see the attached notice (in Korean).",
   "files": [
     {
       "name": "소규모 합병 공고(250828).pdf",

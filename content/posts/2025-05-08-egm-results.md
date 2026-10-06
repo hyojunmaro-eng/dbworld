@@ -3,7 +3,7 @@
   "title": "임시주총 결과공고",
   "title_en": "Results of the Extraordinary General Meeting",
   "category": "notice",
-  "body_en": "The results of the Extraordinary General Meeting are announced as follows.",
+  "body_en": "The results of the Extraordinary General Meeting of Shareholders are announced in the attached notice (in Korean).",
   "files": [
     {
       "name": "임시주총 결과공고(250508).pdf",

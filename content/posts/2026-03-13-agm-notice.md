@@ -3,7 +3,7 @@
   "title": "2026년 주주총회 개최 안내",
   "title_en": "Notice of the 2026 Annual General Meeting",
   "category": "notice",
-  "body_en": "Notice of the 2026 Annual General Meeting of Shareholders.\n\n- Date & Time: Friday, March 20, 2026, 10:00 AM\n- Venue: Meeting Rooms C & D, 23F, DB Financial Center, 432 Teheran-ro, Gangnam-gu, Seoul (Tel: 02-3484-1906, 1913, 1926)\n- Agenda: Approval of the 37th financial statements; amendment of the Articles of Incorporation; appointment of directors; approval of director and auditor remuneration limits.\n\nPlease refer to the attached notice for details.",
+  "body_en": "Notice of the 2026 Annual General Meeting of Shareholders.\n\n- Date & Time: Friday, March 20, 2026, 10:00 AM\n- Venue: Meeting Rooms C & D, 23F, DB Financial Center, 432 Teheran-ro, Gangnam-gu, Seoul (Tel: +82-2-3484-1906, 1913, 1926)\n- Agenda: Approval of the 37th financial statements; amendment of the Articles of Incorporation; appointment of directors; approval of director and auditor remuneration limits.\n\nPlease refer to the attached notice (in Korean) for details.",
   "files": [
     {
       "name": "2026년 주주총회 개최 안내문.pdf",

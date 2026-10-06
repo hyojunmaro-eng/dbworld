@@ -57,7 +57,7 @@ export const projects = [
       desc: '서울역 인근 동자동 업무시설의 자산관리(PM)를 수행하고 있습니다.',
     },
     en: {
-      name: 'Dongja Office Ⅰ', location: 'Dongja-dong, Yongsan-gu, Seoul',
+      name: 'Dongja Office I', location: 'Dongja-dong, Yongsan-gu, Seoul',
       scale: 'B6 – 24F', area: 'GFA 44,700m²', completed: 'Under management',
       desc: 'Property management of an office building in Dongja-dong, near Seoul Station.',
     },
@@ -71,7 +71,7 @@ export const projects = [
       desc: '서울역 인근 동자동의 대규모 업무시설 개발 및 자산관리 프로젝트입니다.',
     },
     en: {
-      name: 'Dongja Office Ⅱ', location: 'Dongja-dong, Yongsan-gu, Seoul',
+      name: 'Dongja Office II', location: 'Dongja-dong, Yongsan-gu, Seoul',
       scale: 'B7 – 37F', area: 'GFA 144,029m²', completed: 'Permitting in progress',
       desc: 'A large-scale office development and property management project near Seoul Station.',
     },
