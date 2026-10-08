@@ -109,6 +109,8 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website', ogIm
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/assets/css/main.css${v ? `?v=${v}` : ''}">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EFRBM0JKM3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EFRBM0JKM3');</script>
 <script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org', '@type': 'Organization',
     name: com.legalName, url: site.baseUrl, logo: site.baseUrl + '/assets/img/logo.png',

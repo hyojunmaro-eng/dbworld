@@ -487,8 +487,9 @@ export const copy = {
             '권리 행사는 아래 문의처로 서면, 전화, 팩스 등을 통하여 하실 수 있으며, 회사는 이에 대해 지체 없이 조치하겠습니다.',
           ] },
           { t: '개인정보 자동수집 장치의 설치·운영 및 그 거부에 관한 사항', body: [
-            '회사 홈페이지는 이용자를 식별하거나 이용 행태를 추적하기 위한 쿠키를 운영하지 않습니다.',
-            "다만 팝업 공지의 '오늘 하루 보지 않기'와 같이 화면 설정을 기억하기 위한 최소한의 정보를 이용자의 브라우저에 저장합니다. 이 정보는 회사 서버로 전송되지 않고 개인을 식별하지 않으며, 브라우저 설정에서 언제든지 삭제하실 수 있습니다.",
+            '회사 홈페이지는 서비스 이용 현황 분석을 위해 웹로그 분석 도구(Google Analytics)를 사용하며, 이 과정에서 방문 통계 수집을 위한 쿠키가 이용자의 브라우저에 저장될 수 있습니다. 수집되는 정보는 방문 일시, 접속 경로, 기기·브라우저 유형 등 통계 목적의 정보이며, 회사는 이를 이용자 개인을 식별하는 데 사용하지 않습니다.',
+            '쿠키 저장을 원하지 않으시는 경우 브라우저 설정에서 쿠키를 차단하실 수 있으며, 차단하셔도 홈페이지 이용에는 제한이 없습니다.',
+            "이 밖에 팝업 공지의 '오늘 하루 보지 않기'와 같이 화면 설정을 기억하기 위한 최소한의 정보를 이용자의 브라우저에 저장합니다. 이 정보는 회사 서버로 전송되지 않고 개인을 식별하지 않으며, 브라우저 설정에서 언제든지 삭제하실 수 있습니다.",
           ] },
           { t: '개인정보 관련 문의처', body: [
             '개인정보보호와 관련한 민원은 아래 담당자에게 접수해 주시기 바랍니다. 회사는 이용자들의 신고사항에 대해 신속하고 충분한 답변을 드리겠습니다.',
@@ -1134,8 +1135,9 @@ export const copy = {
             'Such requests may be made in writing, by telephone or by fax using the contacts below, and the Company will act on them without delay.',
           ] },
           { t: 'Automatic Collection Devices and How to Refuse Them', body: [
-            'The Company website does not operate cookies that identify users or track their browsing behavior.',
-            'It does store a minimal amount of display-preference information in your browser — for example when "Do not show again today" is selected on a pop-up notice. This information is never transmitted to the Company\'s servers, does not identify any individual, and can be deleted at any time through your browser settings.',
+            'The Company website uses Google Analytics, a web-log analysis service, to understand how the site is used. In the course of this, cookies for collecting visit statistics may be stored in your browser. The information collected — such as visit time, referral path and device/browser type — is statistical in nature, and the Company does not use it to identify individuals.',
+            'If you do not wish to allow these cookies, you may block them in your browser settings; doing so does not limit your use of the website.',
+            'The site also stores a minimal amount of display-preference information in your browser — for example when "Do not show again today" is selected on a pop-up notice. This information is never transmitted to the Company\'s servers, does not identify any individual, and can be deleted at any time through your browser settings.',
           ] },
           { t: 'Privacy Inquiries', body: [
             'Please direct any privacy-related complaints to the officer below. The Company will respond promptly and fully.',
