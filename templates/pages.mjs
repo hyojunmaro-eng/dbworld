@@ -98,6 +98,7 @@ function layout(c, { title, desc, path, body, cls = '', ogType = 'website', ogIm
 <meta property="og:image" content="${site.baseUrl}${ogImage}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta name="naver-site-verification" content="ca82b1da4be5955750c4a48ee7f4552de0691e88">
 <meta name="twitter:card" content="summary_large_image">${(() => {
     // 첫 화면 배경 사진(히어로/페이지 헤더)을 최우선 선로딩 — 초록 배경만 보이는 시간 최소화
     const m = body.slice(0, 2500).match(/url\('(\/assets\/img\/[^']+)'\)/);
@@ -1157,6 +1158,7 @@ export function rootRedirect({ site }) {
 <meta property="og:image" content="${site.baseUrl}/assets/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta name="naver-site-verification" content="ca82b1da4be5955750c4a48ee7f4552de0691e88">
 <meta name="twitter:card" content="summary_large_image">
 <meta http-equiv="refresh" content="0; url=/ko/">
 <script>
