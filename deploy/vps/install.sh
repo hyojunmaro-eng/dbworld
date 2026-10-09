@@ -31,15 +31,26 @@ docker compose version >/dev/null 2>&1 || die "docker compose 플러그인이 �
 
 log "1/4 배포 파일 내려받기 → $DIR  (KIT_LOCAL=1 이면 생략)"
 install -d -m 755 "$DIR"
-changed=0
+changed="${INSTALL_CHANGED:-0}"
+self_changed=0
 if [ "${KIT_LOCAL:-0}" != 1 ]; then
   for f in $FILES; do
     curl -fsSL "$REPO_RAW/$f" -o "$DIR/$f.tmp" || die "$f 내려받기 실패"
-    if [ ! -f "$DIR/$f" ] || ! cmp -s "$DIR/$f.tmp" "$DIR/$f"; then changed=1; fi
+    if [ ! -f "$DIR/$f" ] || ! cmp -s "$DIR/$f.tmp" "$DIR/$f"; then
+      changed=1
+      [ "$f" = install.sh ] && self_changed=1
+    fi
     mv "$DIR/$f.tmp" "$DIR/$f"
   done
 fi
 chmod +x "$DIR/sync.sh" "$DIR/install.sh"
+
+# install.sh 자체가 바뀌었으면 새 버전으로 다시 시작한다 — 이미 실행 중인 bash는 옛 파일을 끝까지 읽으므로,
+# 그대로 두면 새 수정이 '다음 실행'에서야 적용된다. (내려받기는 끝났으니 KIT_LOCAL=1로 생략, 변경 여부는 넘긴다)
+if [ "$self_changed" = 1 ] && [ -z "${INSTALL_REEXEC:-}" ]; then
+  echo "   install.sh가 갱신되어 새 버전으로 다시 시작합니다"
+  INSTALL_REEXEC=1 KIT_LOCAL=1 INSTALL_CHANGED="$changed" exec bash "$DIR/install.sh"
+fi
 
 log "2/4 정문 네트워크 확인 (dbaa-edge)"
 docker network inspect dbaa-edge >/dev/null 2>&1 || docker network create dbaa-edge >/dev/null
