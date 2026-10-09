@@ -25,7 +25,8 @@ const photo = name => {
 const bizImg = name => existsSync(join(ROOT, 'assets/img/business', name + '.jpg')) ? `/assets/img/business/${name}.jpg` : null;
 const projImg = p => {
   for (const name of [p.img, p.slug].filter(Boolean)) {
-    if (existsSync(join(ROOT, 'assets/img/projects', name + '.jpg'))) return `/assets/img/projects/${name}.jpg`;
+    // ?v=파일해시 — 사진을 교체하면 주소가 바뀌어 브라우저 캐시(7일)와 무관하게 즉시 반영
+    if (existsSync(join(ROOT, 'assets/img/projects', name + '.jpg'))) return `/assets/img/projects/${name}.jpg?v=${fileV(`assets/img/projects/${name}.jpg`)}`;
   }
   return null;
 };
