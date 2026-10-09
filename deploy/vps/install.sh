@@ -72,12 +72,30 @@ GW_IMG="$(docker inspect "$GW" --format '{{.Config.Image}}')"
 TRY=$(mktemp -d)
 cp -f "$SITES"/*.caddy "$TRY"/ 2>/dev/null || true
 cp -f "$DIR/dbworld.caddy" "$TRY/dbworld.caddy"
-if ! docker run --rm -v "$GATEWAY_CADDYFILE":/etc/caddy/Caddyfile:ro -v "$TRY":/etc/caddy/sites:ro \
+
+# 검증 컨테이너를 실제 정문과 같은 조건으로 — 정문의 /etc/caddy 하위 마운트(Caddyfile, ERP가 import하는
+# 보조 파일 등)와 환경변수를 그대로 가져오고, sites만 후보 디렉터리로 바꾼다.
+# (Caddyfile 하나만 마운트하면 ERP 쪽 import 파일을 못 찾아 검증이 거짓 실패한다)
+VMOUNTS=()
+while IFS='|' read -r mtype msrc mdst; do
+  case "$mdst" in
+    /etc/caddy/sites|/etc/caddy/sites/*) continue ;;
+    /etc/caddy|/etc/caddy/*) ;;
+    *) continue ;;
+  esac
+  [ -n "$msrc" ] && VMOUNTS+=(-v "$msrc:$mdst:ro")
+done < <(docker inspect "$GW" --format '{{range .Mounts}}{{.Type}}|{{if eq .Type "volume"}}{{.Name}}{{else}}{{.Source}}{{end}}|{{.Destination}}{{"\n"}}{{end}}')
+# 정문 컨테이너에 Caddyfile 마운트가 안 잡히는 예외적인 경우 대비
+printf '%s\n' "${VMOUNTS[@]}" | grep -q ':/etc/caddy/Caddyfile:ro$' || VMOUNTS+=(-v "$GATEWAY_CADDYFILE:/etc/caddy/Caddyfile:ro")
+ENVF=$(mktemp); chmod 600 "$ENVF"
+docker inspect "$GW" --format '{{range .Config.Env}}{{println .}}{{end}}' > "$ENVF"
+
+if ! docker run --rm --env-file "$ENVF" "${VMOUNTS[@]}" -v "$TRY":/etc/caddy/sites:ro \
      "$GW_IMG" caddy validate -c /etc/caddy/Caddyfile; then
-  rm -rf "$TRY"
+  rm -rf "$TRY" "$ENVF"
   die "안내판 검증 실패 — 설치하지 않았습니다(정문은 기존 그대로). 위 오류를 보내 주세요."
 fi
-rm -rf "$TRY"
+rm -rf "$TRY" "$ENVF"
 
 # 설치(이전본 백업) → reload. 실패하면 즉시 원복해 '다음 재기동 때 터지는 파일'을 남기지 않는다.
 HAD_OLD=0; [ -f "$SITES/dbworld.caddy" ] && { cp -f "$SITES/dbworld.caddy" "$SITES/.dbworld.caddy.bak"; HAD_OLD=1; }
