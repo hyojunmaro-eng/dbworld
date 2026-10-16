@@ -88,7 +88,9 @@ p { word-break: keep-all; }
   opacity: 0; visibility: hidden; transform: translateY(6px);
   transition: opacity .22s, transform .22s, visibility .22s;
 }
-.nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transform: none; }
+/* JS 미동작 시(비상용)에만 포커스로 단독 표시 — JS가 있으면 mega-on이 패널과 함께 연다
+   (링크에 포커스만 남은 상태에서 흰 패널 없이 항목이 떠 보이는 잔상 방지) */
+.gnb:not(.js-nav) .nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transform: none; }
 
 /* 메가메뉴: 한 메뉴에 올리면 전체 하위 메뉴가 함께 펼쳐짐 */
 .mega-bg {

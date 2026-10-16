@@ -28,6 +28,7 @@
   const navRoot = $('.nav');
   const megaBg = $('.mega-bg');
   if (navRoot && megaBg) {
+    gnb.classList.add('js-nav'); // 포커스 단독 표시(CSS 비상 규칙)를 끄고 mega-on 경로로 일원화
     let forcedSolid = false;
     /* 패널 높이는 '메뉴가 다 벌어진 최종 상태' 기준으로 미리 잰다.
        열리는 순간 재면 컬럼이 아직 좁아 글자가 더 접히고, 나중에 다시 재면 높이가 줄어 화면이 튄다. */
@@ -97,6 +98,14 @@
     navRoot.addEventListener('focusin', openMega);
     navRoot.addEventListener('focusout', e => { if (!navRoot.contains(e.relatedTarget)) closeMega(); });
     addEventListener('keydown', e => { if (e.key === 'Escape') closeMega(); });
+    /* 뒤로가기(bfcache) 복원 시 떠나기 전의 메뉴 포커스·열림 상태가 그대로 살아나
+       흰 패널 없이 하위 메뉴만 떠 있는 잔상이 된다 — 복원 직후 전부 닫는다. */
+    addEventListener('pageshow', e => {
+      if (!e.persisted) return;
+      const f = document.activeElement;
+      if (f && f !== document.body && navRoot.contains(f)) f.blur();
+      closeMega();
+    });
   }
 
   /* ---------- 모바일 메뉴 ---------- */
