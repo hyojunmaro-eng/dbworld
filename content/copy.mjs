@@ -357,8 +357,8 @@ export const copy = {
               id: 'plant', name: '플랜트',
               groups: [
                 { name: '실적', items: [
-                  { name: 'DB하이텍 부천캠퍼스 HOOK-UP 공사', img: 'plt-bucheon', specs: [] },
-                  { name: 'DB하이텍 상우캠퍼스 HOOK-UP 공사', img: 'plt-sangwoo', specs: [] },
+                  { name: 'DB하이텍 부천캠퍼스 시설투자 Turnkey 공사', img: 'plt-bucheon', specs: [] },
+                  { name: 'DB하이텍 상우캠퍼스 시설투자 Turnkey 공사', img: 'plt-sangwoo', specs: [] },
                   { name: 'DB하이텍 상우캠퍼스 S/F 증축공사', img: 'plt-sangwoo-sf', specs: [['공사기간', '24.11 ~ 28.06']] },
                 ] },
                 { name: '계획', items: [
@@ -1005,8 +1005,8 @@ export const copy = {
               id: 'plant', name: 'Plant',
               groups: [
                 { name: 'Track record', items: [
-                  { name: 'DB HiTek Bucheon Campus Hook-up Works', img: 'plt-bucheon', specs: [] },
-                  { name: 'DB HiTek Sangwoo Campus Hook-up Works', img: 'plt-sangwoo', specs: [] },
+                  { name: 'DB HiTek Bucheon Campus Facility Investment Turnkey Works', img: 'plt-bucheon', specs: [] },
+                  { name: 'DB HiTek Sangwoo Campus Facility Investment Turnkey Works', img: 'plt-sangwoo', specs: [] },
                   { name: 'DB HiTek Sangwoo Campus S/F Extension', img: 'plt-sangwoo-sf', specs: [['Period', '24.11 – 28.06']] },
                 ] },
                 { name: 'Pipeline', items: [

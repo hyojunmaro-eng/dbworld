@@ -22,7 +22,8 @@ const photo = name => {
   return null;
 };
 // img 필드 우선, 없으면 slug와 동명의 파일
-const bizImg = name => existsSync(join(ROOT, 'assets/img/business', name + '.jpg')) ? `/assets/img/business/${name}.jpg` : null;
+// ?v=파일해시 — 사진만 교체해도 주소가 바뀌어 브라우저 캐시(7일)와 무관하게 즉시 반영
+const bizImg = name => existsSync(join(ROOT, 'assets/img/business', name + '.jpg')) ? `/assets/img/business/${name}.jpg?v=${fileV(`assets/img/business/${name}.jpg`)}` : null;
 const projImg = p => {
   for (const name of [p.img, p.slug].filter(Boolean)) {
     // ?v=파일해시 — 사진을 교체하면 주소가 바뀌어 브라우저 캐시(7일)와 무관하게 즉시 반영
@@ -373,7 +374,7 @@ export function home(c) {
 
   const areas = L.nav.businessItems.map(([k, name]) => {
     const a = L.business.areas[k];
-    return `<a class="acard acard-img rv" href="/${lang}/business/${k}/" style="background-image:url('/assets/img/business/area-${k}.jpg')">
+    return `<a class="acard acard-img rv" href="/${lang}/business/${k}/" style="background-image:url('/assets/img/business/area-${k}.jpg?v=${fileV(`assets/img/business/area-${k}.jpg`)}')">
       <span class="acard-ic">${ICONS[k]}</span>
       <strong>${esc(name)}</strong>
       <p>${esc(a.headline)}</p>
@@ -644,12 +645,12 @@ function businessCycle(c) {
 /* 부동산 개발: 도심개발/지역개발/도시계획 탭 페이지 (기존 사이트 구성 계승) */
 /* 사업영역 사진 카드 — 사업실적 상세가 있으면 링크, 없으면 카드만 (제원: 값 배열 또는 [항목, 값] 쌍) */
 function devCard(c, a, it) {
-  const { lang, v } = c;
+  const { lang } = c;
   const tag = it.slug ? `a class="devcard2" href="/${lang}/projects/${it.slug}/"` : 'div class="devcard2"';
   const specs = it.specs.map((s, si) => Array.isArray(s) ? s : [a.specLabels[si], s]);
   return `
           <${tag}>
-            ${bizImg(it.img) ? `<img src="${bizImg(it.img)}?v=${v}" alt="" loading="lazy">` : `<span class="ph-pattern" aria-hidden="true"><span>${esc(initials(it.name))}</span></span>`}
+            ${bizImg(it.img) ? `<img src="${bizImg(it.img)}" alt="" loading="lazy">` : `<span class="ph-pattern" aria-hidden="true"><span>${esc(initials(it.name))}</span></span>`}
             <span class="devcard2-info">
               <strong>${esc(it.name)}</strong>
               ${specs.length ? `<span class="devcard2-specs">${specs.map(([k, s]) => `<span><b>${esc(k)}</b>${esc(s)}</span>`).join('')}</span>` : ''}
