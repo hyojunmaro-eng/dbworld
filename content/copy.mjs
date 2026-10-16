@@ -340,10 +340,10 @@ export const copy = {
               id: 'building', name: '건축',
               groups: [
                 { name: '실적', items: [
-                  { name: '인재개발원 체육관', img: 'bld-gym', specs: [['용도', '운동시설'], ['구조', 'RC조 + 철골조'], ['규모', '지상 3층, 1개동'], ['연면적', '2,589㎡']] },
-                  { name: '디비손해보험 문서고', img: 'bld-archive', specs: [['용도', '창고시설'], ['구조', 'RC조'], ['규모', '지상 2층, 1개동'], ['연면적', '4,745㎡']] },
-                  { name: '신경주역세권 2BL 공동주택 신축공사', img: 'bld-gyeongju', specs: [['용도', '공동주택'], ['구조', 'RC조'], ['규모', '지하 2층 ~ 지상 29층, 8개동, 945세대'], ['연면적', '150,396㎡']] },
-                  { name: '디비손해보험 부산사옥 인테리어공사', img: 'bld-busan', slug: 'busan-hq', specs: [['용도', '업무시설'], ['구조', '철골조'], ['규모', '지하 8층 ~ 지상 24층'], ['연면적', '44,544㎡']] },
+                  { name: '인재개발원 체육관', img: 'bld-gym', specs: [['위치', '경기도 광주시'], ['용도', '운동시설'], ['구조', 'RC조 + 철골조'], ['규모', '지상 3층, 1개동'], ['연면적', '2,589㎡']] },
+                  { name: '디비손해보험 문서고', img: 'bld-archive', specs: [['위치', '경기도 광주시'], ['용도', '창고시설'], ['구조', 'RC조'], ['규모', '지상 2층, 1개동'], ['연면적', '4,745㎡']] },
+                  { name: '신경주역세권 2BL 공동주택 신축공사', img: 'bld-gyeongju', specs: [['위치', '경북 경주시'], ['용도', '공동주택'], ['구조', 'RC조'], ['규모', '지하 2층 ~ 지상 29층, 8개동, 945세대'], ['연면적', '150,396㎡']] },
+                  { name: '디비손해보험 부산사옥 인테리어공사', img: 'bld-busan', slug: 'busan-hq', specs: [['위치', '부산 부산진구'], ['용도', '업무시설'], ['구조', '철골조'], ['규모', '지하 8층 ~ 지상 24층'], ['연면적', '44,544㎡']] },
                 ] },
                 { name: '계획', items: [
                   { name: '동해학술관', img: 'bld-donghae', specs: [['위치', '강원도 동해시'], ['용도', '업무시설'], ['구조', 'RC조'], ['규모', '지상 5층, 1개동'], ['연면적', '1,138㎡'], ['진행', '착공 예정']] },
@@ -357,9 +357,9 @@ export const copy = {
               id: 'plant', name: '플랜트',
               groups: [
                 { name: '실적', items: [
-                  { name: 'DB하이텍 부천캠퍼스 시설투자 Turnkey 공사', img: 'plt-bucheon', specs: [] },
-                  { name: 'DB하이텍 상우캠퍼스 시설투자 Turnkey 공사', img: 'plt-sangwoo', specs: [] },
-                  { name: 'DB하이텍 상우캠퍼스 S/F 증축공사', img: 'plt-sangwoo-sf', specs: [['공사기간', '24.11 ~ 28.06']] },
+                  { name: 'DB하이텍 부천캠퍼스 시설투자 Turnkey 공사', img: 'plt-bucheon', specs: [['위치', '경기도 부천시'], ['공사분야', 'HOOK-UP 및 유지보수'], ['공사기간', '21.03 ~']] },
+                  { name: 'DB하이텍 상우캠퍼스 시설투자 Turnkey 공사', img: 'plt-sangwoo', specs: [['위치', '충북 음성군'], ['공사분야', 'HOOK-UP 및 유지보수'], ['공사기간', '21.03 ~']] },
+                  { name: 'DB하이텍 상우캠퍼스 S/F 증축공사', img: 'plt-sangwoo-sf', specs: [['위치', '충북 음성군'], ['공사분야', 'Clean Room 증축 및 환경시설'], ['공사기간', '24.11 ~']] },
                 ] },
                 { name: '계획', items: [
                   { name: 'DB하이텍 12인치 사업', img: 'plt-12inch', specs: [['제품군', 'BCD, DDI 등'], ['진행 단계', '사업계획 수립']] },
@@ -988,10 +988,10 @@ export const copy = {
               id: 'building', name: 'Building',
               groups: [
                 { name: 'Track record', items: [
-                  { name: 'HRD Center Gymnasium', img: 'bld-gym', specs: [['Use', 'Sports facility'], ['Structure', 'RC + steel frame'], ['Scale', '3F, 1 building'], ['GFA', '2,589m²']] },
-                  { name: 'DB Insurance Archive', img: 'bld-archive', specs: [['Use', 'Warehouse'], ['Structure', 'RC'], ['Scale', '2F, 1 building'], ['GFA', '4,745m²']] },
-                  { name: 'New Gyeongju Station Area 2BL Apartments', img: 'bld-gyeongju', specs: [['Use', 'Apartment complex'], ['Structure', 'RC'], ['Scale', 'B2 – 29F, 8 buildings, 945 units'], ['GFA', '150,396m²']] },
-                  { name: 'DB Insurance Busan HQ Interior Works', img: 'bld-busan', slug: 'busan-hq', specs: [['Use', 'Office'], ['Structure', 'Steel frame'], ['Scale', 'B8 – 24F'], ['GFA', '44,544m²']] },
+                  { name: 'HRD Center Gymnasium', img: 'bld-gym', specs: [['Location', 'Gwangju, Gyeonggi'], ['Use', 'Sports facility'], ['Structure', 'RC + steel frame'], ['Scale', '3F, 1 building'], ['GFA', '2,589m²']] },
+                  { name: 'DB Insurance Archive', img: 'bld-archive', specs: [['Location', 'Gwangju, Gyeonggi'], ['Use', 'Warehouse'], ['Structure', 'RC'], ['Scale', '2F, 1 building'], ['GFA', '4,745m²']] },
+                  { name: 'New Gyeongju Station Area 2BL Apartments', img: 'bld-gyeongju', specs: [['Location', 'Gyeongju, Gyeongbuk'], ['Use', 'Apartment complex'], ['Structure', 'RC'], ['Scale', 'B2 – 29F, 8 buildings, 945 units'], ['GFA', '150,396m²']] },
+                  { name: 'DB Insurance Busan HQ Interior Works', img: 'bld-busan', slug: 'busan-hq', specs: [['Location', 'Busanjin-gu, Busan'], ['Use', 'Office'], ['Structure', 'Steel frame'], ['Scale', 'B8 – 24F'], ['GFA', '44,544m²']] },
                 ] },
                 { name: 'Pipeline', items: [
                   { name: 'Donghae Academic Hall', img: 'bld-donghae', specs: [['Location', 'Donghae, Gangwon'], ['Use', 'Office'], ['Structure', 'RC'], ['Scale', '5F, 1 building'], ['GFA', '1,138m²'], ['Status', 'Groundbreaking scheduled']] },
@@ -1005,9 +1005,9 @@ export const copy = {
               id: 'plant', name: 'Plant',
               groups: [
                 { name: 'Track record', items: [
-                  { name: 'DB HiTek Bucheon Campus Facility Investment Turnkey Works', img: 'plt-bucheon', specs: [] },
-                  { name: 'DB HiTek Sangwoo Campus Facility Investment Turnkey Works', img: 'plt-sangwoo', specs: [] },
-                  { name: 'DB HiTek Sangwoo Campus S/F Extension', img: 'plt-sangwoo-sf', specs: [['Period', '24.11 – 28.06']] },
+                  { name: 'DB HiTek Bucheon Campus Facility Investment Turnkey Works', img: 'plt-bucheon', specs: [['Location', 'Bucheon, Gyeonggi'], ['Scope', 'Hook-up & maintenance'], ['Period', '21.03 –']] },
+                  { name: 'DB HiTek Sangwoo Campus Facility Investment Turnkey Works', img: 'plt-sangwoo', specs: [['Location', 'Eumseong, Chungbuk'], ['Scope', 'Hook-up & maintenance'], ['Period', '21.03 –']] },
+                  { name: 'DB HiTek Sangwoo Campus S/F Extension', img: 'plt-sangwoo-sf', specs: [['Location', 'Eumseong, Chungbuk'], ['Scope', 'Clean room extension & environmental facilities'], ['Period', '24.11 –']] },
                 ] },
                 { name: 'Pipeline', items: [
                   { name: 'DB HiTek 12-inch Project', img: 'plt-12inch', specs: [['Products', 'BCD, DDI, etc.'], ['Stage', 'Business planning']] },
