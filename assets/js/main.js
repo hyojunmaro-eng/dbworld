@@ -58,6 +58,7 @@
     };
     const closeMega = () => {
       gnb.classList.remove('mega-on');
+      megaBg.style.height = '0px'; // 시트를 접고, 다음 열림이 0에서 펼쳐지게
       releaseLock();
       lis.forEach(x => x.classList.remove('on'));
       if (forcedSolid && scrollY <= 8) { gnb.classList.remove('solid'); }

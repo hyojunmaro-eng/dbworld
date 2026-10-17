@@ -84,27 +84,34 @@ p { word-break: keep-all; }
 .nav-l1 > li:hover > a::after, .nav-l1 > li:focus-within > a::after { transform: scaleX(1); }
 .nav-l2 {
   position: absolute; top: 100%; left: 50%; translate: -50% 0; width: calc(100% + 8px); padding: 14px 6px 10px;
-  transition: opacity .22s, transform .22s, visibility .22s, width .3s var(--ease);
   opacity: 0; visibility: hidden; transform: translateY(6px);
-  transition: opacity .22s, transform .22s, visibility .22s;
+  transition: opacity .15s, transform .15s, visibility .15s; /* 닫힘: 글자가 시트보다 먼저 사라짐 */
 }
 /* JS 미동작 시(비상용)에만 포커스로 단독 표시 — JS가 있으면 mega-on이 패널과 함께 연다
    (링크에 포커스만 남은 상태에서 흰 패널 없이 항목이 떠 보이는 잔상 방지) */
 .gnb:not(.js-nav) .nav-l1 > li:focus-within .nav-l2 { opacity: 1; visibility: visible; transform: none; }
 
-/* 메가메뉴: 한 메뉴에 올리면 전체 하위 메뉴가 함께 펼쳐짐 */
+/* 메가메뉴: 한 메뉴에 올리면 전체 하위 메뉴가 함께 펼쳐짐.
+   패널은 반투명 페이드 대신 '불투명한 한 장의 시트'가 높이로 펼쳐진다 —
+   열리는 중간에 뒤 배경이 비쳐 조각나 보이던 문제의 근본 수정. */
 .mega-bg {
   position: absolute; z-index: 1; top: 100%; left: 0; right: 0; height: 0; pointer-events: none;
   background: #fff; border-top: 1px solid var(--line); box-shadow: 0 18px 30px rgba(20, 30, 40, .07);
-  opacity: 0; visibility: hidden; transition: opacity .22s, visibility .22s;
+  visibility: hidden;
+  transition: height .22s var(--ease), visibility 0s .24s; /* 닫힘: 접힌 뒤 숨김 */
 }
 @media (min-width: 1081px) {
   /* 높이 측정 전용 상태: 최종 간격·폭을 전환 없이 즉시 적용 */
   .gnb.mega-measure .nav-l1 { gap: 40px; transition: none; }
   .gnb.mega-measure .nav-l2 { width: calc(100% + 40px); transition: none; }
-  .gnb.mega-on .mega-bg { opacity: 1; visibility: visible; }
+  .gnb.mega-on .mega-bg { visibility: visible; transition: height .26s var(--ease); } /* 열림: 즉시 보이며 펼쳐짐 */
   .gnb.mega-on .nav-l1 { gap: 40px; }
-  .gnb.mega-on .nav-l2 { opacity: 1; visibility: visible; transform: none; width: calc(100% + 40px); border-left: 1px solid var(--line); }
+  /* 글자 6컬럼은 시트가 거의 펼쳐진 뒤(0.14s 지연) 전부 '한 덩어리'로 페이드인 —
+     간격 벌어짐·폭 변화가 끝난 자리에 떠서 조각나 보이지 않는다 */
+  .gnb.mega-on .nav-l2 {
+    opacity: 1; visibility: visible; transform: none; width: calc(100% + 40px); border-left: 1px solid var(--line);
+    transition: opacity .18s ease .14s, transform .18s ease .14s, width .3s var(--ease);
+  }
   .gnb.mega-on .nav-l1 > li:last-child .nav-l2 { border-right: 1px solid var(--line); }
   .gnb.mega-on .nav-l1 > li.on .nav-l2 { background: #F7F9F8; }
   .gnb.mega-on .nav-l1 > li.on > a { color: var(--db-green); }
