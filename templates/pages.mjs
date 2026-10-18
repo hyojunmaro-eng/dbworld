@@ -697,7 +697,7 @@ export function businessDetail(c, key) {
   <h3 class="rv">${esc(L.common.related)}</h3>
   <div class="pgrid">${related.map(p => projCard(c, p)).join('')}</div>` : '';
 
-  const facts = a.facts ? `<dl class="facts rv">${a.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : '';
+  const facts = a.facts ? `<dl class="facts rv">${a.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${nl2br(v)}</dd></div>`).join('')}</dl>` : '';
   const tour = a.tournaments ? `<div class="callout rv"><p>${esc(a.tournaments)}</p></div>` : '';
   const golfBtn = a.reserveBtn ? `<a class="btn-solid rv" href="https://www.rainbowhills.co.kr" target="_blank" rel="noopener">${esc(a.reserveBtn)} ${ARROW}</a>` : '';
   const matBtn = a.siteBtn ? `<a class="btn-solid rv" href="https://dbmetal.co" target="_blank" rel="noopener">${esc(a.siteBtn)} ${ARROW}</a>` : '';

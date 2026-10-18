@@ -427,11 +427,11 @@ export const copy = {
         golf: {
           name: '골프장 운영', en: 'Golf Course Operation',
           headline: '한국의 페블비치, 레인보우힐스CC',
-          desc: '세계적 코스 설계가 로버트 트렌트 존스 주니어가 설계한 27홀 대중제 골프장 레인보우힐스CC를 소유·운영합니다. 자연 지형을 살린 코스와 사계절 아름다운 경관으로 "한국의 페블비치"라 불립니다.',
+          desc: '세계적인 코스 설계가 로버트 트렌트 존스 주니어가 설계한 27홀 골프장 레인보우힐스CC를 소유·운영합니다. 자연적인 특색과 지형적인 특성을 최대한 살려 자연이 부여한 장점들을 지닌 골프장으로서, 사계절 아름다운 경관으로 "한국의 페블비치"라고 불립니다.',
           facts: [
             ['위치', '충북 음성군 생극면 차생로 168'],
             ['규모', '27홀 (파 108) · 부지 659,708평'],
-            ['개장', '2008년 3월 · 2015년 대중제 전환'],
+            ['개장', '2008년 3월 회원제 open\n2015년 대중제 전환'],
             ['설계', 'Robert Trent Jones Jr.'],
           ],
         },
@@ -1075,11 +1075,11 @@ export const copy = {
         golf: {
           name: 'Golf Course Operation', en: 'Golf Course Operation',
           headline: 'Rainbow Hills — the Pebble Beach of Korea',
-          desc: 'We own and operate Rainbow Hills Country Club, a 27-hole public course designed by Robert Trent Jones Jr., renowned for its natural terrain and scenery in every season.',
+          desc: 'We own and operate Rainbow Hills Country Club, a 27-hole course designed by world-renowned golf course architect Robert Trent Jones Jr. Making the most of the natural character and terrain of the land, it is known as "the Pebble Beach of Korea" for its beautiful scenery in every season.',
           facts: [
             ['Location', '168 Chasaeng-ro, Saenggeuk-myeon, Eumseong-gun, Chungcheongbuk-do'],
             ['Scale', '27 holes (par 108) · 2.18M m² site'],
-            ['Opened', 'March 2008 · public course since 2015'],
+            ['Opened', 'March 2008 as a members-only club\nConverted to a public course in 2015'],
             ['Design', 'Robert Trent Jones Jr.'],
           ],
         },
