@@ -678,6 +678,7 @@ body.menu-open { overflow: hidden; }
 .pd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 60px); }
 .pd-grid .facts { grid-template-columns: 1fr; margin: 0; }
 .pd-desc p { color: var(--ink-soft); font-size: 1.05rem; }
+.pd-desc p + p { margin-top: 1em; }
 .pn { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; margin-top: 60px; border-top: 1px solid var(--line); padding-top: 28px; }
 .pn a { display: flex; flex-direction: column; }
 .pn-next { text-align: right; }

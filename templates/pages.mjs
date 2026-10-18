@@ -899,7 +899,7 @@ export function projectDetail(c, p) {
   const prev = projects[idx - 1], next = projects[idx + 1];
   const catNames = Object.fromEntries(P.filters);
   return layout(c, {
-    title: `${d.name} | ${c.site.company[lang].name}`, desc: d.desc, path: `${lang}/projects/${p.slug}/`,
+    title: `${d.name} | ${c.site.company[lang].name}`, desc: d.desc.split('\n\n')[0], path: `${lang}/projects/${p.slug}/`,
     body: pageHero(c, { sec: 'projects', title: d.name, crumbs: [[P.title, 'projects/'], [d.name]] }) + `
 <section class="sec"><div class="wrap">
   <div class="pd-media ${CAT_CLASS[p.cats[0]]} rv">${img ? `<img src="${img}" alt="${esc(d.name)}">` : `<div class="ph-pattern big" aria-hidden="true"><span>${esc(initials(d.name))}</span></div>`}</div>
@@ -909,8 +909,9 @@ export function projectDetail(c, p) {
       <div><dt>${esc(P.specLabels.scale)}</dt><dd>${esc(d.scale)}</dd></div>
       <div><dt>${esc(P.specLabels.area)}</dt><dd>${esc(d.area)}</dd></div>
       <div><dt>${esc(P.specLabels.status)}</dt><dd>${esc(d.completed)}</dd></div>
+      ${(d.extra || []).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${nl2br(v)}</dd></div>`).join('')}
     </dl>
-    <div class="pd-desc rv"><p>${esc(d.desc)}</p></div>
+    <div class="pd-desc rv">${d.desc.split('\n\n').map(t => `<p>${esc(t)}</p>`).join('')}</div>
   </div>
   <nav class="pn rv">
     ${prev ? `<a class="pn-prev" href="/${lang}/projects/${prev.slug}/"><span>${esc(L.common.prev)}</span><strong>${esc(prev[lang].name)}</strong></a>` : '<span></span>'}

@@ -40,12 +40,18 @@ export const projects = [
     ko: {
       name: '레인보우힐스 컨트리클럽', location: '충북 음성군 생극면',
       scale: '27홀 (파 108)', area: '부지 659,708평', completed: '2008년 개장',
-      desc: '로버트 트렌트 존스 주니어가 자연 지형을 살려 설계한 27홀 대중제 골프장. "한국의 페블비치"로 불리며, KLPGA DB 위민스 챔피언십 등 프로·아마추어 대회를 개최하는 챔피언십 코스입니다.',
+      extra: [['코스', '동·남·서 코스 27홀'], ['잔디 구성', '티·페어웨이: 켄터키 블루그라스\n그린: 벤트그라스']],
+      desc: '세계적인 골프 코스 설계가 로버트 트렌트 존스 주니어가 설계·감리·시공을 맡아 개장한 레인보우힐스CC는 천연 자연의 지형을 최대한 살리고 인공적인 부분을 절제하여 탄생한 골프장으로서, 곳곳에 위치한 아름다운 폭포와 계단식 호수가 코스를 한층 더 돋보이게 하며 시원한 물소리와 함께 색다른 골프의 미를 더합니다.\n\n'
+        + '또한 국내 내셔널 타이틀 대회인 한국여자오픈을 2021년부터 2025년까지 5년간 성공적으로 개최하였으며, 2026년에는 제1회 KLPGA DB 위민스 챔피언십을 개최하였고, KLPGA·KPGA·KGA가 주최하는 프로·아마추어 대회를 지속적으로 개최하는 챔피언십 코스입니다.\n\n'
+        + '클럽하우스는 미국의 저명한 상을 매년 수상하는 MAI사의 설계로 탄생하였으며, 골프와 리조트의 조화, 트렌드와 전통적인 요소를 조화롭게 융화하는 독특하고 감각적인 공간 연출을 통해 건축되었습니다. 품격과 여유로움이 흐르는 공간으로 세심하게 정성 들여 완성하였습니다.',
     },
     en: {
       name: 'Rainbow Hills Country Club', location: 'Eumseong-gun, Chungbuk',
       scale: '27 holes (par 108)', area: '2.18M m² site', completed: 'Opened 2008',
-      desc: 'A 27-hole public championship course designed by Robert Trent Jones Jr., known as the Pebble Beach of Korea and home of the KLPGA DB Women’s Championship.',
+      extra: [['Courses', 'East, South & West courses (27 holes)'], ['Turf', 'Tees & fairways: Kentucky bluegrass\nGreens: bentgrass']],
+      desc: 'Designed, supervised and built by world-renowned golf course architect Robert Trent Jones Jr., Rainbow Hills CC preserves the natural terrain as much as possible while keeping artificial elements to a minimum. Beautiful waterfalls and terraced lakes throughout the course set it apart, adding a distinctive charm to the game along with the cool sound of flowing water.\n\n'
+        + 'The club successfully hosted the Korea Women’s Open, the national championship, for five years from 2021 to 2025, and in 2026 hosted the 1st KLPGA DB Women’s Championship. It is a championship course that continues to host professional and amateur tournaments organized by the KLPGA, KPGA and KGA.\n\n'
+        + 'The clubhouse was designed by MAI, a firm that receives prestigious awards in the United States every year. Its distinctive, refined spaces harmonize golf and resort, contemporary trends and traditional elements, and were carefully crafted to convey elegance and ease.',
     },
   },
   {
