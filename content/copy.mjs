@@ -411,7 +411,7 @@ export const copy = {
                   { name: '업무시설 사업계획 및 사업타당성 검토', img: 'con-busan', slug: 'busan-hq', specs: ['부산 서면', '연면적 13,475평 (지하 8층 ~ 지상 24층)', '완료'] },
                 ] },
                 { name: '복합개발사업', items: [
-                  { name: '복합시설 사업계획 및 마스터플랜 수립', img: 'con-samcheok', slug: 'samcheok-complex', specs: ['강원도 삼척', '대지면적 약 270,000평 (지하 5층 ~ 지상 35층)', '진행중'] },
+                  { name: '복합시설 사업계획 및 마스터플랜 수립', img: 'con-samcheok', slug: 'samcheok-complex', specs: ['강원도 동해', '대지면적 약 270,000평 (지하 5층 ~ 지상 35층)', '진행중'] },
                   { name: '복합시설 사업계획 및 사업타당성 검토', img: 'con-oryu', slug: 'oryu-mixeduse', specs: ['서울 오류동', '대지면적 29,398평 (지하 6층 ~ 지상 35층)', '완료'] },
                   { name: '임대주택 사업계획 및 사업타당성 검토', img: 'con-hakik', slug: 'incheon-hakik', specs: ['인천 학익동', '대지면적 11,988평 (지하 3층 ~ 지상 30층)', '진행중'] },
                 ] },
@@ -1059,7 +1059,7 @@ export const copy = {
                   { name: 'Office Business Plan & Feasibility Study', img: 'con-busan', slug: 'busan-hq', specs: ['Seomyeon, Busan', 'GFA 44,544m² (B8 – 24F)', 'Completed'] },
                 ] },
                 { name: 'Mixed-use Development', items: [
-                  { name: 'Mixed-use Business Plan & Master Plan', img: 'con-samcheok', slug: 'samcheok-complex', specs: ['Samcheok, Gangwon', 'Site ca. 890,000m² (B5 – 35F)', 'In progress'] },
+                  { name: 'Mixed-use Business Plan & Master Plan', img: 'con-samcheok', slug: 'samcheok-complex', specs: ['Donghae, Gangwon', 'Site ca. 890,000m² (B5 – 35F)', 'In progress'] },
                   { name: 'Mixed-use Business Plan & Feasibility Study', img: 'con-oryu', slug: 'oryu-mixeduse', specs: ['Oryu-dong, Seoul', 'Site 97,200m² (B6 – 35F)', 'Completed'] },
                   { name: 'Rental Housing Business Plan & Feasibility Study', img: 'con-hakik', slug: 'incheon-hakik', specs: ['Hagik-dong, Incheon', 'Site 39,600m² (B3 – 30F)', 'In progress'] },
                 ] },
