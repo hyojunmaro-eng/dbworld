@@ -238,16 +238,16 @@ export const projects = [
   },
   {
     slug: 'samcheok-complex', cats: ['consulting'], featured: false, img: 'samcheok-complex',
-    map: { x: 423.8, y: 138.9, city: { ko: '동해', en: 'Donghae' } },
+    map: { x: 429.8, y: 146.2, city: { ko: '삼척', en: 'Samcheok' } },
     ko: {
-      name: '동해 복합시설', location: '강원 동해시',
+      name: '삼척 복합시설', location: '강원 삼척시',
       scale: '지하 5층 · 지상 35층', area: '대지 약 27만 평', completed: '마스터플랜 수립 중',
-      desc: '동해 일원 복합시설의 사업계획 및 마스터플랜을 수립하고 있습니다.',
+      desc: '삼척 일원 복합시설의 사업계획 및 마스터플랜을 수립하고 있습니다.',
     },
     en: {
-      name: 'Donghae Mixed-use Complex', location: 'Donghae, Gangwon',
+      name: 'Samcheok Mixed-use Complex', location: 'Samcheok, Gangwon',
       scale: 'B5 – 35F', area: 'Site ca. 890,000m²', completed: 'Master planning',
-      desc: 'Business planning and master planning for a mixed-use complex in Donghae.',
+      desc: 'Business planning and master planning for a mixed-use complex in Samcheok.',
     },
   },
   {
