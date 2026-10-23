@@ -937,7 +937,7 @@ export function newsList(c, { cat, page, nPages, items }) {
 <section class="sec"><div class="wrap">
   <div class="news-head rv">
     <div class="filters" role="group">
-      ${L.nav.newsCats.map(([k, n]) => {
+      ${L.nav.newsCats.filter(([k]) => k === 'all' || k === cat || c.posts.some(p => p.category === k)).map(([k, n]) => { /* 글이 없는 분류 탭은 숨김 — 글이 생기면 자동 노출 */
         const href = k === 'all' ? `/${lang}/news/` : `/${lang}/news/category/${k}/`;
         return `<a class="${k === cat ? 'on' : ''}" href="${href}">${esc(n)}</a>`;
       }).join('')}
