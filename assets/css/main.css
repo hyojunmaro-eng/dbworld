@@ -963,13 +963,17 @@ body[data-lang="en"] .foot-brand .foot-links > * + *::before { display: none; }
 .esg-list li:first-child { border-top: 2px solid var(--ink); }
 .esg-list em { font-style: normal; font-weight: 800; font-size: 2rem; line-height: 1.15; color: var(--db-green); }
 .esg-list p { font-size: 1.04rem; color: var(--ink-soft); word-break: keep-all; }
-.ethics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.ethcard { background: var(--bg-soft); border-top: 3px solid var(--db-green); border-radius: 0 0 var(--r) var(--r); padding: 30px 28px; }
-.ethcard strong { display: block; font-size: 1.1rem; color: var(--db-green); margin-bottom: 10px; }
-.ethcard p { color: var(--ink-soft); font-size: .96rem; word-break: keep-all; }
+/* 윤리경영 — 장식 없는 목록형(ESG 경영과 같은 결): 번호 · 원칙명 · 실천 문장 */
+.ethics-list { list-style: none; margin: 0; padding: 0; max-width: 1080px; border-top: 2px solid var(--ink); }
+.ethics-list li { display: grid; grid-template-columns: 64px 220px 1fr; gap: 24px; align-items: baseline; padding: 30px 4px; border-bottom: 1px solid var(--line); }
+.eth-no { font-size: .9rem; font-weight: 600; letter-spacing: .04em; color: var(--ink-soft); opacity: .7; font-variant-numeric: tabular-nums; }
+.ethics-list strong { font-size: 1.2rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+.ethics-list p { font-size: 1.04rem; color: var(--ink-soft); word-break: keep-all; }
 @media (max-width: 680px) {
   .esg-list li { grid-template-columns: 56px 1fr; gap: 14px; padding: 22px 0; }
   .esg-list em { font-size: 1.5rem; }
+  .ethics-list li { grid-template-columns: 40px 1fr; gap: 6px 12px; padding: 22px 0; }
+  .ethics-list p { grid-column: 2; }
 }
 
 /* ---------- 사업영역 실적: 몰입형 카드 그리드 ---------- */

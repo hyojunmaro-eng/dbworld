@@ -1111,9 +1111,9 @@ export function esgEthics(c) {
     body: pageHero(c, { sec: 'esg', title: E.title, crumbs: [[L.nav.esg, 'esg/policy/'], [E.title]] }) + `
 <section class="sec"><div class="wrap">
   <p class="lead esg-intro rv">${esc(E.intro)}</p>
-  <div class="ethics-grid">
-    ${E.items.map(([k, d]) => `<div class="ethcard rv"><strong>${esc(k)}</strong><p>${esc(d)}</p></div>`).join('')}
-  </div>
+  <ol class="ethics-list">
+    ${E.items.map(([k, d], i) => `<li class="rv"><span class="eth-no">${String(i + 1).padStart(2, '0')}</span><strong>${esc(k)}</strong><p>${esc(d)}</p></li>`).join('')}
+  </ol>
 </div></section>`,
   });
 }
