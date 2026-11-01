@@ -475,6 +475,19 @@
     });
   }
 
+  /* ---------- DB광고: 가벼운 유튜브 플레이어 — 클릭하면 그 자리에서 재생 ---------- */
+  $$('[data-yt]').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;   // 새 탭 열기 등은 기본 동작 유지
+    e.preventDefault();
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${a.dataset.yt}?autoplay=1&rel=0`;
+    f.title = a.dataset.title || 'video';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.allowFullscreen = true;
+    a.replaceWith(f);
+    f.focus();
+  }));
+
   /* ---------- AI & 데이터센터: 섹션 내 이동 메뉴에 현재 위치 표시 ---------- */
   const aiNav = $('[data-ailnav]');
   if (aiNav) {

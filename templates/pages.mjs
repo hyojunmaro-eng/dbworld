@@ -989,7 +989,9 @@ function ytId(u) {
   const m = String(u).match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/) || String(u).match(/^([\w-]{11})$/);
   return m ? m[1] : null;
 }
-const ytEmbed = (id, title) => `<div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="${esc(title || 'video')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+// 가벼운 플레이어: 처음엔 썸네일+재생 버튼만 보여 주고, 클릭할 때 유튜브 플레이어를 불러온다
+// (영상 7개의 플레이어를 한꺼번에 띄우면 로딩 동안 검은 화면이 보이고 페이지가 무거워짐 — main.js가 iframe으로 교체)
+const ytEmbed = (id, title) => `<div class="yt"><a class="yt-lite" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener" data-yt="${id}" data-title="${esc(title || 'video')}" aria-label="${esc(title || 'video')} — play"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="yt-play" aria-hidden="true"></span></a></div>`;
 const ytPlaceholder = lang => `<div class="yt yt-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><span>${lang === 'ko' ? '영상 준비 중' : 'Coming soon'}</span></div>`;
 
 export function newsAds(c) {
